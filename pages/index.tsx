@@ -4,8 +4,9 @@ import Link from 'next/link'
 
 // Components
 import Route from 'components/route'
-import Button from 'components/button'
 import Select from 'components/select'
+import MapBox from 'components/mapbox'
+import { useIsSmall } from 'utils/hooks'
 
 // Types
 import { Routes } from 'types'
@@ -17,9 +18,16 @@ type RoutesProps = {
   routes: Routes
 }
 
+// Initial map
+// TODO: Fit to bounds of all routes
+const lng = 8.94050337530213
+const lat = 44.91711298954641
+// const zoom = 11
+
 function Home({ routes }: RoutesProps) {
   const [sorting, setSorting] = useState('added')
   const [randomRouteSlug, setRandomRouteSlug] = useState('')
+  const isSmall = useIsSmall()
 
   useEffect(() => {
     setRandomRouteSlug(routes[Math.floor(Math.random() * routes.length)]?.slug)
@@ -42,11 +50,6 @@ function Home({ routes }: RoutesProps) {
 
   return (
     <div className="pt-3">
-      <nav className="flex justify-end">
-        <Button onClick={() => window.open('mailto:samuelkraft@me.com?subject=🏃‍♀️ I want to add a route to Trail Routes!')}>
-          Add Route
-        </Button>
-      </nav>
       <header className="py-16 text-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="261" height="43" viewBox="0 0 261 43" className="mx-auto mb-3 text-primary">
           <g fill="none">
@@ -105,12 +108,16 @@ function Home({ routes }: RoutesProps) {
           ))}
         </ol>
       </section>
-      <footer className="pb-6 text-center text-secondary">
-        A project by{' '}
-        <a href="https://twitter.com/samuelkraft" target="_blank" rel="noopener noreferrer" className="text-forest">
-          @samuelkraft
-        </a>
-      </footer>
+      {/* <aside
+            ref={aside}
+            className="w-full sm:w-[430px] bg-primary min-h-screen sm:overflow-y-auto sm:overflow-x-hidden sm:absolute top-0 bottom-0 px-5"
+          >
+          </aside> */}
+      {isSmall && (
+        <div className="block text-xl text-forest ml-[430px] h-screen relative w-full">
+          <MapBox routes={routes} initialLat={lat} initialLng={lng} />
+        </div>
+      )}
     </div>
   )
 }

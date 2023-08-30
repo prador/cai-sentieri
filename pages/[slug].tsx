@@ -26,7 +26,7 @@ const gpxUtils = require('../utils/gpxutils.js')
 type RoutePageProps = { route: Route; initialLat: number; initialLng: number }
 
 function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
-  const [showMap, setShowMap] = useState(false)
+  const [showMap, setShowMap] = useState(true)
   const isSmall = useIsSmall()
   if (!route) {
     return null

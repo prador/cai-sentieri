@@ -18,12 +18,12 @@ type MapBoxProps = {
 
 // Initial map
 // TODO: Fit to bounds of all routes
-const lng = 18.274050337530213
-const lat = 59.31711298954641
+const lng = 8.94050337530213
+const lat = 44.91711298954641
 const zoom = 11
 
 function getStyleForTheme(theme: string) {
-  return theme === 'dark' ? 'mapbox://styles/mapbox/dark-v11' : 'mapbox://styles/mapbox/outdoors-v11'
+  return theme === 'dark' ? 'mapbox://styles/mapbox/outdoors-v11' : 'mapbox://styles/mapbox/outdoors-v11'
 }
 
 function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JSX.Element {

@@ -7,17 +7,14 @@ import { ThemeProvider } from 'next-themes'
 
 import * as gtag from 'lib/gtag'
 import '../styles/globals.css'
-import MapBox from 'components/mapbox'
 
 // Hooks
-import { useIsSmall } from 'utils/hooks'
+
 import { MapProvider } from 'components/mapprovider'
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const router = useRouter()
   const aside = useRef<HTMLElement>()
-
-  const isSmall = useIsSmall()
 
   useEffect(() => {
     const handleRouteChange = (url: string) => {
@@ -50,17 +47,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
           <meta name="viewport" content="width=device-width, user-scalable=no" />
         </Head>
         <main className="flex bg-[#E6E4E0] sm:h-screen w-screen sm:overflow-hidden">
-          <aside
-            ref={aside}
-            className="w-full sm:w-[430px] bg-primary min-h-screen sm:overflow-y-auto sm:overflow-x-hidden sm:absolute top-0 bottom-0 px-5"
-          >
-            <Component {...pageProps} />
-          </aside>
-          {isSmall && (
-            <div className="block text-xl text-forest ml-[430px] h-screen relative w-full">
-              <MapBox routes={pageProps.routes} initialLat={pageProps.initialLat} initialLng={pageProps.initialLng} />
-            </div>
-          )}
+          <Component {...pageProps} />
         </main>
       </MapProvider>
     </ThemeProvider>
