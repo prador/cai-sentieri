@@ -10,7 +10,7 @@ export async function getPosts(first = 1) {
             slug
             title
             test {
-              testtext
+              trail
             }
           }
         }

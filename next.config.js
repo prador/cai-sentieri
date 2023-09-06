@@ -14,11 +14,10 @@ module.exports = {
       },
     ]
   },
-  // webpack: (config, { isServer }) => {
-  //   if (isServer) {
-  //     require('./scripts/generate-images') // eslint-disable-line
+  // webpack: (config) => {
+  //   config.experiments = {
+  //     topLevelAwait: true,
   //   }
-
   //   return config
-  // },
+  // }
 }

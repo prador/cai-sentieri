@@ -1,6 +1,22 @@
 const colors = require('tailwindcss/colors') // eslint-disable-line
 
 const meta = {
+  tortona_one: {
+    description:
+      'With a mix of mountains and pavement, this route starts at San Augustin and goes around the goat cheese farm "🐐 Quesería la Gloria". The trail part starts by the end of the parking lot of Hotel Gloria Palace. Pass through the tunnel and make a sharp left after ~100 meters on a small steep trail (270m at 22% avg grade). After this hill the trail gets easier with a steady climb towards the goat farm. Take a right after passing the farm which will bring you down towards the ocean (with amazing views). After the descent simply follow the paved road back towards San Augustin.',
+    rating: 14,
+    location: 'Tortona',
+    color: colors.yellow[500],
+    added: '2023-08-30',
+    points: [
+      {
+        lat: 44.9004100,
+        lng: 8.8835000,
+        description: '<strong>Great viewpoint</strong><p>Great view</p>',
+        // add image if possible
+      },
+    ],
+  },
   langsjon_jarlasjon: {
     description:
       'This route joins up multiple smaller fairly unknown paths resulting in a nice 5k with two fun climbs; the first one up the hill next to Långsjön and the other one at Fannydalsplatån.',
@@ -18,21 +34,7 @@ const meta = {
     added: '2020-06-13',
     type: 'swimrun',
   },
-  tortona_one: {
-    description:
-      'With a mix of mountains and pavement, this route starts at San Augustin and goes around the goat cheese farm "🐐 Quesería la Gloria". The trail part starts by the end of the parking lot of Hotel Gloria Palace. Pass through the tunnel and make a sharp left after ~100 meters on a small steep trail (270m at 22% avg grade). After this hill the trail gets easier with a steady climb towards the goat farm. Take a right after passing the farm which will bring you down towards the ocean (with amazing views). After the descent simply follow the paved road back towards San Augustin.',
-    rating: 14,
-    location: 'San Augustin · Gran Canaria',
-    color: colors.yellow[500],
-    added: '2023-08-30',
-    points: [
-      {
-        lat: 44.9004100,
-        lng: 8.8835000,
-        description: '<strong>Great viewpoint</strong><p>Great view</p>',
-      },
-    ],
-  },
+  
   duvnas_utskog: {
     description:
       'A fun loop crossing through parts of Nyckelviken on the way towards Duvnäs utskog and Skuru. Some really nice hills (almost 20% gradients) and amazing views over the ocean. In the Kungshamn and Duvnäs utskog area there are short stretches of pavement, but its worth it to access the trails! Its recommended to bring your phone or load the gpx on you watch as there are tons of small trails just before arriving at Kungshamn and easy to run the wrong one.',

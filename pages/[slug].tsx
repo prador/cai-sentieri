@@ -17,15 +17,15 @@ import type { Route } from 'types'
 import { useIsSmall } from 'utils/hooks'
 
 // Utils
-import { event } from 'lib/gtag'
 import MapBox from 'components/mapbox'
+import { getPosts } from 'lib/service'
 
 // Data
 const gpxUtils = require('../utils/gpxutils.js')
 
-type RoutePageProps = { route: Route; initialLat: number; initialLng: number }
+type RoutePageProps = { route: Route; initialLat: number; initialLng: number; posts: any }
 
-function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
+function RoutePage({ route, initialLat, initialLng, posts }: RoutePageProps) {
   const [showMap, setShowMap] = useState(true)
   const isSmall = useIsSmall()
   if (!route) {
@@ -35,10 +35,9 @@ function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
   const seoTitle = `${name} | ${route.type === 'swimrun' ? 'Swimrun route' : 'Trail running & hiking route'}`
   const link = route.geoJson.features[0].properties?.links?.[0]?.href
   const statBoxClassName = 'justify-center p-2 border border-primary rounded'
-
   return (
     <motion.div
-      className="min-h-screen bg-primary"
+      className="min-h-screen"
       initial={{ x: 430 }}
       animate={{ x: 0 }}
       transition={{ ease: 'easeOut', duration: 0.2 }}
@@ -63,39 +62,12 @@ function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
       />
       {route && (
         <>
-          <nav className="sticky top-0 z-10 flex items-center justify-between px-5 py-3 -mx-5 border-b border-primary bg-blur">
-            <Link href="/" className="transition-opacity hover:opacity-50">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-[20px] mr-1 -mt-0.5 inline-block"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              <span className="inline-block font-semibold">Routes</span>
-            </Link>
-            <Button
-              href={`/gpx/${route.slug}.gpx`}
-              onClick={() => event({ category: 'gpx', action: 'download', label: route.slug as string })}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-[16px] inline-block mr-1 -mt-px">
-                <path
-                  fillRule="evenodd"
-                  d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                />
-              </svg>
-              Download gpx
-            </Button>
-          </nav>
-          <header className="text-center py-14">
-            <h1 className="px-5 py-3 mb-0 -mx-5 text-3xl font-bold text-center -top-5 text-primary">{name}</h1>
+          <header className="text-center py-4">
+            <h1 className="px-5 py-3 mb-0 -mx-5 text-3xl font-bold text-center -top-5 text-black">{name}</h1>
             {(route.location || route.type === 'swimrun') && (
               <div className="flex items-center justify-center">
                 {route.location && (
-                  <div className="flex items-center justify-center text-secondary">
+                  <div className="flex items-center justify-center text-gray-400">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -116,7 +88,7 @@ function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
                 )}
                 {route.location && route.type === 'swimrun' && <span className="block mx-3 secondary" />}
                 {route.type === 'swimrun' && (
-                  <div className="flex items-center justify-center text-secondary">
+                  <div className="flex items-center justify-center text-gray-400">
                     <svg
                       className="inline-block w-[14px] h-auto mr-1.5 -mt-0.5"
                       width="94"
@@ -138,15 +110,13 @@ function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
               </div>
             )}
           </header>
-          {!isSmall && (
-            <div className="block text-xl text-forest pb-[50%] relative -mx-5 mb-6">
-              {showMap && <MapBox routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
-            </div>
-          )}
-          <div className="p-3 mb-2 border rounded border-primary">
+          <div className="block text-xl text-black h-[300px] mx-4 relative mb-6">
+            {showMap && <MapBox routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
+          </div>
+          <div className="mx-4 p-3 mb-2 border rounded border-primary">
             <Chart coordinates={route.geoJson.features[0].geometry.coordinates} />
           </div>
-          <ul className="grid grid-cols-2 grid-rows-2 gap-2 mb-6">
+          <ul className="grid grid-cols-4 gap-2 mx-4 mb-6">
             <Stat type="Distance" value={`${Math.round(route.distance * 10) / 10} km`} centered className={statBoxClassName} />
             <Stat type="Elevation" value={`${Math.round(route.elevation)} m`} centered className={statBoxClassName} />
             <Stat type="Stifa" value={Math.round(route.elevation / route.distance)} centered className={statBoxClassName} />
@@ -165,12 +135,12 @@ function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
             )}
           </ul>
 
-          {route.description && <p className="mb-3 leading-relaxed whitespace-pre-wrap text-primary">{route.description}</p>}
+          {route.description && <p className="mx-4 mb-3 leading-relaxed whitespace-pre-wrap text-black">{route.description}</p>}
 
           {route.author && (
             <p className="mb-3">
-              <span className="text-primary">Added by</span>{' '}
-              <a className="text-forest" href={route.author.url} target="_blank" rel="noopener noreferrer">
+              <span className="text-black">Added by</span>{' '}
+              <a className="text-black" href={route.author.url} target="_blank" rel="noopener noreferrer">
                 {route.author.name}
               </a>
             </p>
@@ -179,12 +149,7 @@ function RoutePage({ route, initialLat, initialLng }: RoutePageProps) {
           {link && (
             <p className="mb-5">
               See route on{' '}
-              <a
-                className="text-forest"
-                href={route.geoJson.features[0].properties.links[0].href}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="text-black" href={route.geoJson.features[0].properties.links[0].href} target="_blank" rel="noopener noreferrer">
                 Strava
               </a>
               .
@@ -208,12 +173,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async context => {
   const route = gpxUtils.routes.find(x => x.slug === context.params.slug)
+  const posts = await getPosts(100)
   return {
     props: {
       initialLat: route.geoJson.features[0].geometry.coordinates[0][1],
       initialLng: route.geoJson.features[0].geometry.coordinates[0][0],
       routes: gpxUtils.routes, // Used for mapbox component in _app.tsx
       route,
+      posts,
     },
   }
 }

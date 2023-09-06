@@ -33,6 +33,9 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/extensions': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
+    'react/no-array-index-key' : 0,
+    'react/function-component-definition': 0,
+    'no-unused-vars': 0
   },
   globals: {
     JSX: true,

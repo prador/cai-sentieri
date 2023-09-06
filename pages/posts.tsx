@@ -9,11 +9,11 @@ export default function HomePage({ posts }: { posts: any }) {
       <div className="my-6 flex flex-col">
         {posts.map((post: any) => {
           return (
-            <div>
-              {post.title}
-              {post.slug}
-              {post.content}
-              {post.test.testtext}
+            <div className="text-black mb-5">
+              <p>{post.title}</p>
+              <p>{post.slug}</p>
+              <p>{post.content}</p>
+              <p>{post.test.testtext}</p>
             </div>
           )
         })}

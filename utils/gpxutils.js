@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/order
+const { getPosts } = require('../lib/service')
+
 const fs = require('fs')
 const path = require('path')
 const toGeoJson = require('@mapbox/togeojson')
@@ -14,6 +17,8 @@ const routeFilePaths = fs
   // Only include gpx files
   .filter(p => /\.gpx?$/.test(p))
 
+// const posts = await getPosts(100)
+// console.log(posts)
 const routes = routeFilePaths.map(filePath => {
   const source = new xmldom.DOMParser().parseFromString(fs.readFileSync(path.join(ROUTES_PATH, filePath), 'utf8'))
   const slug = filePath.replace('.gpx', '')

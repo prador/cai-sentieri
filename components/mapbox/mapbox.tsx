@@ -18,8 +18,8 @@ type MapBoxProps = {
 
 // Initial map
 // TODO: Fit to bounds of all routes
-const lng = 8.94050337530213
-const lat = 44.91711298954641
+const lng = 9.94050337530213
+const lat = 45.81711298954641
 const zoom = 11
 
 function getStyleForTheme(theme: string) {

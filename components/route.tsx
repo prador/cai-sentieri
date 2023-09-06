@@ -16,8 +16,8 @@ export function Stat({
 }) {
   return (
     <li className={cn(centered ? 'text-center' : 'mr-5', className)}>
-      <span className="block text-xs uppercase text-secondary">{type}</span>
-      <strong className="text-xl font-normal text-primary">{value}</strong>
+      <span className="block text-xs uppercase text-gray-400">{type}</span>
+      <strong className="text-xl font-normal text-black">{value}</strong>
     </li>
   )
 }
@@ -30,7 +30,7 @@ function Route({ route: { geoJson, distance, elevation, slug, color, type } }: {
       key={name}
       className="relative block p-4 mb-5 transition border rounded border-primary hover:border-primary-hover"
     >
-      <p className="font-semibold text-xl mb-1.5 text-primary">
+      <p className="font-semibold text-xl mb-1.5 text-black">
         {type === 'swimrun' ? (
           <svg
             className="inline-block w-[14px] h-auto mr-3"
@@ -62,7 +62,7 @@ function Route({ route: { geoJson, distance, elevation, slug, color, type } }: {
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
-        className="text-secondary absolute right-4 top-1/2 -translate-y-1/2 w-[20px]"
+        className="text-gray-400 absolute right-4 top-1/2 -translate-y-1/2 w-[20px]"
       >
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
       </svg>

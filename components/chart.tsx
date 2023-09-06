@@ -187,7 +187,7 @@ function Chart({ coordinates }: ChartProps) {
 
   const data = coordinates.map(x => ({ distance: x[3], elevation: x[2], coordinates: [x[0], x[1]] }))
   return (
-    <div className="relative w-full h-full" ref={ref}>
+    <div className="relative w-full h-[150px]" ref={ref}>
       {bounds.width > 0 && <ChartInner data={data} width={bounds.width} height={bounds.height} />}
     </div>
   )
