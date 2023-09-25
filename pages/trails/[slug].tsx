@@ -36,7 +36,6 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
   }
   const statBoxClassName = 'justify-center p-2 border rounded border-blue-500 text-blue-600'
 
-  console.log(trail)
   return (
     <motion.div
       className="min-h-screen pb-12 mt-4"

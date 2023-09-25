@@ -18,7 +18,6 @@ declare global {
 export default function Layout({ children }: Props) {
   const router = useRouter()
 
-  // console.log(router.push('/login'))
   return (
     <>
       <Navbar />

@@ -22,6 +22,8 @@ fetchTrails()
 // })
 // console.log(trails)
 console.log(met)
+
+
 const ROUTES_PATH = path.join(process.cwd(), 'public', 'gpx')
 
 // routeFilePaths is the list of all gpx files inside the ROUTES_PATH directory

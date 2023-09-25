@@ -25,10 +25,6 @@ export default (_: NextApiRequest, res: NextApiResponse) => {
         distance: coordinate[3],
       }))
 
-      if (route.slug === 'salbohed') {
-        console.log(elevations)
-      }
-
       routes[i].elevations = elevations
 
       // Remove unused geoJson
