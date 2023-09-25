@@ -131,7 +131,7 @@ function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JS
           // Navigate and fly to route on click
           flyToGeoJson(map, route.geoJson)
           if (!queryRoute) {
-            router.push(`/${slug}`)
+            router.push(`/trails/${slug}`)
           }
         })
 
