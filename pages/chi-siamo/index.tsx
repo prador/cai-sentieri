@@ -1,3 +1,5 @@
+import React from 'react'
+
 function ChiSiamo() {
   return (
     <div className="pt-3">

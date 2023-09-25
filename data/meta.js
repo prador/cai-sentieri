@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors') // eslint-disable-line
 
 const meta = {
-  tortona_one: {
+  "tortona-volpedo": {
     description:
       'With a mix of mountains and pavement, this route starts at San Augustin and goes around the goat cheese farm "🐐 Quesería la Gloria". The trail part starts by the end of the parking lot of Hotel Gloria Palace. Pass through the tunnel and make a sharp left after ~100 meters on a small steep trail (270m at 22% avg grade). After this hill the trail gets easier with a steady climb towards the goat farm. Take a right after passing the farm which will bring you down towards the ocean (with amazing views). After the descent simply follow the paved road back towards San Augustin.',
     rating: 14,
@@ -17,7 +17,7 @@ const meta = {
       },
     ],
   },
-  langsjon_jarlasjon: {
+  "langsjon-jarlasjon": {
     description:
       'This route joins up multiple smaller fairly unknown paths resulting in a nice 5k with two fun climbs; the first one up the hill next to Långsjön and the other one at Fannydalsplatån.',
     rating: 4,
@@ -25,7 +25,7 @@ const meta = {
     color: colors.yellow[400],
     added: '2020-03-25',
   },
-  langsjon: {
+  "langsjon": {
     rating: 4,
     location: 'Långsjön · Nacka',
     color: colors.red[400],
@@ -35,7 +35,7 @@ const meta = {
     type: 'swimrun',
   },
   
-  duvnas_utskog: {
+  "duvnas-utskog": {
     description:
       'A fun loop crossing through parts of Nyckelviken on the way towards Duvnäs utskog and Skuru. Some really nice hills (almost 20% gradients) and amazing views over the ocean. In the Kungshamn and Duvnäs utskog area there are short stretches of pavement, but its worth it to access the trails! Its recommended to bring your phone or load the gpx on you watch as there are tons of small trails just before arriving at Kungshamn and easy to run the wrong one.',
     rating: 4,

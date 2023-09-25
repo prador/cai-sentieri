@@ -1,24 +1,28 @@
 type geoJson = {
   type: string
-  features: Array<{
-    properties: {
-      name: string
-      links: Array<{ href: string }>
-    }
-    geometry: {
-      coordinates: Array<any>
-    }
-  }>
+  features?: Array<
+    | {
+        properties: {
+          name: string
+          links: Array<{ href: string }>
+        }
+        geometry: {
+          coordinates: Array<any>
+        }
+      }
+    | undefined
+  >
 }
 
 type Type = 'run' | 'swimrun'
 
 export type Route = {
+  title: string
   slug: string
   type: Type
-  distance: number
-  elevation: number
-  geoJson: geoJson
+  distance?: number
+  elevation?: number
+  geoJson?: geoJson
   rating?: number
   description?: string
   location?: string
@@ -31,3 +35,49 @@ export type Route = {
 }
 
 export type Routes = Array<Route>
+
+export type FilesURI = {
+  uri?: string
+}
+
+export type GalleryImages = {
+  nodes?: FilesURI[]
+}
+
+export type ImageLinkImage = {
+  node?: {
+    mediaItemUrl?: string
+  }
+}
+export type TrailGPXFile = {
+  node?: {
+    mediaItemUrl?: string
+  }
+}
+
+export type Trail = {
+  title?: string
+  uri?: string
+  slug?: string
+  trailLocation?: string
+  trailID?: number
+  trailNumber?: string
+  trailCategory?: string
+  trailTimeNeeded?: number
+  trailZoneSector?: string
+  trailSubdescription?: string
+  trailDescription?: string
+  trailDifficulty?: string
+  trailMapGprxFile?: TrailGPXFile
+  galleryImages?: GalleryImages
+  imageLinkImage?: ImageLinkImage
+  imageLinkTitle?: string
+  imageLinkUrl?: string
+}
+
+export type Post = {
+  content?: string
+  date?: string
+  slug?: string
+  title?: string
+}

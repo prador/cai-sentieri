@@ -1,10 +1,10 @@
-import { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp'
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker' // eslint-disable-line
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import type { Route, Routes } from 'types'
-import { useMapContext } from 'components/mapprovider'
+import type { Route, Routes } from '../../types'
+import { useMapContext } from '../mapprovider'
 import { paint, getHoverGeoJson, setAllLayersVisibility, flyToGeoJson } from './utils'
 
 mapboxgl.workerClass = MapboxWorker

@@ -1,3 +1,5 @@
+import React from 'react'
+
 function Contatti() {
   return (
     <div className="pt-3">

@@ -1,4 +1,4 @@
-const API_URL = <string>process.env.NEXT_PUBLIC_WORDPRESS_API_URL
+const API_URL = <string>process.env.NEXT_PUBLIC_WORDPRESS_GRAPHAPI_URL
 
 export async function fetchAPI(query = '', { variables }: Record<string, any> = {}) {
   const headers = { 'Content-Type': 'application/json' }

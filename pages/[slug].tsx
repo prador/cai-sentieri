@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
@@ -6,19 +6,19 @@ import { NextSeo } from 'next-seo'
 import colors from 'tailwindcss/colors' // eslint-disable-line
 
 // Components
-import Button from 'components/button'
-import { Stat } from 'components/route'
-import Chart from 'components/chart'
+import Button from '../components/button'
+import { Stat } from '../components/route'
+import Chart from '../components/chart'
 
 // Types
-import type { Route } from 'types'
+import type { Route } from '../types'
 
 // Hooks
-import { useIsSmall } from 'utils/hooks'
+import { useIsSmall } from '../utils/hooks'
 
 // Utils
-import MapBox from 'components/mapbox'
-import { getPosts } from 'lib/service'
+import MapBox from '../components/mapbox'
+import { getPosts, getTrails } from '../lib/service'
 
 // Data
 const gpxUtils = require('../utils/gpxutils.js')
@@ -137,15 +137,6 @@ function RoutePage({ route, initialLat, initialLng, posts }: RoutePageProps) {
 
           {route.description && <p className="mx-4 mb-3 leading-relaxed whitespace-pre-wrap text-black">{route.description}</p>}
 
-          {route.author && (
-            <p className="mb-3">
-              <span className="text-black">Added by</span>{' '}
-              <a className="text-black" href={route.author.url} target="_blank" rel="noopener noreferrer">
-                {route.author.name}
-              </a>
-            </p>
-          )}
-
           {link && (
             <p className="mb-5">
               See route on{' '}
@@ -173,14 +164,14 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async context => {
   const route = gpxUtils.routes.find(x => x.slug === context.params.slug)
-  const posts = await getPosts(100)
+  const trails = await getTrails(100)
   return {
     props: {
       initialLat: route.geoJson.features[0].geometry.coordinates[0][1],
       initialLng: route.geoJson.features[0].geometry.coordinates[0][0],
       routes: gpxUtils.routes, // Used for mapbox component in _app.tsx
       route,
-      posts,
+      trails,
     },
   }
 }

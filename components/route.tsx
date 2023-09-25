@@ -26,7 +26,7 @@ function Route({ route: { geoJson, distance, elevation, slug, color, type } }: {
   const { name } = geoJson.features[0].properties
   return (
     <Link
-      href={`/${slug}`}
+      href={`/trails/${slug}`}
       key={name}
       className="relative block p-4 mb-5 transition border rounded border-primary hover:border-primary-hover"
     >

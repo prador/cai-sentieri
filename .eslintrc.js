@@ -35,7 +35,14 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'react/no-array-index-key' : 0,
     'react/function-component-definition': 0,
-    'no-unused-vars': 0
+    'no-unused-vars': 0,
+    'import/order': 0,
+    'jsx-a11y/click-events-have-key-events':0,
+    'jsx-a11y/no-static-element-interactions':0,
+    'no-console':0,
+    'react/destructuring-assignment':0,
+    'no-shadow':0,
+    'react/no-danger':0
   },
   globals: {
     JSX: true,

@@ -7,7 +7,8 @@ const gp = require('geojson-precision')
 const gpxUtils = require('../../utils/gpxutils.js')
 
 export default (_: NextApiRequest, res: NextApiResponse) => {
-  const routes = gpxUtils.routes.sort((a, b) => new Date(b.added).valueOf() - new Date(a.added).valueOf())
+  const { routes } = gpxUtils.routes
+  // const routes = gpxUtils.routes.sort((a, b) => new Date(b.added).valueOf() - new Date(a.added).valueOf())
 
   routes.forEach((route, i) => {
     if (route.geoJson) {

@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import useMeasure from 'react-use-measure'
-import { ReactNode, useState } from 'react'
+import React, { ReactNode, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useMapContext } from './mapprovider'
 
@@ -12,9 +12,9 @@ type ChartInnerProps = {
 
 function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
   const { setHoverCoordinate } = useMapContext()
-  const [hoverX, setHoverX] = useState(null)
-  const [hoverDistance, setHoverDistance] = useState(null)
-  const [hoverElevation, setHoverElevation] = useState(null)
+  const [hoverX, setHoverX] = useState<number | undefined | null>(0)
+  const [hoverDistance, setHoverDistance] = useState<number | undefined | null>(null)
+  const [hoverElevation, setHoverElevation] = useState<number | undefined | null>(null)
 
   const margin = {
     top: 20,
@@ -89,7 +89,7 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
   }
 
   function HoverText({ y, children }: { y: number; children: ReactNode }) {
-    const alignToRight = hoverX > width - margin.left - margin.right - 55
+    const alignToRight = hoverX ? hoverX > width - margin.left - margin.right - 55 : 0
     return (
       <text
         x={alignToRight ? -4 : 4}

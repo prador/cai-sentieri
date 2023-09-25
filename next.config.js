@@ -1,4 +1,7 @@
-module.exports = {
+/** @type {import("next").NextConfig} */
+
+
+const nextConfig = {
   async redirects() {
     return [
       {
@@ -14,6 +17,16 @@ module.exports = {
       },
     ]
   },
+  images: {
+    domains: ['wordpress-production-fbed.up.railway.app'],
+  },
+  webpack: {
+    config: {
+      experiments: {
+          topLevelAwait: true
+      }
+    }
+  }
   // webpack: (config) => {
   //   config.experiments = {
   //     topLevelAwait: true,
@@ -21,3 +34,6 @@ module.exports = {
   //   return config
   // }
 }
+
+module.exports = nextConfig
+

@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/order
-const { getPosts } = require('../lib/service')
+const { getPosts, getTrails } = require('../lib/service')
 
 const fs = require('fs')
 const path = require('path')
@@ -9,6 +9,19 @@ const xmldom = require('xmldom')
 const { lineString } = require('@turf/helpers')
 const met = require('../data/meta')
 
+async function fetchTrails() {
+  const trails = await getTrails(100)
+  console.log(trails)
+}
+
+fetchTrails()
+
+
+// .then(() => {
+//   console.log(trails)
+// })
+// console.log(trails)
+console.log(met)
 const ROUTES_PATH = path.join(process.cwd(), 'public', 'gpx')
 
 // routeFilePaths is the list of all gpx files inside the ROUTES_PATH directory
@@ -17,8 +30,6 @@ const routeFilePaths = fs
   // Only include gpx files
   .filter(p => /\.gpx?$/.test(p))
 
-// const posts = await getPosts(100)
-// console.log(posts)
 const routes = routeFilePaths.map(filePath => {
   const source = new xmldom.DOMParser().parseFromString(fs.readFileSync(path.join(ROUTES_PATH, filePath), 'utf8'))
   const slug = filePath.replace('.gpx', '')
@@ -84,9 +95,9 @@ const routes = routeFilePaths.map(filePath => {
   }
 
   return {
-    distance,
-    elevation,
-    geoJson,
+    distance: distance || null,
+    elevation: elevation || null,
+    geoJson: geoJson || null,
     id: slug,
     slug,
     color: metadata?.color || 'red',
@@ -94,9 +105,9 @@ const routes = routeFilePaths.map(filePath => {
     rating: metadata?.rating || null,
     location: metadata?.location || null,
     type: metadata?.type || 'run',
-    added: metadata?.added,
+    added: metadata?.added || null,
     author: metadata?.author || null,
-    coordinates,
+    coordinates: coordinates || null,
   }
 })
 
