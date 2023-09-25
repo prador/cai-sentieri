@@ -12,9 +12,7 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
             {({ open }) => (
               <>
                 <Disclosure.Button className="flex w-full justify-between rounded-lg focus:outline-none focus-visible:ring">
-                  <Link href="/group/val-curone" className="font-bold text-lg">
-                    Val Curone
-                  </Link>
+                  <div className="font-bold text-lg">Val Curone</div>
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-sm text-gray-500">
@@ -39,9 +37,7 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
             {({ open }) => (
               <>
                 <Disclosure.Button className="flex w-full justify-between rounded-lg focus:outline-none focus-visible:ring">
-                  <Link href="/group/val-ossona" className="font-bold text-lg">
-                    Valle Ossona
-                  </Link>
+                  <div className="font-bold text-lg">Valle Ossona</div>
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-sm text-gray-500">
@@ -66,9 +62,7 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
             {({ open }) => (
               <>
                 <Disclosure.Button className="flex w-full justify-between rounded-lg focus:outline-none focus-visible:ring">
-                  <Link href="/group/val-grue" className="font-bold text-lg">
-                    Val Grue
-                  </Link>
+                  <div className="font-bold text-lg">Val Grue</div>
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-sm text-gray-500">
