@@ -15,8 +15,15 @@ const nextConfig = {
         destination: '/:route/',
         permanent: true,
       },
+      {
+        source: '/admin',
+        destination: 'https://wordpress-production-fbed.up.railway.app/wp-admin',
+        permanent: false,
+        basePath: false,
+      }
     ]
   },
+  
   images: {
     domains: ['wordpress-production-fbed.up.railway.app'],
   },
