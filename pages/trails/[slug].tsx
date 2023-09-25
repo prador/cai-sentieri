@@ -76,7 +76,9 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                   <Stat type="Tempo" value={trail?.trailTimeNeeded} className="mb-2 pb-2 md:border-b" />
                   <Stat type="Elevation" value={`${Math.round(route.elevation)} m`} className="mb-2" />
 
-                  <div className={`col-span-3 md:col-span-1 grid grid-cols-2 md:flex md:flex-col md:${statBoxClassName} border-blue-500 `}>
+                  <div
+                    className={`col-span-3 md:col-span-1 grid grid-cols-2 md:flex md:flex-col md:${statBoxClassName} border-blue-500 noprint`}
+                  >
                     <li>
                       <a
                         href={`/gpx/${route?.slug}.gpx`}
@@ -185,5 +187,6 @@ export const getStaticProps: GetStaticProps = async context => {
       trail: trail || null,
       trails,
     },
+    revalidate: 3600,
   }
 }

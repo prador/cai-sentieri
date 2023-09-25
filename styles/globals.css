@@ -109,3 +109,10 @@ div.mapboxgl-map {
     rgba(255, 0, 0, 1) 100%
   );
 }
+
+@media print {
+  .noprint {
+    visibility: hidden;
+    display: none;
+  }
+}
