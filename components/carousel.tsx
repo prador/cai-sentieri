@@ -1,9 +1,13 @@
 import * as React from 'react'
 import { useKeenSlider, KeenSliderPlugin, KeenSliderInstance } from 'keen-slider/react'
-import Lightroom from 'react-lightbox-gallery'
 import Lightbox from 'yet-another-react-lightbox'
+import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
+import 'yet-another-react-lightbox/styles.css'
+import 'yet-another-react-lightbox/plugins/thumbnails.css'
+
 import Inline from 'yet-another-react-lightbox/plugins/inline'
 import Image from 'next/image'
+import NextJsImage from './nextjsimage'
 
 function ThumbnailPlugin(mainRef: React.MutableRefObject<KeenSliderInstance | null>): KeenSliderPlugin {
   return slider => {
@@ -68,23 +72,24 @@ export default function Carousel(slideUrls: any) {
 
   return (
     <>
-      {/* <Lightbox
-                open={open}
-                close={() => setOpen(false)}
-                slides={srcArray}
-            />
-    <Lightroom images={srcArray} settings={settings} /> */}
+      <Lightbox
+        open={open}
+        close={() => setOpen(false)}
+        slides={srcArray}
+        render={{ slide: NextJsImage, thumbnail: NextJsImage }}
+        plugins={[Thumbnails]}
+      />
       {/* <div ref={sliderRef} className="keen-slider">
         {slides.map(slide => {
     return (<div className="keen-slider__slide h-48 object-contain relative"> <Image src={slide} fill alt='sdf' style={{objectFit:"contain"}}/> </div>)})}
       </div> */}
 
-      <div ref={thumbnailRef} className="keen-slider thumbnail">
+      <div ref={thumbnailRef} className="flex overflow-y-scroll gap-2">
         {slides.map(slide => {
           return (
-            <div className="keen-slider__slide  w-full h-12">
+            <div className="block relative w-full h-36">
               {' '}
-              <Image src={slide} fill alt="sdf" style={{ objectFit: 'contain' }} />{' '}
+              <Image onClick={() => setOpen(true)} src={slide} fill alt="sdf" style={{ objectFit: 'contain' }} />{' '}
             </div>
           )
         })}

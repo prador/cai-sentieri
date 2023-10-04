@@ -27,7 +27,7 @@
     "utils/gpxutils.js",
     "data/meta.js",
     "scripts/generate-images.js"
-  ],
+, "components/nextjsimage.tsx"  ],
   "exclude": [
     "node_modules"
   ]

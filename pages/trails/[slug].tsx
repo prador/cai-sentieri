@@ -148,9 +148,9 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                     <div className="mt-4 text-gray-500">
                       Fonte immagini{' '}
                       <Link className="text-blue-500 font-bold underline" href="https://www.provincia.alessandria.it/sentieri/">
-                        Provincia di Alessandria & Archivio Fotografico
+                        Provincia di Alessandria
                       </Link>{' '}
-                      CAI Tortona{' '}
+                      & Archivio Fotografico CAI Tortona{' '}
                     </div>
                   </div>
                 )}
