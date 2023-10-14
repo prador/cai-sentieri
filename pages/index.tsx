@@ -14,6 +14,7 @@ import { Routes, Trail } from '../types'
 import { getPosts, getTrails } from '../lib/service'
 import MapLegend from 'components/maplegend'
 import TrailsList from 'components/trailslist'
+import WeatherCard from 'components/weatherCard'
 
 // Data
 const gpxUtils = require('../utils/gpxutils.js')
@@ -39,6 +40,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
         <MapLegend trails={trails} category="all" />
         {showMap && <MapBox routes={routes} initialLat={lat} initialLng={lng} />}
       </div>
+      <WeatherCard data={undefined} />
       <section className="container">{/* <TrailsList trails={trails} /> */}</section>
     </motion.div>
   )
