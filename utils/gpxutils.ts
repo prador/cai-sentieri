@@ -1,4 +1,6 @@
-// eslint-disable-next-line import/order
+// eslint-disable-next-line import/order, import/no-import-module-exports
+import { useIsSmall } from './hooks'
+
 const { getPosts } = require('../lib/service')
 const { fetchAPI } = require('../lib/base')
 
