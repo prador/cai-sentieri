@@ -3,7 +3,7 @@ import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp'
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker' // eslint-disable-line
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import type { Route, Routes } from '../../types'
+import type { Route, Routes, Trails } from '../../types'
 import { useMapContext } from '../mapprovider'
 import { paint, getHoverGeoJson, setAllLayersVisibility, flyToGeoJson } from './utils'
 
@@ -12,6 +12,7 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
 
 type MapBoxProps = {
   routes: Routes
+  trails?: Trails
   initialLat?: number
   initialLng?: number
 }
@@ -26,7 +27,7 @@ function getStyleForTheme(theme: string) {
   return theme === 'dark' ? 'mapbox://styles/mapbox/outdoors-v11' : 'mapbox://styles/mapbox/outdoors-v11'
 }
 
-function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JSX.Element {
+function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxProps): JSX.Element {
   const { hoverCoordinate } = useMapContext()
   const [stateMap, setStateMap] = useState(null)
   const mapContainer = useRef()
@@ -57,9 +58,32 @@ function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JS
           color,
           geoJson: { features },
         } = route
+        const { pathColor, pathPoint } = trails.find(trail => trail.slug === slug)
+
+        if (pathPoint?.nodes) {
+          pathPoint.nodes.forEach((point, i) => {
+            const { pointLat, pointLng, pointDescription, pointImage } = point
+            const pointImgUrl = pointImage?.node?.mediaItemUrl
+            if (pointLat !== '' && pointLng !== '') {
+              features.push({
+                type: 'Feature',
+                properties: {
+                  id: `point-${i}`,
+                  pointDescription,
+                  pointImgUrl,
+                  icon: 'pin',
+                },
+                geometry: {
+                  type: 'Point',
+                  coordinates: [pointLng, pointLat],
+                },
+              })
+            }
+          })
+        }
+
         const { coordinates: startCoordinates } = features[0].geometry
         const { coordinates: endCoordinates } = features[features.length - 1].geometry
-
         map.addSource(slug, {
           type: 'geojson',
           data: route.geoJson,
@@ -74,7 +98,7 @@ function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JS
             'line-cap': 'round',
           },
           paint: {
-            'line-color': color,
+            'line-color': pathColor || color,
             'line-width': 4,
           },
         })
@@ -151,7 +175,7 @@ function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JS
           if (error) throw error
 
           // Add the image to the map style.
-          map.addImage('pin', image)
+          map.addImage(`pin`, image)
         })
 
         // Add a layer showing points/markers
@@ -171,7 +195,7 @@ function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JS
         map.on('click', `${slug}-points`, e => {
           // Copy coordinates array.
           const coordinates = e.features[0].geometry.coordinates.slice()
-          const { description } = e.features[0].properties
+          const { pointDescription, pointImgUrl } = e.features[0].properties
 
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
@@ -180,7 +204,7 @@ function MapBox({ routes, initialLng = lng, initialLat = lat }: MapBoxProps): JS
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
           }
 
-          new mapboxgl.Popup().setLngLat(coordinates).setHTML(description).addTo(map)
+          new mapboxgl.Popup().setLngLat(coordinates).setHTML(`<div><img src="${pointImgUrl}" />${pointDescription}</div>`).addTo(map)
         })
 
         // Change the cursor to a pointer when the mouse is over the points layer.

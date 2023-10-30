@@ -24,7 +24,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "utils/gpxutils.js",
+    "utils/gpxutils.ts",
     "data/meta.js",
     "scripts/generate-images.js"
 , "components/nextjsimage.tsx"  ],

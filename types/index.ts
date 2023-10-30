@@ -2,11 +2,18 @@ type geoJson = {
   type: string
   features?: Array<
     | {
+        type?: string
         properties: {
-          name: string
-          links: Array<{ href: string }>
+          id?: any
+          icon?: any
+          name?: string
+          links?: Array<{ href: string }>
+          pointDescription?: string
+          pointImage?: any
+          pointImgUrl?: string
         }
         geometry: {
+          type?: string
           coordinates: Array<any>
         }
       }
@@ -59,6 +66,8 @@ export type Trail = {
   title?: string
   uri?: string
   slug?: string
+  pathColor?: string
+  pathPoint?: any
   trailLocation?: string
   trailID?: number
   trailNumber?: string
@@ -81,3 +90,5 @@ export type Post = {
   slug?: string
   title?: string
 }
+
+export type Trails = Array<Trail>

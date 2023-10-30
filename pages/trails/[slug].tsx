@@ -20,12 +20,12 @@ import { useIsSmall } from '../../utils/hooks'
 
 // Utils
 import MapBox from '../../components/mapbox'
-import { getPosts, getTrails } from '../../lib/service'
+import { getPosts, getTrail, getTrails } from '../../lib/service'
 import Carousel from 'components/carousel'
 import MapLegend from 'components/maplegend'
 
 // Data
-const gpxUtils = require('../../utils/gpxutils.js')
+const gpxUtils = require('../../utils/gpxutils.ts')
 
 type RoutePageProps = { route: Route; initialLat: number; initialLng: number; trails: Trail[]; trail: Trail }
 
@@ -35,6 +35,8 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
     return null
   }
   const statBoxClassName = 'justify-center p-2 border rounded border-blue-500 text-blue-600'
+
+  // console.log(trail)
 
   return (
     <motion.div
@@ -48,7 +50,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
         <>
           <div className="block text-xl text-black  h-[300px] md:h-[600px] mx-4 relative my-6">
             <MapLegend trails={trails} category="all" />
-            {showMap && <MapBox routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
+            {showMap && <MapBox trails={[trail]} routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
           </div>
           <div className="container">
             <header className="text-center mb-8">

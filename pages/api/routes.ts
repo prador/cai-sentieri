@@ -4,7 +4,7 @@ const simplify = require('simplify-geojson')
 const polyline = require('@mapbox/polyline')
 const gp = require('geojson-precision')
 
-const gpxUtils = require('../../utils/gpxutils.js')
+const gpxUtils = require('../../utils/gpxutils.ts')
 
 export default (_: NextApiRequest, res: NextApiResponse) => {
   const { routes } = gpxUtils.routes

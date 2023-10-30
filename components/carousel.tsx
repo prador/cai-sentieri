@@ -85,9 +85,9 @@ export default function Carousel(slideUrls: any) {
       </div> */}
 
       <div ref={thumbnailRef} className="flex overflow-y-scroll gap-2">
-        {slides.map(slide => {
+        {slides.map((slide, index) => {
           return (
-            <div className="block relative w-full h-36">
+            <div key={index} className="block relative w-full h-36">
               {' '}
               <Image onClick={() => setOpen(true)} src={slide} fill alt="sdf" style={{ objectFit: 'contain' }} />{' '}
             </div>

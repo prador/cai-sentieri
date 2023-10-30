@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 import MapBlock from 'components/mapblock'
 
 // Data
-const gpxUtils = require('../../utils/gpxutils.js')
+const gpxUtils = require('../../utils/gpxutils.ts')
 
 // Initial map
 // TODO: Fit to bounds of all routes

@@ -27,7 +27,7 @@ const MapBlock = ({
       className={`block text-xl text-black h-[300px] ${category === 'all' ? 'md:h-[600px] my-6' : 'md:h-[350px] my-10'} relative w-full`}
     >
       <MapLegend trails={trails} category={category} />
-      <MapBox routes={category === 'all' ? routes : cateogoryTrails} initialLat={lat} initialLng={lng} />
+      <MapBox trails={trails} routes={category === 'all' ? routes : cateogoryTrails} initialLat={lat} initialLng={lng} />
     </div>
   )
 }

@@ -17,7 +17,7 @@ import TrailsList from 'components/trailslist'
 import WeatherCard from 'components/weatherCard'
 
 // Data
-const gpxUtils = require('../utils/gpxutils.js')
+const gpxUtils = require('../utils/gpxutils.ts')
 
 // Initial map
 // TODO: Fit to bounds of all routes
@@ -38,7 +38,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
     >
       <div className="block text-xl text-black h-[300px] md:h-[600px] my-6 relative w-full">
         <MapLegend trails={trails} category="all" />
-        {showMap && <MapBox routes={routes} initialLat={lat} initialLng={lng} />}
+        {showMap && <MapBox trails={trails} routes={routes} initialLat={lat} initialLng={lng} />}
       </div>
       <WeatherCard data={undefined} />
       <section className="container">{/* <TrailsList trails={trails} /> */}</section>

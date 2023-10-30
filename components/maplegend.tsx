@@ -18,9 +18,9 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
                 <Disclosure.Panel className="text-sm text-gray-500">
                   {trails
                     ?.filter(obj => obj.trailCategory === 'Val Curone')
-                    .map((trail: Trail) => {
+                    .map((trail: Trail, index: number) => {
                       return (
-                        <div>
+                        <div key={index}>
                           <Link href={`/trails/${trail.slug}`}>
                             <div>{trail.title}</div>
                           </Link>
@@ -43,9 +43,9 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
                 <Disclosure.Panel className="text-sm text-gray-500">
                   {trails
                     ?.filter(obj => obj.trailCategory === 'Valle Ossona')
-                    .map((trail: Trail) => {
+                    .map((trail: Trail, index: number) => {
                       return (
-                        <div>
+                        <div key={index}>
                           <Link href={`/trails/${trail.slug}`}>
                             <div>{trail.title}</div>
                           </Link>
@@ -68,9 +68,9 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
                 <Disclosure.Panel className="text-sm text-gray-500">
                   {trails
                     ?.filter(obj => obj.trailCategory === 'Val Grue')
-                    .map((trail: Trail) => {
+                    .map((trail: Trail, index: number) => {
                       return (
-                        <div>
+                        <div key={index}>
                           <Link href={`/trails/${trail.slug}`}>
                             <div>{trail.title}</div>
                           </Link>

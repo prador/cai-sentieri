@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/order
-const { getPosts, getTrails } = require('../lib/service')
+const { getPosts } = require('../lib/service')
+const { fetchAPI } = require('../lib/base')
 
 const fs = require('fs')
 const path = require('path')
@@ -9,20 +10,75 @@ const xmldom = require('xmldom')
 const { lineString } = require('@turf/helpers')
 const met = require('../data/meta')
 
-async function fetchTrails() {
-  const trails = await getTrails(100)
-  console.log(trails)
+// eslint-disable-next-line consistent-return
+// async function fetchTrails(): Promise<any> {
+//   try {
+//     const result = await getTrails(100)
+//     console.log('Data fetched and saved:', result);
+//     return result.json()
+//   } catch (error) {
+//     console.error('Error fetching data:', error);
+//   }
+// }
+async function getTrails(first): Promise<any> {
+  const data = await fetchAPI(
+    `query WpTrails {
+      trails (first: 500) {
+        nodes {
+          title(format: RENDERED)
+          uri
+          slug
+          trailLocation(format: RENDERED)
+          trailNumber(format: RENDERED)
+          trailId
+          trailCategory(format: RENDERED)
+          trailTimeNeeded
+          trailSubdescription(format: RENDERED)
+          trailDescription(format: RENDERED)
+          trailDifficulty(format: RENDERED)
+          trailMapGprxFile {
+            node {
+              mediaItemUrl
+            }
+          }
+          galleryImages {
+            nodes {
+              mediaItemUrl
+            }
+          }
+          imageLinkImage {
+            node {
+              mediaItemUrl
+            }
+          }
+          imageLinkTitle(format: RENDERED)
+          imageLinkUrl(format: RENDERED)
+          pathColor
+          pathPoint {
+            nodes {
+              pointLat
+              pointName
+              pointLng
+              pointDescription
+              pointImage {
+                node {
+                  mediaItemUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    }`,
+    {
+      variables: {
+        first,
+      },
+    },
+  )
+
+  return data?.trails?.nodes
 }
-
-fetchTrails()
-
-
-// .then(() => {
-//   console.log(trails)
-// })
-// console.log(trails)
-console.log(met)
-
 
 const ROUTES_PATH = path.join(process.cwd(), 'public', 'gpx')
 
@@ -36,9 +92,10 @@ const routes = routeFilePaths.map(filePath => {
   const source = new xmldom.DOMParser().parseFromString(fs.readFileSync(path.join(ROUTES_PATH, filePath), 'utf8'))
   const slug = filePath.replace('.gpx', '')
   const metadata = met.meta[slug]
-
+  const pathPoints: any = getTrails(500)
   const geoJson = toGeoJson.gpx(source)
 
+  console.log(pathPoints)
   // Calculate distance using geoJson
   const distance = turflength(geoJson)
 
@@ -78,23 +135,24 @@ const routes = routeFilePaths.map(filePath => {
   })
 
   /* Add optional points of interest as features to the geojson */
-  if (metadata?.points) {
-    metadata.points.forEach((point, i) => {
-      const { lat, lng, description } = point
-      geoJson.features.push({
-        type: 'Feature',
-        properties: {
-          id: `point-${i}`,
-          description,
-          icon: 'pin',
-        },
-        geometry: {
-          type: 'Point',
-          coordinates: [lng, lat],
-        },
-      })
-    })
-  }
+  // if (metadata?.points) {
+  //   metadata.points.forEach((point, i) => {
+  //     const { lat, lng, description,image } = point
+  //     geoJson.features.push({
+  //       type: 'Feature',
+  //       properties: {
+  //         id: `point-${i}`,
+  //         description,
+  //         // image,
+  //         icon: 'pin',
+  //       },
+  //       geometry: {
+  //         type: 'Point',
+  //         coordinates: [lng, lat],
+  //       },
+  //     })
+  //   })
+  // }
 
   return {
     distance: distance || null,
@@ -102,6 +160,8 @@ const routes = routeFilePaths.map(filePath => {
     geoJson: geoJson || null,
     id: slug,
     slug,
+    // pathPoints: pathPoints || null,
+
     color: metadata?.color || 'red',
     description: metadata?.description || null,
     rating: metadata?.rating || null,
