@@ -8,7 +8,7 @@ module.exports = {
     },
     extend: {
       fontFamily: {
-        sans: ['Proxima Nova', ...fontFamily.sans],
+        sans: ['Nunito', ...fontFamily.sans],
       },
       colors: {
         forest: {

@@ -6,21 +6,8 @@
 
 @layer base {
   @font-face {
-    font-weight: 400;
-    font-family: Proxima Nova;
-    src: url(/fonts/proxima-nova-regular.woff) format('woff');
-  }
-
-  @font-face {
-    font-weight: 600;
-    font-family: Proxima Nova;
-    src: url(/fonts/proxima-nova-semibold.woff) format('woff');
-  }
-
-  @font-face {
-    font-weight: 700;
-    font-family: Proxima Nova;
-    src: url(/fonts/proxima-nova-bold.woff) format('woff');
+    font-family: Nunito;
+    src: url(/fonts/Nunito-VariableFont_wght) format('truetype');
   }
 
   html {
@@ -59,14 +46,14 @@
 
 div.mapboxgl-map {
   font-family:
-    'Proxima Nova',
+    'Nunito',
     Helvetica Neue;
   text-decoration: underline;
 }
 
 .mapboxgl-popup {
   max-width: 400px;
-  font: 12px/20px 'Proxima Nova';
+  font: 12px/20px 'Nunito';
   @apply text-primary text-sm;
 }
 
@@ -100,6 +87,10 @@ div.mapboxgl-map {
   @apply w-7 h-7 rounded-full text-2xl;
 }
 
+.weather-card {
+  @apply bg-slate-200/80 p-4 rounded-lg text-center flex flex-col justify-center items-center;
+}
+
 .trail-flag {
   background: linear-gradient(
     90deg,
@@ -122,7 +113,7 @@ div.mapboxgl-map {
 .loading-container {
   /* background: rgb(40,117,45); */
   /* background: linear-gradient(0deg, rgba(40,117,45,1) 48%, rgba(255,255,255,1) 48%, rgba(255,255,255,1) 100%); */
-  animation: c4 1.5s;
+  animation: c4 2s;
 }
 
 @keyframes c4 {
@@ -130,11 +121,15 @@ div.mapboxgl-map {
     background: #28752d;
   }
 
-  70% {
+  60% {
     background: #28752d;
+    opacity: 1;
+    bottom: 0;
   }
 
   100% {
     background: #ffffff;
+    opacity: 0;
+    bottom: 100vh;
   }
 }

@@ -48,14 +48,14 @@ async function generate() {
 
       // Add titles
       context.fillStyle = '#fff'
-      context.font = 'bold 30pt Proxima Nova'
+      context.font = 'bold 30pt Nunito'
       context.fillText(`${Math.round(route.distance * 10) / 10} km`, distanceX, titleY)
       context.fillText(`${Math.round(route.elevation)} m`, elevationX, titleY)
       context.fillText(`${Math.round(route.elevation / route.distance)}`, stifaX, titleY)
       context.fillText(`${route.rating}/5`, ratingX, titleY)
 
       // Add labels
-      context.font = 'bold 16pt Proxima Nova'
+      context.font = 'bold 16pt Nunito'
       context.fillText(`DISTANCE`, distanceX, labelY)
       context.fillText(`ELEVATION`, elevationX, labelY)
       context.fillText(`STIFA`, stifaX, labelY)

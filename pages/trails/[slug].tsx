@@ -23,6 +23,7 @@ import MapBox from '../../components/mapbox'
 import { getPosts, getTrail, getTrails } from '../../lib/service'
 import Carousel from 'components/carousel'
 import MapLegend from 'components/maplegend'
+import WeatherCard from 'components/weatherCard'
 
 // Data
 const gpxUtils = require('../../utils/gpxutils.ts')
@@ -40,10 +41,10 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
 
   return (
     <motion.div
-      className="min-h-screen pb-12 mt-4"
-      initial={{ x: 430 }}
-      animate={{ x: 0 }}
-      transition={{ ease: 'easeOut', duration: 0.2 }}
+      className="min-h-screen pb-12"
+      initial={{ y: 430 }}
+      animate={{ y: 0 }}
+      transition={{ ease: 'easeOut', duration: 0.3 }}
       onAnimationComplete={() => setShowMap(true)}
     >
       {route && (
@@ -112,6 +113,9 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                     <div className="text-gray-500 mt-2 text-sm col-span-2">Fonte Provincia di Alessandria</div>
                   </div>
                 </ul>
+                <div className="mx-4">
+                  <WeatherCard data={undefined} />
+                </div>
               </div>
               <div className="col-span-1 sm:col-span-6">
                 <div className="mx-4 p-3 mb-4 border rounded border-gray-400">

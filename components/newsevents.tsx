@@ -15,7 +15,7 @@ const NewsEvents = () => {
   }, [])
 
   return (
-    <div className="container mx-auto p-8 bg-gray-100 ">
+    <div className="container mx-auto p-8 bg-slate-100 ">
       <h3 className="text-xl">News & Events</h3>
       <div className="my-6 flex flex-col">
         {posts?.map((post: any, index: number) => {

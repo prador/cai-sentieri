@@ -23,7 +23,7 @@ export default function Layout({ children }: Props) {
   useEffect(() => {
     setTimeout(() => {
       setLoading(false)
-    }, 2000)
+    }, 1500)
   }, [])
   return (
     <div className="bg-slate-50">

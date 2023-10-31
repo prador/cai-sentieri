@@ -30,7 +30,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
 
   return (
     <motion.div
-      className="min-h-screen pb-12 mt-4"
+      className="min-h-screen pb-12"
       initial={{ x: 430 }}
       animate={{ x: 0 }}
       transition={{ ease: 'easeOut', duration: 0.2 }}
