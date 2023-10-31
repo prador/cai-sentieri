@@ -54,7 +54,7 @@ function Route({ route: { geoJson, distance, elevation, slug, color, type } }: {
       </p>
       <ol className="flex">
         <Stat type="Distance" value={`${Math.round(distance * 10) / 10} km`} />
-        <Stat type="Elevation" value={`${Math.round(elevation)} m`} />
+        <Stat type="DISLIVELLO" value={`+${Math.round(elevation)} m`} />
         <Stat type="Stifa" value={Math.round(elevation / distance)} />
       </ol>
       <svg

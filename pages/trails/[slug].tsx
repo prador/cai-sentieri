@@ -48,7 +48,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
     >
       {route && (
         <>
-          <div className="block text-xl text-black  h-[300px] md:h-[600px] mx-4 relative my-6">
+          <div className="block text-xl text-black  h-[300px] md:h-[60vh] mx-4 relative my-6">
             <MapLegend trails={trails} category="all" />
             {showMap && <MapBox trails={[trail]} routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
           </div>
@@ -92,7 +92,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                         <div className="h-4 w-4">
                           <ArrowDownTrayIcon />
                         </div>
-                        Download Link
+                        Scarica la traccia .gprx
                       </a>
                     </li>
                     <li>

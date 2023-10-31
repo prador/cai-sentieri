@@ -30,18 +30,21 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
 
   return (
     <motion.div
-      className="min-h-screen pb-12 mt-4"
+      className="min-h-screen pb-12"
       initial={{ x: 430 }}
       animate={{ x: 0 }}
       transition={{ ease: 'easeOut', duration: 0.2 }}
       onAnimationComplete={() => setShowMap(true)}
     >
-      <div className="block text-xl text-black h-[300px] md:h-[600px] my-6 relative w-full">
+      <div className="block text-xl text-black h-[300px] md:h-[60vh] mb-6 relative w-full">
         <MapLegend trails={trails} category="all" />
         {showMap && <MapBox trails={trails} routes={routes} initialLat={lat} initialLng={lng} />}
       </div>
-      <WeatherCard data={undefined} />
-      <section className="container">{/* <TrailsList trails={trails} /> */}</section>
+
+      <section className="container">
+        {/* <TrailsList trails={trails} /> */}
+        <WeatherCard data={undefined} />
+      </section>
     </motion.div>
   )
 }

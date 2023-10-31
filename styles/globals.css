@@ -10,11 +10,13 @@
     font-family: Proxima Nova;
     src: url(/fonts/proxima-nova-regular.woff) format('woff');
   }
+
   @font-face {
     font-weight: 600;
     font-family: Proxima Nova;
     src: url(/fonts/proxima-nova-semibold.woff) format('woff');
   }
+
   @font-face {
     font-weight: 700;
     font-family: Proxima Nova;
@@ -114,5 +116,25 @@ div.mapboxgl-map {
   .noprint {
     visibility: hidden;
     display: none;
+  }
+}
+
+.loading-container {
+  /* background: rgb(40,117,45); */
+  /* background: linear-gradient(0deg, rgba(40,117,45,1) 48%, rgba(255,255,255,1) 48%, rgba(255,255,255,1) 100%); */
+  animation: c4 1.5s;
+}
+
+@keyframes c4 {
+  0% {
+    background: #28752d;
+  }
+
+  70% {
+    background: #28752d;
+  }
+
+  100% {
+    background: #ffffff;
   }
 }

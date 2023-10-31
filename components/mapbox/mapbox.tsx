@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react'
 import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp'
+import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker' // eslint-disable-line
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { Route, Routes, Trails } from '../../types'
 import { useMapContext } from '../mapprovider'
 import { paint, getHoverGeoJson, setAllLayersVisibility, flyToGeoJson } from './utils'
+import GeoIcon from 'components/geoIcon'
 
 mapboxgl.workerClass = MapboxWorker
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
@@ -303,7 +305,32 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
     }
   }, [stateMap, queryRoute, hoverCoordinate])
 
-  return <div className="absolute inset-0" ref={mapContainer} />
+  const locationBtnCLick = () => {
+    const locationBtn: any = document.querySelector('.mapboxgl-ctrl-geolocate')
+    if (locationBtn) {
+      locationBtn?.click()
+    }
+  }
+  return (
+    <>
+      <div className="absolute inset-0 rounded-lg" ref={mapContainer} />
+      <div className="flex absolute z-10 w-full mx-auto bottom-1 justify-center">
+        <button
+          type="button"
+          className="flex cky-btn-revisit-clicker bg-white py-1 px-3 rounded-md items-center gap-2"
+          onClick={() => {
+            locationBtnCLick()
+          }}
+          aria-label="Cookie Settings"
+        >
+          Dove di trovo
+          <span className="h-5 w-5">
+            <GeoIcon />
+          </span>
+        </button>
+      </div>
+    </>
+  )
 }
 
 export default MapBox

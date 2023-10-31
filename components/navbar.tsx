@@ -14,8 +14,8 @@ const Navbar = () => {
   const currentRoute = router.pathname
   return (
     <div className="container flex justify-between relative pt-3">
-      <Link href="/" className="absolute z-20 md:h-[125px] md:w-[80px] h-[90px] w-[60px] left-4">
-        <Image src="/logo_sentieri.png" fill alt="" />
+      <Link href="/" className="absolute z-20 -top-2 md:h-[180px] md:w-[90px] h-[120px] w-[60px] object-fill left-4 ">
+        <Image src="/logo_sentieri.svg" fill alt="" className="shadow-lg" />
       </Link>
 
       <ul className="hidden sm:flex sm:flex-row w-full justify-center">
