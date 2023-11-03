@@ -15,9 +15,9 @@ export function Stat({
   className?: string
 }) {
   return (
-    <li className={cn(centered ? 'text-center' : 'mr-5', className)}>
+    <li className={cn(centered ? 'text-center' : '', className)}>
       <span className="block text-xs uppercase text-gray-400">{type}</span>
-      <strong className="text-xl font-normal text-black">{value}</strong>
+      <strong className="text-lg md:text-xl font-normal text-black">{value}</strong>
     </li>
   )
 }

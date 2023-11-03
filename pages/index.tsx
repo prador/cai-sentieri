@@ -31,7 +31,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
 
   return (
     <motion.div
-      className="min-h-screen pb-12"
+      className=""
       initial={{ x: 430 }}
       animate={{ x: 0 }}
       transition={{ ease: 'easeOut', duration: 0.2 }}
@@ -41,16 +41,6 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
         <MapLegend trails={trails} category="all" />
         {showMap && <MapBox trails={trails} routes={routes} initialLat={lat} initialLng={lng} />}
       </div>
-
-      <section className="container grid grid-cols-3 gap-4">
-        {/* <TrailsList trails={trails} /> */}
-        <div className="col-span-1 md:col-span-2">
-          <NewsEvents />
-        </div>
-        <div className="col-span-1">
-          <WeatherCard data={undefined} />
-        </div>
-      </section>
     </motion.div>
   )
 }

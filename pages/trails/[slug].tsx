@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 import colors from 'tailwindcss/colors' // eslint-disable-line
 import { ArrowDownTrayIcon, PrinterIcon } from '@heroicons/react/20/solid'
-
+import Lang from '../../utils/lang'
 // Components
 import Button from '../../components/button'
 import { Stat } from '../../components/route'
@@ -32,10 +32,11 @@ type RoutePageProps = { route: Route; initialLat: number; initialLng: number; tr
 
 function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePageProps) {
   const [showMap, setShowMap] = useState(true)
+  const pageLang = 'it'
   if (!route) {
     return null
   }
-  const statBoxClassName = 'justify-center p-2 border rounded border-blue-500 text-blue-600'
+  const statBoxClassName = 'justify-center px-2 border rounded border-blue-500 text-blue-600'
 
   // console.log(trail)
 
@@ -55,7 +56,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
           </div>
           <div className="container">
             <header className="text-center mb-8">
-              <h1 className="px-5 py-1 mb-0 text-3xl font-bold text-center text-black">{trail?.title}</h1>
+              <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-black">{trail?.title}</h1>
               {(trail.trailLocation || trail.trailCategory === 'swimrun') && (
                 <div className="flex items-center justify-center">
                   {route.location && (
@@ -73,11 +74,15 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
             <div className="grid grid-cols-1 md:grid-cols-8">
               <div className="col-span-1 md:col-span-2">
                 <ul className="grid grid-cols-3 md:grid-cols-1 gap-2 mx-4 mb-6">
-                  <Stat type="Zona" value={trail?.trailCategory} className="mb-2 pb-2 md:border-b" />
-                  <Stat type="Difficoltà" value={trail?.trailDifficulty} className="mb-2 pb-2 md:border-b" />
-                  <Stat type="Lunghezza" value={`${Math.round(route.distance * 10) / 10} km`} className="mb-2 pb-2 md:border-b" />
-                  <Stat type="Tempo" value={trail?.trailTimeNeeded} className="mb-2 pb-2 md:border-b" />
-                  <Stat type="Elevation" value={`${Math.round(route.elevation)} m`} className="mb-2" />
+                  <Stat type={Lang[pageLang].routeInfo.zone} value={trail?.trailCategory} className="md:mb-2 md:pb-2 " />
+                  <Stat type={Lang[pageLang].routeInfo.difficulty} value={trail?.trailDifficulty} className="md:mb-2 md:pb-2 " />
+                  <Stat
+                    type={Lang[pageLang].routeInfo.distance}
+                    value={`${Math.round(route.distance * 10) / 10} km`}
+                    className="md:mb-2 md:pb-2 "
+                  />
+                  <Stat type={Lang[pageLang].routeInfo.time} value={trail?.trailTimeNeeded} className="md:mb-2 md:pb-2 " />
+                  <Stat type={Lang[pageLang].routeInfo.elevation} value={`+ ${Math.round(route.elevation)} m`} className="mb-2" />
 
                   <div
                     className={`col-span-3 md:col-span-1 grid grid-cols-2 md:flex md:flex-col md:${statBoxClassName} border-blue-500 noprint`}
@@ -88,12 +93,12 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                         download
                         target="_blank"
                         rel="noreferrer"
-                        className="cursor-pointer flex gap-2 items-center py-2"
+                        className="cursor-pointer flex gap-2 items-start py-2"
                       >
-                        <div className="h-4 w-4">
+                        <div className="h-4 w-4 pt-1">
                           <ArrowDownTrayIcon />
                         </div>
-                        Scarica la traccia .gprx
+                        {Lang[pageLang].routeInfo.downloadFile}
                       </a>
                     </li>
                     <li>
@@ -107,10 +112,10 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                         <div className="h-4 w-4">
                           <PrinterIcon />
                         </div>
-                        Print Page
+                        {Lang[pageLang].routeInfo.printPage}
                       </button>
                     </li>
-                    <div className="text-gray-500 mt-2 text-sm col-span-2">Fonte Provincia di Alessandria</div>
+                    <div className="text-gray-500 mt-2 text-sm col-span-2">{Lang[pageLang].routeInfo.imageSrc}</div>
                   </div>
                 </ul>
                 <div className="mx-4">
@@ -140,8 +145,8 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                       <Image
                         src={trail?.imageLinkImage?.node?.mediaItemUrl}
                         fill
-                        style={{ objectFit: 'cover' }}
                         alt={trail?.imageLinkTitle}
+                        className="object-cover rounded-md"
                       />
                       <span className="absolute z-10 bg-white px-5 py-2 text-lg">{trail?.imageLinkTitle}</span>
                     </div>

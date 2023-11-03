@@ -7,6 +7,7 @@ import Navbar from './navbar'
 import NewsEvents from './newsevents'
 import Contact from './contact'
 import Splash from './splash'
+import WeatherCard from './weatherCard'
 
 interface Props {
   children: ReactNode
@@ -37,7 +38,15 @@ export default function Layout({ children }: Props) {
           <main id="skip" className="pb-16 min-h-[50vh]">
             {children}
           </main>
-          <NewsEvents />
+          <section className="container flex flex-col md:grid grid-cols-3 gap-4">
+            {/* <TrailsList trails={trails} /> */}
+            <div className="col-span-1 md:col-span-2">
+              <NewsEvents />
+            </div>
+            <div className="col-span-1">
+              <WeatherCard data={undefined} />
+            </div>
+          </section>
           <Contact />
           <Footer />
         </>

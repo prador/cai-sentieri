@@ -4,8 +4,6 @@ import Lightbox from 'yet-another-react-lightbox'
 import Thumbnails from 'yet-another-react-lightbox/plugins/thumbnails'
 import 'yet-another-react-lightbox/styles.css'
 import 'yet-another-react-lightbox/plugins/thumbnails.css'
-
-import Inline from 'yet-another-react-lightbox/plugins/inline'
 import Image from 'next/image'
 import NextJsImage from './nextjsimage'
 
@@ -44,7 +42,7 @@ function ThumbnailPlugin(mainRef: React.MutableRefObject<KeenSliderInstance | nu
 
 export default function Carousel(slideUrls: any) {
   const [open, setOpen] = React.useState(false)
-  const [index, setIndex] = React.useState(0)
+  const [index, setIndex] = React.useState(-1)
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
   })
@@ -63,7 +61,7 @@ export default function Carousel(slideUrls: any) {
   const slides = slideArray?.map(item => item.mediaItemUrl)
   const settings = {
     columnCount: {
-      default: 5,
+      default: 8,
       mobile: 3,
       tab: 4,
     },
@@ -73,6 +71,7 @@ export default function Carousel(slideUrls: any) {
   return (
     <>
       <Lightbox
+        index={index}
         open={open}
         close={() => setOpen(false)}
         slides={srcArray}
@@ -84,15 +83,27 @@ export default function Carousel(slideUrls: any) {
     return (<div className="keen-slider__slide h-48 object-contain relative"> <Image src={slide} fill alt='sdf' style={{objectFit:"contain"}}/> </div>)})}
       </div> */}
 
-      <div ref={thumbnailRef} className="flex overflow-y-scroll gap-2">
-        {slides.map((slide, index) => {
-          return (
-            <div key={index} className="block relative w-full h-36">
-              {' '}
-              <Image onClick={() => setOpen(true)} src={slide} fill alt="sdf" style={{ objectFit: 'contain' }} />{' '}
-            </div>
-          )
-        })}
+      <div className="w-full overflow-x-scroll px-4 md:px-0">
+        <div ref={thumbnailRef} className="flex w-[300vw] md:w-[100vw] gap-2">
+          {slides.map((slide, i: number) => {
+            return (
+              <div key={i} className="flex relative w-32 h-32">
+                <Image
+                  data-index={i}
+                  data-src={slide}
+                  onClick={() => {
+                    setIndex(i)
+                    setOpen(true)
+                  }}
+                  src={slide}
+                  fill
+                  alt=""
+                  className="rounded-md flex flex-grow object-cover w-full"
+                />
+              </div>
+            )
+          })}
+        </div>
       </div>
     </>
   )
