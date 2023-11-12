@@ -35,10 +35,10 @@ export default function Layout({ children }: Props) {
           <div className="w-full shadow-md bg-white">
             <Navbar />
           </div>
-          <main id="skip" className="pb-16 min-h-[50vh]">
+          <main id="skip" className="pb-8 min-h-[50vh]">
             {children}
           </main>
-          <section className="container flex flex-col md:grid grid-cols-3 gap-4">
+          <section className="container flex flex-col md:grid grid-cols-3 gap-4 pb-4">
             <div className="col-span-1 md:col-span-2">
               <NewsEvents />
             </div>

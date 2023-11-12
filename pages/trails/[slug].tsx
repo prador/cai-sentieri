@@ -50,8 +50,10 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
     >
       {route && (
         <>
-          <div className="block text-xl text-black  h-[300px] md:h-[60vh] mx-4 relative my-6">
-            <MapLegend trails={trails} category="all" />
+          <div className="block text-xl relative text-black h-[50vh] md:h-[60vh] m-0 mb-4 md:mx-4 md:my-6">
+            <div className="hidden md:block">
+              <MapLegend trails={trails} category="all" />
+            </div>
             {showMap && <MapBox trails={[trail]} routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
           </div>
           <div className="container">
@@ -126,7 +128,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                 </div>
                 {trail.trailSubdescription && (
                   <div
-                    className="md:mx-4 mb-4 text-2xl leading-relaxed text-sushi-700"
+                    className="md:mx-4 mb-4 text-xl md:text-2xl leading-relaxed text-sushi-700"
                     dangerouslySetInnerHTML={{ __html: trail.trailSubdescription }}
                   />
                 )}

@@ -28,7 +28,9 @@ const MapBlock = ({
 
   return (
     <div
-      className={`block text-xl text-black h-[300px] ${category === 'all' ? 'md:h-[600px]' : 'md:h-[350px]'} relative w-full ${classes}`}
+      className={`map-block block text-xl text-black h-[300px] ${
+        category === 'all' ? 'md:h-[600px]' : 'md:h-[350px]'
+      } relative w-full ${classes}`}
     >
       {legend ? <MapLegend trails={trails} category={category} /> : null}
       <MapBox trails={trails} routes={category === 'all' ? routes : categoryTrails} initialLat={lat} initialLng={lng} />

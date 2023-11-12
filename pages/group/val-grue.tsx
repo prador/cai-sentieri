@@ -29,14 +29,32 @@ function ValGrue({ trails, routes }: { trails: Trail[]; routes: Routes }) {
       {/* <div className="block text-xl text-black h-[300px] relative w-full">
         <MapBox routes={routes} initialLat={lat} initialLng={lng} />
       </div> */}
-      <header className="py-3 text-center">
-        <h2 className="text-3xl text-bold">Val Grue</h2>
+      <header className="text-center my-8">
+        <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Val Grue</h1>
       </header>
       <section>
-        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Grue" classes={undefined} legend={false} />
+        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Grue" classes="m-0" legend={false} />
+        <div className="pt-6 flex flex-col md:grid md:grid-cols-3 gap-6 space-y-6 md:space-y-0 ">
+          {trails
+            ?.filter(obj => obj.trailCategory === 'Val Grue')
+            .map((trail: Trail, index: number) => {
+              return (
+                <div className="border rounded-lg sentieri-aumentati-card bg-white shadow-lg">
+                  <div className="md:col-span-3">
+                    <MapBlock trails={[trail]} routes={routes} lat={lat} lng={lng} category="Val Grue" classes="m-0" legend={false} />
+                  </div>
 
-        <div className="my-6 flex flex-col">
-          <TrailList trails={trails} group="Val Grue" />
+                  <div className="p-4">
+                    <h2 className="text-xl text-sushi-600 font-bold">
+                      <Link href={`/trails/${trail?.slug}`}>{trail?.title}</Link>
+                    </h2>
+                    <p className="mt-4">
+                      {trail?.trailLocation} - {trail?.trailNumber}
+                    </p>
+                  </div>
+                </div>
+              )
+            })}
         </div>
       </section>
     </div>

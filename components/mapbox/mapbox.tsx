@@ -328,7 +328,7 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
   return (
     <>
       <div className="absolute inset-0 rounded-lg" ref={mapContainer} />
-      <div className="flex absolute z-10 w-full mx-auto bottom-3 justify-center">
+      <div className="flex absolute z-[5] w-full mx-auto bottom-3 justify-center">
         <button
           type="button"
           className="flex text-base location-btn bg-white py-1 px-3 rounded-md items-center gap-2"

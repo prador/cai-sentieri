@@ -45,13 +45,12 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
           <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Sentieri Aumentati</h1>
         </header>
 
-        <div className="pt-6 flex flex-col md:grid md:grid-cols-3 gap-4 space-y-6 md:space-y-0 sentieri-aumentati-card">
+        <div className="pt-6 flex flex-col md:grid md:grid-cols-3 gap-6 space-y-6 md:space-y-0">
           {filteredSlugs.map(trail => (
-            <div className="border border-red rounded-lg">
+            <div className="border rounded-lg sentieri-aumentati-card bg-white shdaow-lg">
               <div className="md:col-span-3">
                 <MapBlock trails={[trail]} routes={routes} lat={lat} lng={lng} category="Val Curone" classes="m-0" legend={false} />
               </div>
-
               <div className="p-4">
                 <h2 className="text-xl text-sushi-600 font-bold">
                   <Link href={`/trails/${trail?.slug}`}>{trail?.title}</Link>

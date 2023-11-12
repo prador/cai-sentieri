@@ -55,16 +55,18 @@ const WeatherCard = ({ data }: { data: any }) => {
 
   return (
     <div className="weather-card">
-      <h2>{weatherData?.city}</h2>
+      <h2 className="text-lg font-bold">{weatherData?.city}</h2>
       <div className="h-36 w-36 mx-auto">{getWeatherIcon(weatherData?.description)}</div>
-      <h6>{weatherData?.description}</h6>
-      <h4>{weatherData?.temperatureCelsius}°</h4>
-      <p>
-        {weatherData?.minTemperatureCelsius}°/{weatherData?.maxTemperatureCelsius}°
-      </p>
-      <div>
-        Humidity {weatherData?.humidity}% <br />
-        Wind Speed {weatherData?.wind_speed} M/s
+      <div className="text-base text-gray-600">
+        <h6>{weatherData?.description}</h6>
+        <h4>{weatherData?.temperatureCelsius}°</h4>
+        <p>
+          {weatherData?.minTemperatureCelsius}°/{weatherData?.maxTemperatureCelsius}°
+        </p>
+        <div>
+          Humidity {weatherData?.humidity}% <br />
+          Wind Speed {weatherData?.wind_speed} M/s
+        </div>
       </div>
     </div>
   )

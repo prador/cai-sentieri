@@ -7,7 +7,7 @@ const NavImage = ({ href, title, image }: { href: string; title: string; image: 
     <Link className="flex relative h-28 w-full rounded-lg" href={href}>
       <div className="mb-2 mt-4 text-2xl rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">{title}</div>
       <div className="relative w-full rounded-lg">
-        <div className="relative h-full w-full z-10 bg-gradient-to-b from-sushi-300/50 to-sushi-600 rounded-lg" />
+        <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
         <Image src={image} fill alt="" className="rounded-lg flex flex-grow object-cover w-full" />
       </div>
     </Link>

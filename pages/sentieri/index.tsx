@@ -26,7 +26,23 @@ const lat = 44.91711298954641
 
 function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: Trail[] }) {
   const [showMap, setShowMap] = useState(true)
-
+  const groups = [
+    {
+      title: 'Val Curone',
+      href: '/group/val-curone',
+      description: 'Lorem ipsum',
+    },
+    {
+      title: 'Valle Ossona',
+      href: '/group/valle-ossona',
+      description: 'Lorem ipsum',
+    },
+    {
+      title: 'Val Grue',
+      href: '/group/val-grue',
+      description: 'Lorem ipsum',
+    },
+  ]
   return (
     <motion.div
       className="min-h-screen pb-12"
@@ -37,43 +53,23 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
     >
       <section className="container">
         <header className="text-center my-8">
-          <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Sentieri Aumentati</h1>
+          <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Sentieri</h1>
         </header>
 
         <div className="pt-6 flex flex-col space-y-6">
-          <div className="border border-red md:grid md:grid-cols-4 -mx-4 md:mx-4 rounded-lg">
-            <div className="p-4">
-              <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
-                <Link href="/group/val-curone">Val Curone</Link>
-              </h2>
-              <p className="mt-4">Lorem ipsum</p>
+          {groups.map(group => (
+            <div className="border border-red md:grid md:grid-cols-4 md:mx-4 rounded-lg">
+              <div className="p-4">
+                <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
+                  <Link href={group.href}>{group.title}</Link>
+                </h2>
+                <p className="mt-4">{group.description}</p>
+              </div>
+              <div className="md:col-span-3">
+                <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category={group.title} classes="m-0" legend={false} />
+              </div>
             </div>
-            <div className="md:col-span-3">
-              <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Curone" classes="m-0" legend={false} />
-            </div>
-          </div>
-          <div className="border border-red md:grid md:grid-cols-4 -mx-4 md:mx-4 rounded-lg">
-            <div className="p-4">
-              <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
-                <Link href="/group/val-curone">Valle Ossona</Link>
-              </h2>
-              <p className="mt-4">Lorem ipsum</p>
-            </div>
-            <div className="md:col-span-3">
-              <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" classes="m-0" legend={false} />
-            </div>
-          </div>
-          <div className="border border-red md:grid md:grid-cols-4 -mx-4 md:mx-4 rounded-lg">
-            <div className="p-4">
-              <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
-                <Link href="/group/val-curone">Val Grue</Link>
-              </h2>
-              <p className="mt-4">Lorem ipsum</p>
-            </div>
-            <div className="md:col-span-3">
-              <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Grue" classes="m-0" legend={false} />
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </motion.div>

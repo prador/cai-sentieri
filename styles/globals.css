@@ -166,7 +166,7 @@ div.mapboxgl-map {
 }
 
 .weather-card {
-  @apply bg-slate-200/80 p-4 rounded-lg text-center flex flex-col justify-center items-center border border-gray-300;
+  @apply bg-slate-200/80 p-4 rounded-lg text-center flex flex-col justify-center items-center border border-gray-200;
 }
 
 .trail-flag {
@@ -219,4 +219,7 @@ div.mapboxgl-map {
 .sentieri-aumentati-card .location-btn,
 .sentieri-aumentati-card .mapboxgl-ctrl-top-right {
   display: none;
+}
+.sentieri-aumentati-card .map-block {
+  height: 250px;
 }

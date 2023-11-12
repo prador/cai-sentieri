@@ -15,14 +15,14 @@ const NewsEvents = () => {
   }, [])
 
   return (
-    <div className="container mx-auto p-8 bg-slate-100 ">
-      <h3 className="text-xl">News & Events</h3>
+    <div className="container mx-auto py-4 px-4 bg-sushi-50/20 rounded-lg border h-full">
+      <h3 className="text-2xl text-sushi-700">News & Events</h3>
       <div className="my-6 flex flex-col">
         {posts?.map((post: any, index: number) => {
           return (
             <Link href={`/posts/${post.slug}`} className="text-black mb-5" key={index}>
-              <h4 className="text-xl font-bold">{post.title}</h4>
-              <div className="text-base leading-relaxed text-gray-600" dangerouslySetInnerHTML={{ __html: post.content }} />
+              <h4 className="text-lg font-bold">{post.title}</h4>
+              <div className="text-sm leading-relaxed text-gray-600" dangerouslySetInnerHTML={{ __html: post.content }} />
             </Link>
           )
         })}
