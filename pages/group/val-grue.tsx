@@ -33,7 +33,7 @@ function ValGrue({ trails, routes }: { trails: Trail[]; routes: Routes }) {
         <h2 className="text-3xl text-bold">Val Grue</h2>
       </header>
       <section>
-        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Grue" />
+        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Grue" classes={undefined} legend={false} />
 
         <div className="my-6 flex flex-col">
           <TrailList trails={trails} group="Val Grue" />

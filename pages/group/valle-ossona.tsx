@@ -33,7 +33,7 @@ function ValleOssona({ trails, routes }: { trails: Trail[]; routes: Routes }) {
         <h2 className="text-3xl text-bold">Valle Ossona</h2>
       </header>
       <section>
-        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" />
+        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" classes={undefined} legend={false} />
         <div className="my-6 flex flex-col">
           <TrailList trails={trails} group="Valle Ossona" />
         </div>

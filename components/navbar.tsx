@@ -19,11 +19,14 @@ import { navLinks, navSentieriAumentati } from '../utils/nav'
 import { getTrails } from 'lib/service'
 import { TrailList, NavImage } from './trailslist'
 import { ARIcon } from './icons'
+import { Combobox } from '@headlessui/react'
 
 const Navbar = () => {
   const router = useRouter()
   const currentRoute = router.pathname
   const [trails, setTrails] = useState<any>()
+  const [selectedTrail, setSelectedTrail] = useState()
+  const [query, setQuery] = useState('')
 
   const getTrailPaths = async () => {
     const trailsx = await getTrails(100)
@@ -34,6 +37,13 @@ const Navbar = () => {
     getTrailPaths()
   }, [])
 
+  const filteredTrails =
+    query === ''
+      ? trails
+      : trails.filter(trail => {
+          return trail.title.toLowerCase().includes(query.toLowerCase())
+        })
+  console.log(trails)
   const subMenu = (submenu: string) => {
     switch (submenu) {
       case 'sentieri':
@@ -126,11 +136,27 @@ const Navbar = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </ul>
-      <input
+      {/* <input
         type="text"
         className="h-5 p-4 my-1 text-black bg-gray-200 border rounded-lg absolute z-20 top-3 right-4"
         placeholder="search"
-      />
+      /> */}
+      <div className="relative">
+        <Combobox value={selectedTrail} onChange={setSelectedTrail}>
+          <Combobox.Input
+            onChange={event => setQuery(event.target.value)}
+            className="px-2 py-1 bg-gray-200 rounded-lg"
+            placeholder="cerca"
+          />
+          <Combobox.Options className="absolute z-50 left-0 bg-white shadow-lg">
+            {filteredTrails?.map(trail => (
+              <Combobox.Option key={trail.title} value={trail.slug} className="p-2">
+                <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
+              </Combobox.Option>
+            ))}
+          </Combobox.Options>
+        </Combobox>
+      </div>
     </div>
   )
 }
