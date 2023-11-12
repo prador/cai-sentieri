@@ -65,6 +65,7 @@ export type TrailGPXFile = {
 export type Trail = {
   title?: string
   uri?: string
+  href?: string
   slug?: string
   pathColor?: string
   pathPoint?: any

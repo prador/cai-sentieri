@@ -39,7 +39,6 @@ export default function Layout({ children }: Props) {
             {children}
           </main>
           <section className="container flex flex-col md:grid grid-cols-3 gap-4">
-            {/* <TrailsList trails={trails} /> */}
             <div className="col-span-1 md:col-span-2">
               <NewsEvents />
             </div>

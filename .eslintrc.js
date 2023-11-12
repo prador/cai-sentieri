@@ -42,7 +42,13 @@ module.exports = {
     'no-console':0,
     'react/destructuring-assignment':0,
     'no-shadow':0,
-    'react/no-danger':0
+    'react/no-danger':0,
+    'react/prop-types':0,
+    'no-use-before-define':0,
+    'import/no-unresolved':0,
+    'react/jsx-no-useless-fragment':0,
+    'no-lone-blocks':0,
+    'consistent-return':0
   },
   globals: {
     JSX: true,

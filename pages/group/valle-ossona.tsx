@@ -12,6 +12,7 @@ import { Routes, Trail } from '../../types'
 import { getPosts, getTrails } from '../../lib/service'
 import { useRouter } from 'next/router'
 import MapBlock from 'components/mapblock'
+import { TrailList } from 'components/trailslist'
 
 // Data
 const gpxUtils = require('../../utils/gpxutils.ts')
@@ -34,17 +35,7 @@ function ValleOssona({ trails, routes }: { trails: Trail[]; routes: Routes }) {
       <section>
         <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" />
         <div className="my-6 flex flex-col">
-          {trails
-            ?.filter(obj => obj.trailCategory === 'Valle Ossona')
-            .map((trail: Trail) => {
-              return (
-                <div className="bg-gray-200 hover:bg-gray-300 px-2 hover:px-4 py-2 mb-2 rounded-lg">
-                  <Link href={`/trails/${trail.slug}`}>
-                    <div>{trail.title}</div>
-                  </Link>
-                </div>
-              )
-            })}
+          <TrailList trails={trails} group="Valle Ossona" />
         </div>
       </section>
     </div>

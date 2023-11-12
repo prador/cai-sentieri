@@ -1,135 +1,81 @@
-@import '@radix-ui/colors/olive.css';
-@import '@radix-ui/colors/oliveDark.css';
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  @font-face {
-    font-family: Nunito;
-    src: url(/fonts/Nunito-VariableFont_wght) format('truetype');
-  }
-
-  html {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  }
-
-  body {
-    background: var(--olive1);
-  }
-
-  .dark-theme .bg-blur {
-    backdrop-filter: blur(20px);
-  }
-
   :root {
-    --bg-button: #e8f5d6;
-    --bg-button-hover: #e0eecd;
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
   }
 
-  .dark-theme {
-    --bg-button: #262e1b;
-    --bg-button-hover: #2f3823;
-  }
-}
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-.bg-blur {
-  backdrop-filter: saturate(180%) blur(20px);
-}
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-@supports not (backdrop-filter: none) {
-  .bg-blur {
-    backdrop-filter: none;
-    @apply bg-opacity-100;
-  }
-}
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-div.mapboxgl-map {
-  font-family:
-    'Nunito',
-    Helvetica Neue;
-  text-decoration: underline;
-}
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-.mapboxgl-popup {
-  max-width: 400px;
-  font: 12px/20px 'Nunito';
-  @apply text-primary text-sm;
-}
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-.mapboxgl-popup-content {
-  @apply bg-primary p-6;
-}
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
-.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
-.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
-  @apply border-t-background;
-}
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
-  @apply border-l-background;
-}
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
-  @apply border-r-background;
-}
-
-.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
-.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip,
-.mapboxgl-popup-anchor-top .mapboxgl-popup-tip {
-  @apply border-b-background;
-}
-
-.mapboxgl-popup-close-button {
-  right: 2px;
-  top: 2px;
-  @apply w-7 h-7 rounded-full text-2xl;
-}
-
-.weather-card {
-  @apply bg-slate-200/80 p-4 rounded-lg text-center flex flex-col justify-center items-center;
-}
-
-.trail-flag {
-  background: linear-gradient(
-    90deg,
-    rgba(255, 0, 0, 1) 0%,
-    rgba(255, 0, 0, 1) 25%,
-    rgba(255, 255, 255, 1) 25%,
-    rgba(255, 255, 255, 1) 75%,
-    rgba(255, 0, 0, 1) 75%,
-    rgba(255, 0, 0, 1) 100%
-  );
-}
-
-@media print {
-  .noprint {
-    visibility: hidden;
-    display: none;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
   }
 }
 
-.loading-container {
-  /* background: rgb(40,117,45); */
-  /* background: linear-gradient(0deg, rgba(40,117,45,1) 48%, rgba(255,255,255,1) 48%, rgba(255,255,255,1) 100%); */
-  animation: c4 2s;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }
 
-@keyframes c4 {
-  0% {
-    background: #28752d;
-  }
-
-  60% {
-    background: #28752d;
-    opacity: 1;
-    bottom: 0;
-  }
-
-  100% {
-    background: #ffffff;
-    opacity: 0;
-    bottom: 100vh;
-  }
+@font-face {
+  font-family: 'Nunito';
+  src: url('../public/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
 }

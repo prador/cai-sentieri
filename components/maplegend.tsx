@@ -2,6 +2,7 @@ import { Disclosure } from '@headlessui/react'
 import { ChevronUpIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import type { Trail } from '../types'
+import { TrailList } from './trailslist'
 
 const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) => {
   return (
@@ -16,17 +17,7 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-sm text-gray-500">
-                  {trails
-                    ?.filter(obj => obj.trailCategory === 'Val Curone')
-                    .map((trail: Trail, index: number) => {
-                      return (
-                        <div key={index}>
-                          <Link href={`/trails/${trail.slug}`}>
-                            <div>{trail.title}</div>
-                          </Link>
-                        </div>
-                      )
-                    })}
+                  <TrailList trails={trails} group="Val Curone" />
                 </Disclosure.Panel>
               </>
             )}
@@ -41,17 +32,7 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-sm text-gray-500">
-                  {trails
-                    ?.filter(obj => obj.trailCategory === 'Valle Ossona')
-                    .map((trail: Trail, index: number) => {
-                      return (
-                        <div key={index}>
-                          <Link href={`/trails/${trail.slug}`}>
-                            <div>{trail.title}</div>
-                          </Link>
-                        </div>
-                      )
-                    })}
+                  <TrailList trails={trails} group="Valle Ossana" />
                 </Disclosure.Panel>
               </>
             )}
@@ -66,17 +47,7 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
                   <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`} />
                 </Disclosure.Button>
                 <Disclosure.Panel className="text-sm text-gray-500">
-                  {trails
-                    ?.filter(obj => obj.trailCategory === 'Val Grue')
-                    .map((trail: Trail, index: number) => {
-                      return (
-                        <div key={index}>
-                          <Link href={`/trails/${trail.slug}`}>
-                            <div>{trail.title}</div>
-                          </Link>
-                        </div>
-                      )
-                    })}
+                  <TrailList trails={trails} group="Val Grue" />
                 </Disclosure.Panel>
               </>
             )}

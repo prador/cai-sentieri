@@ -13,7 +13,6 @@ import { useIsSmall } from '../../utils/hooks'
 import { Routes, Trail } from '../../types'
 import { getPosts, getTrails } from '../../lib/service'
 import MapLegend from 'components/maplegend'
-import TrailsList from 'components/trailslist'
 import MapBlock from 'components/mapblock'
 
 // Data
@@ -38,6 +37,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
     >
       <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="all" />
       <section className="container">
+        <p>add links as dropdown in the nav menu</p>
         <h2 className="text-xl text-gray-500 font-bold">
           <Link href="/group/val-curone">Val Curone</Link>
         </h2>

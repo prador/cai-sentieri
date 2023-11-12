@@ -26,7 +26,7 @@ export default class MyDocument extends Document {
 
           <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
         </Head>
-        <body className="antialiased bg-white text-black">
+        <body className="antialiased bg-white text-black font-nunito">
           <Main />
           <NextScript />
         </body>

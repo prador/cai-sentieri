@@ -13,7 +13,6 @@ import { useIsSmall } from '../utils/hooks'
 import { Routes, Trail } from '../types'
 import { getPosts, getTrails } from '../lib/service'
 import MapLegend from 'components/maplegend'
-import TrailsList from 'components/trailslist'
 import WeatherCard from 'components/weatherCard'
 import NewsEvents from 'components/newsevents'
 

@@ -317,13 +317,13 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
       <div className="flex absolute z-10 w-full mx-auto bottom-1 justify-center">
         <button
           type="button"
-          className="flex cky-btn-revisit-clicker bg-white py-1 px-3 rounded-md items-center gap-2"
+          className="flex text-base cky-btn-revisit-clicker bg-white py-1 px-3 rounded-md items-center gap-2"
           onClick={() => {
             locationBtnCLick()
           }}
           aria-label="Cookie Settings"
         >
-          Dove di trovo
+          Dove mi trovo
           <span className="h-5 w-5">
             <GeoIcon />
           </span>

@@ -1,6 +1,22 @@
 import Link from 'next/link'
 import type { Trail } from '../types'
 
+const TrailList = ({ trails, group }: { trails: Trail[]; group?: string }) => {
+  return (
+    <>
+      {trails
+        ?.filter(obj => obj.trailCategory === group)
+        .map((trail: Trail, index: number) => {
+          return (
+            <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
+              <div>{trail.title}</div>
+            </Link>
+          )
+        })}
+    </>
+  )
+}
+
 const TrailsList = ({ trails }: { trails: Trail[] }) => {
   return (
     <>
@@ -56,4 +72,4 @@ const TrailsList = ({ trails }: { trails: Trail[] }) => {
   )
 }
 
-export default TrailsList
+export { TrailsList, TrailList }
