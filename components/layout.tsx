@@ -32,7 +32,7 @@ export default function Layout({ children }: Props) {
         <Splash />
       ) : (
         <>
-          <div className="w-full shadow-lg bg-white">
+          <div className="w-full shadow-md bg-white">
             <Navbar />
           </div>
           <main id="skip" className="pb-16 min-h-[50vh]">

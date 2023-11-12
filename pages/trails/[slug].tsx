@@ -36,7 +36,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
   if (!route) {
     return null
   }
-  const statBoxClassName = 'justify-center px-2 border rounded border-blue-500 text-blue-600'
+  const statBoxClassName = 'justify-center px-2 border rounded border-sushi-400 text-sushi-600'
 
   // console.log(trail)
 
@@ -70,23 +70,21 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                 </div>
               )}
             </header>
-
             <div className="grid grid-cols-1 md:grid-cols-8">
               <div className="col-span-1 md:col-span-2">
-                <ul className="grid grid-cols-3 md:grid-cols-1 gap-2 mx-4 mb-6">
-                  <Stat type={Lang[pageLang].routeInfo.zone} value={trail?.trailCategory} className="md:mb-2 md:pb-2 " />
-                  <Stat type={Lang[pageLang].routeInfo.difficulty} value={trail?.trailDifficulty} className="md:mb-2 md:pb-2 " />
-                  <Stat
-                    type={Lang[pageLang].routeInfo.distance}
-                    value={`${Math.round(route.distance * 10) / 10} km`}
-                    className="md:mb-2 md:pb-2 "
-                  />
-                  <Stat type={Lang[pageLang].routeInfo.time} value={trail?.trailTimeNeeded} className="md:mb-2 md:pb-2 " />
-                  <Stat type={Lang[pageLang].routeInfo.elevation} value={`+ ${Math.round(route.elevation)} m`} className="mb-2" />
-
-                  <div
-                    className={`col-span-3 md:col-span-1 grid grid-cols-2 md:flex md:flex-col md:${statBoxClassName} border-blue-500 noprint`}
-                  >
+                <ul className="grid grid-cols-3 md:grid-cols-1 gap-3 md:gap-4 md:mx-4 mb-4">
+                  <div className="md:pt-3 md:pl-3 col-span-3 md:col-span-1 grid grid-cols-3 md:flex md:flex-col rounded-md md:border md:border-gray-300 noprint">
+                    <Stat type={Lang[pageLang].routeInfo.zone} value={trail?.trailCategory} className="md:mb-2 md:pb-0 " />
+                    <Stat type={Lang[pageLang].routeInfo.difficulty} value={trail?.trailDifficulty} className="md:mb-2 md:pb-0 " />
+                    <Stat
+                      type={Lang[pageLang].routeInfo.distance}
+                      value={`${Math.round(route.distance * 10) / 10} km`}
+                      className="md:mb-2 md:pb-2 "
+                    />
+                    <Stat type={Lang[pageLang].routeInfo.time} value={trail?.trailTimeNeeded} className="md:mb-2 md:pb-0" />
+                    <Stat type={Lang[pageLang].routeInfo.elevation} value={`+ ${Math.round(route.elevation)} m`} className="mb-2" />
+                  </div>
+                  <div className={`col-span-3 md:col-span-1 grid grid-cols-2 md:flex md:flex-col md:${statBoxClassName} noprint`}>
                     <li>
                       <a
                         href={`/gpx/${route?.slug}.gpx`}
@@ -118,23 +116,23 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                     <div className="text-gray-500 mt-2 text-sm col-span-2">{Lang[pageLang].routeInfo.imageSrc}</div>
                   </div>
                 </ul>
-                <div className="mx-4">
+                <div className="md:mx-4 mb-4 hidden md:block">
                   <WeatherCard data={undefined} />
                 </div>
               </div>
               <div className="col-span-1 sm:col-span-6">
-                <div className="mx-4 p-3 mb-4 border rounded border-gray-400">
+                <div className="md:mx-4 p-3 mb-4 border rounded border-gray-300">
                   <Chart coordinates={route.geoJson.features[0].geometry.coordinates} />
                 </div>
                 {trail.trailSubdescription && (
                   <div
-                    className="mx-4 mb-4 text-2xl leading-relaxed text-black"
+                    className="md:mx-4 mb-4 text-2xl leading-relaxed text-sushi-700"
                     dangerouslySetInnerHTML={{ __html: trail.trailSubdescription }}
                   />
                 )}
                 {trail.trailDescription && (
                   <div
-                    className="mx-4 mb-6 leading-relaxed whitespace-pre-wrap text-black md:columns-2"
+                    className="md:mx-4 mb-6 leading-relaxed whitespace-pre-wrap text-black md:columns-2"
                     dangerouslySetInnerHTML={{ __html: trail.trailDescription }}
                   />
                 )}

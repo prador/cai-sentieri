@@ -96,7 +96,7 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
         y={y}
         textAnchor={alignToRight ? 'end' : 'start'}
         alignmentBaseline="hanging"
-        fill="currentColor"
+        fill="black"
         className="text-xs font-semibold text-secondary"
       >
         {children}
@@ -105,12 +105,18 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
   }
 
   return (
-    <svg viewBox={`0 0  ${width} ${height}`} className="touch-pan-y">
+    <svg viewBox={`0 0  ${width} ${height}`} className="touch-pan-y relative">
       {/* Y ticks */}
       {yTicks.map((elevation, i) => (
         <g transform={`translate(0, ${yScale(elevation)})`} key={elevation}>
-          <line x1={margin.left} x2={width - margin.right} stroke="currentColor" className="text-tertiary" strokeDasharray="2, 4" />
-          <text x={margin.left - 5} textAnchor="end" alignmentBaseline="middle" fill="currentColor" className="text-xs text-secondary">
+          <line
+            x1={margin.left}
+            x2={width - margin.right}
+            stroke="gray"
+            className="text-tertiary absolute z-10 opacity-60"
+            strokeDasharray="1, 4"
+          />
+          <text x={margin.left - 5} textAnchor="end" alignmentBaseline="middle" fill="gray" className="text-xs text-secondary">
             {i === 0 ? 'm' : elevation}
           </text>
         </g>
@@ -119,8 +125,8 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
       {/* X ticks */}
       {xTicks.map((distance, i) => (
         <g transform={`translate(${xScale(distance)}, 0)`} key={distance}>
-          <line y1={height - margin.bottom} y2={height} stroke="currentColor" className="text-tertiary" />
-          <text x={4} y={height} fill="currentColor" className="text-xs text-secondary">
+          <line y1={height - margin.bottom} y2={height} stroke="gray" className="text-tertiary" />
+          <text x={4} y={height} fill="gray" className="text-xs text-secondary">
             {getXText(distance, i)}
           </text>
         </g>
@@ -132,7 +138,13 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
       {/* Bottom divider */}
       <line x1={0} x2={width} y1={height - margin.bottom} y2={height - margin.bottom} stroke="currentColor" className="text-tertiary" />
 
-      <motion.g style={{ originY: '100%' }} initial={{ scaleY: 0 }} animate={{ scaleY: 1 }} transition={{ duration: 0.7, ease: 'easeOut' }}>
+      <motion.g
+        className="z-10"
+        style={{ originY: '100%' }}
+        initial={{ scaleY: 0 }}
+        animate={{ scaleY: 1 }}
+        transition={{ duration: 0.7, ease: 'easeOut' }}
+      >
         {/* Line */}
         <path d={dLine} stroke="#75A134" fill="none" />
 
@@ -141,7 +153,7 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
       </motion.g>
 
       {/* Gradient definition for area fill */}
-      <defs>
+      <defs className="absolute z-10">
         <linearGradient id="gradient" x1="0" x2="0" y1="0" y2="1">
           <stop offset="0%" stopColor="rgba(117,161,52, 0.3)" />
           <stop offset="60%" stopColor="rgba(117,161,52, 0.2)" />
@@ -151,8 +163,8 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
 
       {/* Hover line */}
       {hoverX && (
-        <g transform={`translate(${hoverX}, 0)`}>
-          <line y1={margin.top} y2={height - margin.bottom} stroke="currentColor" className="text-secondary" />
+        <g transform={`translate(${hoverX}, 0)`} className="z-10">
+          <line y1={margin.top} y2={height - margin.bottom} stroke="black" className="text-secondary" />
           <HoverText y={margin.top}>Dist: {hoverDistance} km</HoverText>
           <HoverText y={margin.top + 16}>Elev: {hoverElevation} m</HoverText>
         </g>
@@ -172,6 +184,7 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
           onMouseLeave={handleMouseLeave}
           onTouchMove={handleMouseMove}
           onTouchEnd={handleMouseLeave}
+          className="absolute z-50"
         />
       )}
     </svg>

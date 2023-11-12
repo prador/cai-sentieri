@@ -1,6 +1,18 @@
 import Link from 'next/link'
 import type { Trail } from '../types'
+import Image from 'next/image'
 
+const NavImage = ({ href, title, image }: { href: string; title: string; image: string }) => {
+  return (
+    <Link className="flex relative h-28 w-full rounded-lg" href={href}>
+      <div className="mb-2 mt-4 text-2xl rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">{title}</div>
+      <div className="relative w-full rounded-lg">
+        <div className="relative h-full w-full z-10 bg-gradient-to-b from-sushi-300/50 to-sushi-600 rounded-lg" />
+        <Image src={image} fill alt="" className="rounded-lg flex flex-grow object-cover w-full" />
+      </div>
+    </Link>
+  )
+}
 const TrailList = ({ trails, group }: { trails: Trail[]; group?: string }) => {
   return (
     <>
@@ -9,7 +21,7 @@ const TrailList = ({ trails, group }: { trails: Trail[]; group?: string }) => {
         .map((trail: Trail, index: number) => {
           return (
             <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
-              <div>{trail.title}</div>
+              <div className="text-base text-gray-500">{trail.title}</div>
             </Link>
           )
         })}
@@ -72,4 +84,4 @@ const TrailsList = ({ trails }: { trails: Trail[] }) => {
   )
 }
 
-export { TrailsList, TrailList }
+export { TrailsList, TrailList, NavImage }

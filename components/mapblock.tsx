@@ -10,26 +10,28 @@ const MapBlock = ({
   lat,
   lng,
   category,
+  classes,
+  legend,
 }: {
   trails: Trail[]
   routes: Route[]
   lat: number
   lng: number
   category: string
+  classes: any
+  legend: boolean
 }) => {
   const filteredSlugs = trails.filter(obj => obj.trailCategory === category).map(obj => obj.slug)
 
   // Find objects in routes with the same slugs as filteredSlugs
-  const cateogoryTrails = routes.filter(obj => filteredSlugs.includes(obj.slug))
+  const categoryTrails = routes.filter(obj => filteredSlugs.includes(obj.slug))
 
   return (
     <div
-      className={`block text-xl text-black h-[300px] ${
-        category === 'all' ? 'md:h-[600px] mb-6' : 'md:h-[350px] mt-4 mb-10'
-      } relative w-full`}
+      className={`block text-xl text-black h-[300px] ${category === 'all' ? 'md:h-[600px]' : 'md:h-[350px]'} relative w-full ${classes}`}
     >
-      <MapLegend trails={trails} category={category} />
-      <MapBox trails={trails} routes={category === 'all' ? routes : cateogoryTrails} initialLat={lat} initialLng={lng} />
+      {legend ? <MapLegend trails={trails} category={category} /> : null}
+      <MapBox trails={trails} routes={category === 'all' ? routes : categoryTrails} initialLat={lat} initialLng={lng} />
     </div>
   )
 }

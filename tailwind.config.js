@@ -55,6 +55,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sushi: {  DEFAULT: '#75A134',  50: '#CCE3A9',  100: '#C3DE9A',  200: '#B0D47B',  300: '#9ECA5C',  400: '#8BC03E',  500: '#75A134',  600: '#567726',  700: '#374C19',  800: '#19220B',  900: '#000000',  950: '#000000'},
       },
       borderRadius: {
         lg: "var(--radius)",

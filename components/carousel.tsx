@@ -83,7 +83,7 @@ export default function Carousel(slideUrls: any) {
     return (<div className="keen-slider__slide h-48 object-contain relative"> <Image src={slide} fill alt='sdf' style={{objectFit:"contain"}}/> </div>)})}
       </div> */}
 
-      <div className="w-full overflow-x-scroll px-4 md:px-0">
+      <div className="w-full overflow-x-scroll ">
         <div ref={thumbnailRef} className="flex w-[300vw] md:w-[100vw] gap-2">
           {slides.map((slide, i: number) => {
             return (

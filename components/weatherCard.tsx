@@ -51,12 +51,12 @@ const WeatherCard = ({ data }: { data: any }) => {
     fetchWeather('tortona')
   }, [])
   // const weatherData: any = fetchWeather("tortona")
-  console.log(weatherData)
+  // console.log(weatherData)
 
   return (
     <div className="weather-card">
       <h2>{weatherData?.city}</h2>
-      <div className="h-36 w-36">{getWeatherIcon(weatherData?.description)}</div>
+      <div className="h-36 w-36 mx-auto">{getWeatherIcon(weatherData?.description)}</div>
       <h6>{weatherData?.description}</h6>
       <h4>{weatherData?.temperatureCelsius}°</h4>
       <p>

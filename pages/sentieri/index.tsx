@@ -35,22 +35,46 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
       transition={{ ease: 'easeOut', duration: 0.2 }}
       onAnimationComplete={() => setShowMap(true)}
     >
-      <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="all" />
       <section className="container">
-        <p>add links as dropdown in the nav menu</p>
-        <h2 className="text-xl text-gray-500 font-bold">
-          <Link href="/group/val-curone">Val Curone</Link>
-        </h2>
-        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Curone" />
-        <h2 className="text-xl text-gray-500 font-bold">
-          <Link href="/group/valle-ossona">Valle Ossona</Link>
-        </h2>
-        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" />
-        <h2 className="text-xl text-gray-500 font-bold">
-          <Link href="/group/val-grue">Val Grue</Link>
-        </h2>
-        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Grue" />
-        {/* <TrailsList trails={trails} /> */}
+        <header className="text-center my-8">
+          <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Sentieri Aumentati</h1>
+        </header>
+
+        <div className="pt-6 flex flex-col space-y-6">
+          <div className="border border-red md:grid md:grid-cols-4 -mx-4 md:mx-4 rounded-lg">
+            <div className="p-4">
+              <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
+                <Link href="/group/val-curone">Val Curone</Link>
+              </h2>
+              <p className="mt-4">Lorem ipsum</p>
+            </div>
+            <div className="md:col-span-3">
+              <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Curone" classes="m-0" legend={false} />
+            </div>
+          </div>
+          <div className="border border-red md:grid md:grid-cols-4 -mx-4 md:mx-4 rounded-lg">
+            <div className="p-4">
+              <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
+                <Link href="/group/val-curone">Valle Ossona</Link>
+              </h2>
+              <p className="mt-4">Lorem ipsum</p>
+            </div>
+            <div className="md:col-span-3">
+              <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" classes="m-0" legend={false} />
+            </div>
+          </div>
+          <div className="border border-red md:grid md:grid-cols-4 -mx-4 md:mx-4 rounded-lg">
+            <div className="p-4">
+              <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
+                <Link href="/group/val-curone">Val Grue</Link>
+              </h2>
+              <p className="mt-4">Lorem ipsum</p>
+            </div>
+            <div className="md:col-span-3">
+              <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Grue" classes="m-0" legend={false} />
+            </div>
+          </div>
+        </div>
       </section>
     </motion.div>
   )

@@ -17,7 +17,8 @@ import {
 import type { Trail, Trails } from '../types'
 import { navLinks, navSentieriAumentati } from '../utils/nav'
 import { getTrails } from 'lib/service'
-import { TrailList } from './trailslist'
+import { TrailList, NavImage } from './trailslist'
+import { ARIcon } from './icons'
 
 const Navbar = () => {
   const router = useRouter()
@@ -32,29 +33,53 @@ const Navbar = () => {
   useEffect(() => {
     getTrailPaths()
   }, [])
+
   const subMenu = (submenu: string) => {
     switch (submenu) {
       case 'sentieri':
         return (
-          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-            <li className="row-span-2">
-              <TrailList trails={trails} group="Val Curone" />
+          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
+            <li className="row-span-1">
+              <NavigationMenuLink asChild>
+                <NavImage
+                  href="/group/val-curone"
+                  title="Val Curone"
+                  image="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                />
+              </NavigationMenuLink>
+              <div className="p-2">
+                <TrailList trails={trails} group="Val Curone" />
+              </div>
             </li>
-            <li className="row-span-2">
-              <TrailList trails={trails} group="Valle Ossona" />
+            <li className="row-span-1">
+              <NavImage
+                href="/group/valle-ossona"
+                title="Valle Ossona"
+                image="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+              />
+              <div className="p-2">
+                <TrailList trails={trails} group="Valle Ossona" />
+              </div>
             </li>
-            <li className="row-span-2">
-              <TrailList trails={trails} group="Val Grue" />
+            <li className="row-span-1">
+              <NavImage
+                href="/group/val-grue"
+                title="Val Grue"
+                image="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+              />
+              <div className="p-2">
+                <TrailList trails={trails} group="Val Grue" />
+              </div>
             </li>
           </ul>
         )
       case 'sentieriAumentati':
         return (
-          <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+          <ul className="flex flex-col w-[150px] gap-3 p-4 md:w-[150px] md:grid-cols-1 lg:w-[150px] ">
             {navSentieriAumentati?.map((trail: Trail, index: number) => {
               return (
                 <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
-                  <div className="text-sm">{trail.title}</div>
+                  <div className="text-base text-gray-500">{trail.title}</div>
                 </Link>
               )
             })}
@@ -67,17 +92,26 @@ const Navbar = () => {
   return (
     <div className="container flex justify-between relative py-3">
       <Link href="/" className="absolute z-20 -top-2 md:h-[180px] md:w-[90px] h-[120px] w-[60px] object-fill left-4 ">
-        <Image src="/logo_sentieri.svg" fill alt="" className="shadow-lg" />
+        <Image src="/logo_sentieri.svg" fill alt="" className="shadow-md" />
       </Link>
 
       <ul className="hidden sm:flex sm:flex-row w-full justify-center">
         <NavigationMenu>
-          <NavigationMenuList>
+          <NavigationMenuList className="relative">
             {navLinks.map(navLink => (
               <NavigationMenuItem>
                 {navLink.submenu ? (
                   <>
-                    <NavigationMenuTrigger>{navLink.title}</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>
+                      {navLink.submenu === 'sentieriAumentati' ? (
+                        <span className="h-6 w-6 block mr-1 text-sushi-600">
+                          <ARIcon />{' '}
+                        </span>
+                      ) : null}
+                      <Link href={navLink.href} legacyBehavior passHref>
+                        {navLink.title}
+                      </Link>
+                    </NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <>{subMenu(navLink.submenu)}</>
                     </NavigationMenuContent>
@@ -92,7 +126,11 @@ const Navbar = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </ul>
-      <input type="text" className="h-5 p-4 my-3 bg-gray-400 text-black rounded-lg hidden" placeholder="search" />
+      <input
+        type="text"
+        className="h-5 p-4 my-1 text-black bg-gray-200 border rounded-lg absolute z-20 top-3 right-4"
+        placeholder="search"
+      />
     </div>
   )
 }

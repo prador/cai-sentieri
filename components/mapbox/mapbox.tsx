@@ -7,7 +7,7 @@ import { useTheme } from 'next-themes'
 import type { Route, Routes, Trails } from '../../types'
 import { useMapContext } from '../mapprovider'
 import { paint, getHoverGeoJson, setAllLayersVisibility, flyToGeoJson } from './utils'
-import GeoIcon from 'components/geoIcon'
+import { GeoIcon } from 'components/icons'
 
 mapboxgl.workerClass = MapboxWorker
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
@@ -36,6 +36,7 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
 
   const router = useRouter()
   const queryRoute = router.query.slug
+  const queryPoint = router.query.point
 
   const { resolvedTheme } = useTheme()
 
@@ -198,7 +199,6 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
           // Copy coordinates array.
           const coordinates = e.features[0].geometry.coordinates.slice()
           const { pointDescription, pointImgUrl } = e.features[0].properties
-
           // Ensure that if the map is zoomed out such that multiple
           // copies of the feature are visible, the popup appears
           // over the copy being pointed to.
@@ -206,7 +206,10 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
           }
 
-          new mapboxgl.Popup().setLngLat(coordinates).setHTML(`<div><img src="${pointImgUrl}" />${pointDescription}</div>`).addTo(map)
+          new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(`<div class="map-point"><img src="${pointImgUrl}" />${pointDescription}</div>`)
+            .addTo(map)
         })
 
         // Change the cursor to a pointer when the mouse is over the points layer.
@@ -218,6 +221,17 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
         map.on('mouseleave', `${slug}-points`, () => {
           map.getCanvas().style.cursor = ''
         })
+
+        if (queryPoint) {
+          const qp = pathPoint?.nodes.at(Number(queryPoint) - 1)
+          const coordinates = [qp.pointLng, qp.pointLat]
+          const { pointDescription, pointImage } = qp
+
+          new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(`<div class="map-point"><img src="${pointImage?.node?.mediaItemUrl}" />${pointDescription}</div>`)
+            .addTo(map)
+        }
       })
       // Save map in state so it can be accessed later
       setStateMap(map)
@@ -314,14 +328,15 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
   return (
     <>
       <div className="absolute inset-0 rounded-lg" ref={mapContainer} />
-      <div className="flex absolute z-10 w-full mx-auto bottom-1 justify-center">
+      <div className="flex absolute z-10 w-full mx-auto bottom-3 justify-center">
         <button
           type="button"
-          className="flex text-base cky-btn-revisit-clicker bg-white py-1 px-3 rounded-md items-center gap-2"
+          className="flex text-base location-btn bg-white py-1 px-3 rounded-md items-center gap-2"
           onClick={() => {
             locationBtnCLick()
           }}
-          aria-label="Cookie Settings"
+          aria-label="Location button"
+          style={{ boxShadow: '0 0 0 1px rgba(0,0,0,.1)' }}
         >
           Dove mi trovo
           <span className="h-5 w-5">
