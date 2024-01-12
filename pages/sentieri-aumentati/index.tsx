@@ -67,8 +67,8 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const trails = await getTrails(100)
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const trails = await getTrails(100, locale)
 
   return {
     props: {

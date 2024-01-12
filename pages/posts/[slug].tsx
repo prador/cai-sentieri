@@ -18,7 +18,7 @@ export default function PostPage({ post }: { post: Post }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getPosts(100)
+  const posts = await getPosts('IT', 100)
   const paths = posts.map(post => ({ params: { slug: post.slug } }))
 
   return {
@@ -28,7 +28,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const posts = await getPosts(100) // retrieve first 100 posts
+  const posts = await getPosts('IT', 100) // retrieve first 100 posts
   const post = posts.find(x => x.slug === context.params.slug)
 
   return {

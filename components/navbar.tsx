@@ -28,13 +28,17 @@ import { Combobox } from '@headlessui/react'
 
 const Navbar = () => {
   const router = useRouter()
+  // const { locale: activeLocale, locales, asPath, defaultLocale } = useRouter();
+  // console.log(activeLocale, locales, asPath, defaultLocale)
+  // const availableLocales = locales.filter((locale) => locale !== activeLocale);
+
   const currentRoute = router.pathname
   const [trails, setTrails] = useState<any>()
   const [selectedTrail, setSelectedTrail] = useState()
   const [query, setQuery] = useState('')
 
   const getTrailPaths = async () => {
-    const trailsx = await getTrails(100)
+    const trailsx = await getTrails(100, 'IT')
     setTrails(trailsx)
   }
 
@@ -48,7 +52,7 @@ const Navbar = () => {
       : trails.filter(trail => {
           return trail.title.toLowerCase().includes(query.toLowerCase())
         })
-  console.log(trails)
+  // console.log(trails)
   const subMenu = (submenu: string) => {
     switch (submenu) {
       case 'sentieri':
@@ -166,7 +170,7 @@ const Navbar = () => {
             className="px-2 py-1 bg-gray-200 rounded-lg "
             placeholder="cerca"
           />
-          <Combobox.Options className="absolute z-50 left-0 bg-white shadow-lg">
+          <Combobox.Options className="absolute z-50 top-10 left-0 bg-white shadow-lg">
             {filteredTrails?.map(trail => (
               <Combobox.Option key={trail.title} value={trail.slug} className="p-2">
                 <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
@@ -236,6 +240,17 @@ const Navbar = () => {
             </ul>
           </SheetContent>
         </Sheet>
+        {/* <ul>
+          {availableLocales.map((locale) => {
+            return (
+              <li key={locale}>
+                <Link href={asPath} locale={locale}>
+                  <a>{locale.toUpperCase()}</a>
+                </Link>
+              </li>
+            );
+          })}
+        </ul> */}
       </div>
     </div>
   )

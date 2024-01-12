@@ -16,6 +16,7 @@ export async function fetchAPI(query = '', { variables }: Record<string, any> = 
 
   if (json.errors) {
     console.error(json.errors)
+    console.log(json)
     throw new Error('Failed to fetch API')
   }
   return json.data

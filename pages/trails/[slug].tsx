@@ -176,18 +176,39 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
 
 export default RoutePage
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const trails = await getTrails(100)
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  const trails = await getTrails(100, 'IT')
   const paths = trails.map(route => ({ params: { slug: route.slug } }))
+
   // const paths = gpxUtils.routes.map(route => ({ params: { slug: route.slug } }))
+  // const paths = trails.map(route => ({ slug }) => {
+  //   return { params: { slug: route.slug } };
+  // });
+
+  // return {
+  //   // paths: [
+  //   //   ...paths,
+  //   //   ...paths.flatMap((path) => {
+  //   //     return locales.map((locale) => {
+  //   //       return {
+  //   //         ...path,
+  //   //         locale,
+  //   //       };
+  //   //     });
+  //   //   }),
+  //   // ],
+  //   // paths,
+  //   // fallback: "blocking",
+  // }
   return {
     paths,
     fallback: false,
   }
 }
 
-export const getStaticProps: GetStaticProps = async context => {
-  const trails = await getTrails(100)
+export const getStaticProps: GetStaticProps = async ({ context, locale }: { context: any; locale: any }) => {
+  const language = locale?.toUpperCase()
+  const trails = await getTrails(100, language)
   const route = gpxUtils.routes.find(x => x.slug === context.params.slug)
   const trail = trails.find(x => x.slug === context.params.slug)
   return {

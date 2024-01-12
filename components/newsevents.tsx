@@ -8,7 +8,7 @@ const NewsEvents = () => {
 
   useEffect(() => {
     async function fetchPosts() {
-      const postsx = await getPosts(100)
+      const postsx = await getPosts('IT', 100)
       setPosts(postsx)
     }
     fetchPosts()

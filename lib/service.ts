@@ -27,10 +27,11 @@ import { fetchAPI } from './base'
 //       }
 //     return response.json();
 // }
-export async function getTrails(first) {
+export async function getTrails(first: any, locale: string) {
+  const language = locale?.toUpperCase()
   const data = await fetchAPI(
-    `query WpTrails {
-      trails (first: 500) {
+    `query WpTrails($language: LanguageCodeFilterEnum!) {
+      trails (first: 500, where: { language: $language }) {
         nodes {
           title(format: RENDERED)
           uri
@@ -80,17 +81,29 @@ export async function getTrails(first) {
     {
       variables: {
         first,
+        language,
       },
     },
   )
 
   return data?.trails?.nodes
 }
-export async function getTrail(id: string) {
+export async function getTrail(id: string, locale: string) {
+  const language = locale?.toUpperCase()
   const data = await fetchAPI(
-    `query WpTrail {
+    `query WpTrail($language: LanguageCodeEnum!) {
       trail(id: "tortona-volpedo", idType: SLUG) {
           title(format: RENDERED)
+          translation(language:$language) {
+            id,
+            slug,
+            content,
+            title,
+            language {
+              locale
+              slug
+            }
+          }
           uri
           slug
           trailLocation(format: RENDERED)
@@ -136,6 +149,7 @@ export async function getTrail(id: string) {
     }`,
     {
       variables: {
+        language,
         id,
       },
     },
@@ -143,10 +157,11 @@ export async function getTrail(id: string) {
 
   return data.trail
 }
-export async function getPosts(first = 1) {
+export async function getPosts(locale: string, first = 1) {
+  const language = locale?.toUpperCase()
   const data = await fetchAPI(
-    `query WpPosts {
-        posts {
+    `query WpPosts($language: LanguageCodeFilterEnum!) {
+        posts(where: { language: $language })  {
           nodes {
             content
             date
@@ -157,6 +172,7 @@ export async function getPosts(first = 1) {
       }`,
     {
       variables: {
+        language,
         first,
       },
     },
@@ -165,11 +181,23 @@ export async function getPosts(first = 1) {
   return data?.posts?.nodes
 }
 
-export async function getPostBySlug(slug: string) {
+export async function getPostBySlug(slug: string, locale: string) {
+  const language = locale?.toUpperCase()
+
   const data = await fetchAPI(
-    `query GetPost($id: ID = "") {
+    `query GetPost($id: ID = "",$language: LanguageCodeEnum!) {
     post(id: $id, idType: SLUG) {
       content
+      translation(language:$language) {
+        id,
+        slug,
+        content,
+        title,
+        language {
+          locale
+          slug
+        }
+      }
       featuredImage {
         node {
           sourceUrl
@@ -181,6 +209,7 @@ export async function getPostBySlug(slug: string) {
   }`,
     {
       variables: {
+        language,
         id: slug,
       },
     },

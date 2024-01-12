@@ -23,8 +23,8 @@ export default function HomePage({ posts }: { posts: any }) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getPosts(100) // retrieve first 100 posts
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const posts = await getPosts(locale, 100) // retrieve first 100 posts
 
   return {
     props: {

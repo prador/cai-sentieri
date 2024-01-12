@@ -1,6 +1,5 @@
 /** @type {import("next").NextConfig} */
 
-
 const nextConfig = {
   async redirects() {
     return [
@@ -33,7 +32,13 @@ const nextConfig = {
           topLevelAwait: true
       }
     }
-  }
+  ,
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'it'],
+  },
+}
+
   // webpack: (config) => {
   //   config.experiments = {
   //     topLevelAwait: true,

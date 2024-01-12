@@ -61,8 +61,8 @@ function ValleOssona({ trails, routes }: { trails: Trail[]; routes: Routes }) {
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const trails = await getTrails(100)
+export const getStaticProps: GetStaticProps = async ({ locale }) => {
+  const trails = await getTrails(100, locale)
 
   return {
     props: {

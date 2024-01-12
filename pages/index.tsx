@@ -16,6 +16,7 @@ import { getPosts, getTrails } from '../lib/service'
 import MapLegend from 'components/maplegend'
 import WeatherCard from 'components/weatherCard'
 import NewsEvents from 'components/newsevents'
+import { useRouter } from 'next/router'
 
 // Data
 const gpxUtils = require('../utils/gpxutils.ts')
@@ -28,7 +29,11 @@ const lat = 44.91711298954641
 
 function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: Trail[] }) {
   const [showMap, setShowMap] = useState(true)
+  const router = useRouter()
+  const [t, setT] = useState('')
+  const { locale: activeLocale, locales, asPath, defaultLocale } = useRouter()
 
+  console.log(router, t)
   return (
     <motion.div
       className=""
@@ -98,8 +103,8 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const trails = await getTrails(100)
+export const getStaticProps: GetStaticProps = async ({ locale, context }: { locale: any; context: any }) => {
+  const trails = await getTrails(100, 'EN')
 
   return {
     props: {
