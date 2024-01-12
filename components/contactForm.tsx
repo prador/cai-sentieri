@@ -172,7 +172,7 @@ export default function ContactForm() {
 
   return (
     <div className="container pt-5 pb-10">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-[600px] mx-auto bg-white p-4 border rounded-md">
+      <form onSubmit={handleSubmit(onSubmit)} className="md:w-[600px] mx-auto bg-white p-4 border rounded-md">
         <div>
           <label htmlFor="yourname">First Name</label>
           <input
