@@ -46,7 +46,7 @@ export default function Layout({ children }: Props) {
               <WeatherCard data={undefined} />
             </div>
           </section>
-          <Contact />
+          {/* <Contact /> */}
           <Footer />
         </>
       )}

@@ -14,6 +14,7 @@ import { Routes, Trail } from '../../types'
 import { getPosts, getTrails } from '../../lib/service'
 import MapLegend from 'components/maplegend'
 import MapBlock from 'components/mapblock'
+import { TrailList } from 'components/trailslist'
 
 // Data
 const gpxUtils = require('../../utils/gpxutils.ts')
@@ -30,17 +31,17 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
     {
       title: 'Val Curone',
       href: '/group/val-curone',
-      description: 'Lorem ipsum',
+      description: 'This is a description for this trail group',
     },
     {
       title: 'Valle Ossona',
       href: '/group/valle-ossona',
-      description: 'Lorem ipsum',
+      description: 'This is a description for this trail group',
     },
     {
       title: 'Val Grue',
       href: '/group/val-grue',
-      description: 'Lorem ipsum',
+      description: 'This is a description for this trail group',
     },
   ]
   return (
@@ -63,7 +64,10 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
                 <h2 className="text-xl text-sushi-600 font-bold md:col-span-1">
                   <Link href={group.href}>{group.title}</Link>
                 </h2>
-                <p className="mt-4">{group.description}</p>
+                <p className="my-4">{group.description}</p>
+                <div className='h-48 overflow-y-auto bg-slate-100 p-2 rounded-md'>
+                <TrailList trails={trails} group={group.title} />
+                </div>
               </div>
               <div className="md:col-span-3">
                 <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category={group.title} classes="m-0" legend={false} />

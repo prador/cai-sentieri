@@ -1,5 +1,17 @@
 /** @type {import("next").NextConfig} */
 
+const runtimeCaching = require('next-pwa/cache')
+
+runtimeCaching[0].handler = 'StaleWhileRevalidate'
+
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: false,
+  // disable: process.env.NODE_ENV === 'development',
+  skipWaiting: false,
+  sw: 'service-worker.js',
+  runtimeCaching
+})
 
 const nextConfig = {
   async redirects() {
@@ -42,5 +54,5 @@ const nextConfig = {
   // }
 }
 
-module.exports = nextConfig
+module.exports = withPWA(nextConfig)
 

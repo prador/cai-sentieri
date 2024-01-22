@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
+    "build:prod": "NODE_ENV=production next build",
+    "static": "NODE_ENV=production next build && next export",
     "start": "next start",
     "type-check": "./node_modules/.bin/tsc"
   },
@@ -16,8 +18,10 @@
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-dialog": "^1.0.5",
+    "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-navigation-menu": "^1.1.4",
     "@radix-ui/react-scroll-area": "^1.0.5",
+    "@radix-ui/react-toggle": "^1.0.3",
     "@tmcw/togeojson": "^5.8.1",
     "@turf/helpers": "^6.5.0",
     "@turf/length": "^6.5.0",

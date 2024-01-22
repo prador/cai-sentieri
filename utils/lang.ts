@@ -1,4 +1,4 @@
-const Lang = {
+export const Lang = {
   it: {
     nav: {
       progetto: 'progetto',
@@ -13,6 +13,9 @@ const Lang = {
       printPage: 'Stampa pagina',
       imageSrc: 'Fonte Provincia di Alessandria',
     },
+    sentieriAumentati: {
+      desc: "Questa è una descrizione per sentieri aumentati"
+    }
   },
   en: {
     nav: {
@@ -28,6 +31,8 @@ const Lang = {
       printPage: 'Print page',
       imageSrc: 'Source Province of Alessandria',
     },
+    sentieriAumentati: {
+      desc: "This is a description for Augmented trails"
+    }
   },
 }
-export default Lang

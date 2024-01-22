@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,11 +15,22 @@ import {
   navigationMenuTriggerStyle,
   ListItem,
 } from 'components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from 'components/ui/sheet'
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "components/ui/dropdown-menu"
+
+import { Sheet, SheetContent, SheetTrigger } from 'components/ui/sheet'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'components/ui/accordion'
 
 import { ScrollArea } from 'components/ui/scroll-area'
-
+import { Toggle } from "components/ui/toggle"
 import type { Trail, Trails } from '../types'
 import { navLinks, navSentieriAumentati } from '../utils/nav'
 import { getTrails } from 'lib/service'
@@ -32,6 +44,7 @@ const Navbar = () => {
   const [trails, setTrails] = useState<any>()
   const [selectedTrail, setSelectedTrail] = useState()
   const [query, setQuery] = useState('')
+  const [position, setPosition] = useState("🇮🇹 it")
 
   const getTrailPaths = async () => {
     const trailsx = await getTrails(100)
@@ -48,7 +61,7 @@ const Navbar = () => {
       : trails.filter(trail => {
           return trail.title.toLowerCase().includes(query.toLowerCase())
         })
-  console.log(trails)
+  // console.log(trails)
   const subMenu = (submenu: string) => {
     switch (submenu) {
       case 'sentieri':
@@ -159,14 +172,27 @@ const Navbar = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </ul>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <div className='mr-4 p-2 uppercase flex h-10 '>{position}</div>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="w-24">
+          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+            <DropdownMenuRadioItem value="🇮🇹 it">🇮🇹 IT</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="🇬🇧 en">🇬🇧 EN</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
       <div className="relative hidden md:flex z-20 top-1 right-0">
         <Combobox value={selectedTrail} onChange={setSelectedTrail}>
           <Combobox.Input
             onChange={event => setQuery(event.target.value)}
-            className="px-2 py-1 bg-gray-200 rounded-lg "
+            className="px-2 py-1 bg-gray-100 rounded-lg border"
             placeholder="cerca"
           />
-          <Combobox.Options className="absolute z-50 left-0 bg-white shadow-lg">
+          <Combobox.Options className="absolute z-50 top-10 left-0 bg-white shadow-lg">
             {filteredTrails?.map(trail => (
               <Combobox.Option key={trail.title} value={trail.slug} className="p-2">
                 <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
@@ -198,6 +224,18 @@ const Navbar = () => {
                   </Combobox.Options>
                 </Combobox>
               </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className='mr-4 p-2 uppercase flex h-10'>{position}</div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-24">
+                  <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
+                    <DropdownMenuRadioItem value="🇮🇹 it">🇮🇹 IT</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="🇬🇧 en">🇬🇧 EN</DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
               <Accordion type="single" collapsible className="w-full">
                 <ScrollArea className="pt-6 h-[90vh]">
                   {navLinks.map((navLink, index) => (

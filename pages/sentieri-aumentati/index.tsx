@@ -16,6 +16,7 @@ import MapLegend from 'components/maplegend'
 import MapBlock from 'components/mapblock'
 
 import { navSentieriAumentati } from 'utils/nav'
+import { Lang } from 'utils/lang'
 // Data
 const gpxUtils = require('../../utils/gpxutils.ts')
 
@@ -27,11 +28,10 @@ const lat = 44.91711298954641
 
 function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: Trail[] }) {
   const [showMap, setShowMap] = useState(true)
-
+const pageLang = "it"
   const filteredSlugs = trails.filter(trail => navSentieriAumentati.some(navTrail => navTrail.slug === trail.slug))
 
   // Find objects in routes with the same slugs as filteredSlugs
-
   return (
     <motion.div
       className="min-h-screen pb-12"
@@ -44,7 +44,9 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
         <header className="text-center my-8">
           <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Sentieri Aumentati</h1>
         </header>
-
+    <div className="text-center my-8">
+      <p>{Lang[pageLang].sentieriAumentati.desc}</p>
+    </div>
         <div className="pt-6 flex flex-col md:grid md:grid-cols-3 gap-6 space-y-6 md:space-y-0">
           {filteredSlugs.map(trail => (
             <div className="border rounded-lg sentieri-aumentati-card bg-white shdaow-lg">

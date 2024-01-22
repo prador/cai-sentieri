@@ -44,7 +44,8 @@ export type Route = {
 export type Routes = Array<Route>
 
 export type FilesURI = {
-  uri?: string
+  uri?: string,
+  altText?: string
 }
 
 export type GalleryImages = {

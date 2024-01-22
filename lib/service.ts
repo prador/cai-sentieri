@@ -51,6 +51,7 @@ export async function getTrails(first) {
           galleryImages {
             nodes {
               mediaItemUrl
+              altText
             }
           }
           imageLinkImage {

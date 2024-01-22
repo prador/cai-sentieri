@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { NextSeo } from 'next-seo'
 import colors from 'tailwindcss/colors' // eslint-disable-line
 import { ArrowDownTrayIcon, PrinterIcon } from '@heroicons/react/20/solid'
-import Lang from '../../utils/lang'
+import {Lang} from 'utils/lang'
 // Components
 import Button from '../../components/button'
 import { Stat } from '../../components/route'
@@ -39,7 +39,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
   const statBoxClassName = 'justify-center px-2 border rounded border-sushi-400 text-sushi-600'
 
   // console.log(trail)
-
+console.log(trail.galleryImages)
   return (
     <motion.div
       className="min-h-screen pb-12"

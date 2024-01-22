@@ -223,3 +223,12 @@ div.mapboxgl-map {
 .sentieri-aumentati-card .map-block {
   height: 250px;
 }
+
+.yarl__slide.yarl__slide_current.yarl__flex_center {
+flex-direction: column;
+}
+.yarl__slide_captions_container.yarl__slide_title_container {
+  color: white;
+    margin-top: 2rem;
+    margin-bottom: -2rem;
+}
