@@ -17,6 +17,7 @@ import MapBlock from 'components/mapblock'
 
 import { navSentieriAumentati } from 'utils/nav'
 import { Lang } from 'utils/lang'
+import { useStore } from 'store/dataStore'
 // Data
 const gpxUtils = require('../../utils/gpxutils.ts')
 
@@ -28,7 +29,7 @@ const lat = 44.91711298954641
 
 function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: Trail[] }) {
   const [showMap, setShowMap] = useState(true)
-const pageLang = "it"
+  const {pageLang, setPageLang} = useStore()
   const filteredSlugs = trails.filter(trail => navSentieriAumentati.some(navTrail => navTrail.slug === trail.slug))
 
   // Find objects in routes with the same slugs as filteredSlugs
