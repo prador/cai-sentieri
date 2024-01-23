@@ -61,9 +61,9 @@ export default function Carousel(slideUrls: any) {
   const slideArray = slideUrls?.slideUrls
   
   const srcArray = slideArray.map(item => ({ src: item.mediaItemUrl , title: item.altText}))
-  console.log(srcArray)
+  // console.log(srcArray)
   const slides = slideArray?.map(item => item.mediaItemUrl)
-  console.log(slides)
+  // console.log(slides)
   const settings = {
     columnCount: {
       default: 8,
@@ -91,7 +91,7 @@ export default function Carousel(slideUrls: any) {
       <div className="w-full overflow-x-scroll ">
         <div ref={thumbnailRef} className="flex w-[300vw] md:w-[100vw] gap-2">
         {srcArray.map((slide, i: number) => {
-            console.log(slide)
+            // console.log(slide)
             return (
               <div key={i} className="flex relative w-32 h-32">
                 <Image

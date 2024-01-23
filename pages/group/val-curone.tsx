@@ -30,7 +30,7 @@ function ValCurone({ trails, routes }: { trails: Trail[]; routes: Routes }) {
         <MapBox routes={routes} initialLat={lat} initialLng={lng} />
       </div> */}
       <header className="text-center my-8">
-        <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Val Curone</h1>
+        <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-forest-green-700">Val Curone</h1>
       </header>
       <section>
         <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Val Curone" classes="m-0" legend={false} />
@@ -45,7 +45,7 @@ function ValCurone({ trails, routes }: { trails: Trail[]; routes: Routes }) {
                   </div>
 
                   <div className="p-4">
-                    <h2 className="text-xl text-sushi-600 font-bold">
+                    <h2 className="text-xl text-forest-green-600 font-bold">
                       <Link href={`/trails/${trail?.slug}`}>{trail?.title}</Link>
                     </h2>
                     <p className="mt-4">

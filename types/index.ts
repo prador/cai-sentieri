@@ -62,6 +62,29 @@ export type TrailGPXFile = {
     mediaItemUrl?: string
   }
 }
+export type Translation = {
+  title?: string
+  content?: string
+  id?: string
+  language?: {
+    locale?: string
+    slug?: string
+  }
+  uri?: string
+  href?: string
+  slug?: string
+  pathColor?: string
+  pathPoint?: any
+  trailLocation?: string
+  trailID?: number
+  trailNumber?: string
+  trailCategory?: string
+  trailTimeNeeded?: number
+  trailZoneSector?: string
+  trailSubdescription?: string
+  trailDescription?: string
+  trailDifficulty?: string
+}
 
 export type Trail = {
   title?: string
@@ -84,6 +107,7 @@ export type Trail = {
   imageLinkImage?: ImageLinkImage
   imageLinkTitle?: string
   imageLinkUrl?: string
+  translation?: Translation
 }
 
 export type Post = {

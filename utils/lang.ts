@@ -15,6 +15,12 @@ export const Lang = {
     },
     sentieriAumentati: {
       desc: "Questa è una descrizione per sentieri aumentati"
+    },
+    contatti: {
+      nome: "Nome",
+      email:"Email",
+      messaggio: "Il tuo messaggio",
+      submit: "Invia"
     }
   },
   en: {
@@ -33,6 +39,12 @@ export const Lang = {
     },
     sentieriAumentati: {
       desc: "This is a description for Augmented trails"
+    },
+    contatti: {
+      nome: "Name",
+      email:"Email",
+      messaggio: "Your message",
+      submit: "Submit"
     }
   },
 }

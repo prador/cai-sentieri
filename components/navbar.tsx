@@ -37,15 +37,66 @@ import { getTrails } from 'lib/service'
 import { TrailList, NavImage } from './trailslist'
 import { ARIcon, Bars3 } from './icons'
 import { Combobox } from '@headlessui/react'
+import { useStore } from 'store/dataStore'
+
+
+const LangSwitcher = () => {
+  const [lang, setLang] = useState("it")
+  const {pageLang, setPageLang} = useStore()
+
+  return (
+    <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className='mr-4 p-2 flex gap-1 h-10'><span>{lang === "it" ? "🇮🇹" : "🇬🇧"}</span> <span className='uppercase'>{lang}</span></div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-24">
+                  <DropdownMenuRadioGroup value={lang} onValueChange={(value) => {setLang(value);setPageLang(value)}}>
+                    <DropdownMenuRadioItem value="it">🇮🇹 IT</DropdownMenuRadioItem>
+                    <DropdownMenuRadioItem value="en">🇬🇧 EN</DropdownMenuRadioItem>
+                  </DropdownMenuRadioGroup>
+                </DropdownMenuContent>
+              </DropdownMenu>
+  )
+}
+
+const SearchBox = ({trails}:{trails:any}) => {
+
+  const [selectedTrail, setSelectedTrail] = useState()
+  const [query, setQuery] = useState('')
+
+  const filteredTrails =
+  query === ''
+    ? trails
+    : trails?.filter(trail => {
+        return trail.title.toLowerCase().includes(query.toLowerCase())
+      })
+
+      console.log(trails)
+
+  return (
+    <Combobox value={selectedTrail} onChange={setSelectedTrail}>
+          <Combobox.Input
+            onChange={event => setQuery(event.target.value)}
+            className="px-2 py-1 bg-gray-100 rounded-lg border"
+            placeholder="cerca"
+          />
+          <Combobox.Options className="absolute z-50 top-10 left-10 bg-white shadow-lg">
+            {filteredTrails?.map(trail => (
+              <Combobox.Option key={trail.title} value={trail.slug} className="p-2">
+                <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
+              </Combobox.Option>
+            ))}
+          </Combobox.Options>
+        </Combobox>
+  )
+}
+
 
 const Navbar = () => {
   const router = useRouter()
   const currentRoute = router.pathname
   const [trails, setTrails] = useState<any>()
-  const [selectedTrail, setSelectedTrail] = useState()
-  const [query, setQuery] = useState('')
-  const [position, setPosition] = useState("🇮🇹 it")
-
+  const {pageLang, setPageLang} = useStore()
   const getTrailPaths = async () => {
     const trailsx = await getTrails(100)
     setTrails(trailsx)
@@ -54,13 +105,6 @@ const Navbar = () => {
   useEffect(() => {
     getTrailPaths()
   }, [])
-
-  const filteredTrails =
-    query === ''
-      ? trails
-      : trails.filter(trail => {
-          return trail.title.toLowerCase().includes(query.toLowerCase())
-        })
   // console.log(trails)
   const subMenu = (submenu: string) => {
     switch (submenu) {
@@ -130,7 +174,7 @@ const Navbar = () => {
     }
   }
   return (
-    <div className="container flex justify-between relative py-3">
+    <div className="container flex justify-end relative py-3 w-full">
       <Link
         href="/"
         className="hidden md:flex absolute z-20 -top-1 md:-top-2 md:h-[180px] md:w-[90px] h-[90px] w-[45px] object-fill left-4 "
@@ -141,7 +185,8 @@ const Navbar = () => {
         <Image src="/logo_horizontal.png" fill alt="" className="shadow-md rounded" />
       </Link>
 
-      <ul className="hidden sm:flex sm:flex-row w-full justify-center">
+      <ul className="hidden absolute md:flex md:flex-row w-full justify-center">
+        {/* {pageLang} */}
         <NavigationMenu>
           <NavigationMenuList className="relative">
             {navLinks.map(navLink => (
@@ -150,7 +195,7 @@ const Navbar = () => {
                   <>
                     <NavigationMenuTrigger>
                       {navLink.submenu === 'sentieriAumentati' ? (
-                        <span className="h-6 w-6 block mr-1 text-sushi-600">
+                        <span className="h-6 w-6 block mr-1 text-forest-green-400">
                           <ARIcon />{' '}
                         </span>
                       ) : null}
@@ -173,34 +218,13 @@ const Navbar = () => {
         </NavigationMenu>
       </ul>
 
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <div className='mr-4 p-2 uppercase flex h-10 '>{position}</div>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-24">
-          <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-            <DropdownMenuRadioItem value="🇮🇹 it">🇮🇹 IT</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="🇬🇧 en">🇬🇧 EN</DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      
 
-      <div className="relative hidden md:flex z-20 top-1 right-0">
-        <Combobox value={selectedTrail} onChange={setSelectedTrail}>
-          <Combobox.Input
-            onChange={event => setQuery(event.target.value)}
-            className="px-2 py-1 bg-gray-100 rounded-lg border"
-            placeholder="cerca"
-          />
-          <Combobox.Options className="absolute z-50 top-10 left-0 bg-white shadow-lg">
-            {filteredTrails?.map(trail => (
-              <Combobox.Option key={trail.title} value={trail.slug} className="p-2">
-                <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
-              </Combobox.Option>
-            ))}
-          </Combobox.Options>
-        </Combobox>
+      <div className="relative hidden md:flex md:justify-end z-20 right-0">
+          <LangSwitcher/>
+        <SearchBox trails={trails}/>
       </div>
+
       <div className="md:hidden w-full flex justify-end">
         <Sheet>
           <SheetTrigger>
@@ -209,33 +233,10 @@ const Navbar = () => {
           <SheetContent>
             <ul className="flex flex-col w-full justify-center">
               <div className="relative mt-6">
-                <Combobox value={selectedTrail} onChange={setSelectedTrail}>
-                  <Combobox.Input
-                    onChange={event => setQuery(event.target.value)}
-                    className="px-2 py-1 bg-gray-200 rounded-lg w-full"
-                    placeholder="cerca"
-                  />
-                  <Combobox.Options className="absolute z-50 left-0 bg-white shadow-lg">
-                    {filteredTrails?.map(trail => (
-                      <Combobox.Option key={trail.title} value={trail.slug} className="p-2">
-                        <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
-                      </Combobox.Option>
-                    ))}
-                  </Combobox.Options>
-                </Combobox>
+                <SearchBox trails={trails}/>
               </div>
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <div className='mr-4 p-2 uppercase flex h-10'>{position}</div>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-24">
-                  <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-                    <DropdownMenuRadioItem value="🇮🇹 it">🇮🇹 IT</DropdownMenuRadioItem>
-                    <DropdownMenuRadioItem value="🇬🇧 en">🇬🇧 EN</DropdownMenuRadioItem>
-                  </DropdownMenuRadioGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-
+              
+              <LangSwitcher/>
               <Accordion type="single" collapsible className="w-full">
                 <ScrollArea className="pt-6 h-[90vh]">
                   {navLinks.map((navLink, index) => (
@@ -246,7 +247,7 @@ const Navbar = () => {
                             <AccordionTrigger>
                               <>
                                 {navLink.submenu === 'sentieriAumentati' ? (
-                                  <span className="h-6 w-6 block mr-1 text-sushi-600">
+                                  <span className="h-6 w-6 block mr-1 text-forest-green-500">
                                     <ARIcon />
                                   </span>
                                 ) : null}

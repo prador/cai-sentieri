@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS='--inspect' next dev",
+    "dev": "next dev",
     "build": "next build",
     "build:prod": "NODE_ENV=production next build",
     "static": "NODE_ENV=production next build && next export",
@@ -60,7 +60,8 @@
     "worker-loader": "^3.0.8",
     "xml2js": "^0.6.2",
     "xmldom": "^0.6.0",
-    "yet-another-react-lightbox": "^3.12.2"
+    "yet-another-react-lightbox": "^3.12.2",
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.7",

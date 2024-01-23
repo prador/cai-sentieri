@@ -24,6 +24,7 @@ import { getPosts, getTrail, getTrails } from '../../lib/service'
 import Carousel from 'components/carousel'
 import MapLegend from 'components/maplegend'
 import WeatherCard from 'components/weatherCard'
+import { useStore } from 'store/dataStore'
 
 // Data
 const gpxUtils = require('../../utils/gpxutils.ts')
@@ -32,14 +33,15 @@ type RoutePageProps = { route: Route; initialLat: number; initialLng: number; tr
 
 function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePageProps) {
   const [showMap, setShowMap] = useState(true)
-  const pageLang = 'it'
+  const {pageLang, setPageLang} = useStore()
+  // const pageLang = 'it'
   if (!route) {
     return null
   }
-  const statBoxClassName = 'justify-center px-2 border rounded border-sushi-400 text-sushi-600'
+  const statBoxClassName = 'justify-center px-2 border rounded border-forest-green-400 text-forest-green-600'
 
-  // console.log(trail)
-console.log(trail.galleryImages)
+  console.log(trail)
+  console.log(trail.translation)
   return (
     <motion.div
       className="min-h-screen pb-12"
@@ -58,7 +60,7 @@ console.log(trail.galleryImages)
           </div>
           <div className="container">
             <header className="text-center mb-8">
-              <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-black">{trail?.title}</h1>
+              <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-black">{pageLang === "it" ? `${trail?.title}` : `${trail?.translation.title}`}</h1>
               {(trail.trailLocation || trail.trailCategory === 'swimrun') && (
                 <div className="flex items-center justify-center">
                   {route.location && (
@@ -128,14 +130,15 @@ console.log(trail.galleryImages)
                 </div>
                 {trail.trailSubdescription && (
                   <div
-                    className="md:mx-4 mb-4 text-xl md:text-2xl leading-relaxed text-sushi-700"
-                    dangerouslySetInnerHTML={{ __html: trail.trailSubdescription }}
+                    className="md:mx-4 mb-4 text-xl md:text-2xl leading-relaxed text-forest-green-700"
+                    dangerouslySetInnerHTML={{ __html: `${pageLang === "it" ? `${trail?.trailSubdescription}` : `${trail?.translation.trailSubdescription}`}` }}
                   />
                 )}
+                
                 {trail.trailDescription && (
                   <div
                     className="md:mx-4 mb-6 leading-relaxed whitespace-pre-wrap text-black md:columns-2"
-                    dangerouslySetInnerHTML={{ __html: trail.trailDescription }}
+                    dangerouslySetInnerHTML={{ __html: `${pageLang === "it" ? `${trail?.trailDescription}` : `${trail?.translation.trailDescription}`}` }}
                   />
                 )}
 

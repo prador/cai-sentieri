@@ -42,7 +42,7 @@ const pageLang = "it"
     >
       <section className="container">
         <header className="text-center my-8">
-          <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-sushi-700">Sentieri Aumentati</h1>
+          <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-forest-green-700">Sentieri Aumentati</h1>
         </header>
     <div className="text-center my-8">
       <p>{Lang[pageLang].sentieriAumentati.desc}</p>
@@ -54,7 +54,7 @@ const pageLang = "it"
                 <MapBlock trails={[trail]} routes={routes} lat={lat} lng={lng} category="Val Curone" classes="m-0" legend={false} />
               </div>
               <div className="p-4">
-                <h2 className="text-xl text-sushi-600 font-bold">
+                <h2 className="text-xl text-forest-green-600 font-bold">
                   <Link href={`/trails/${trail?.slug}`}>{trail?.title}</Link>
                 </h2>
                 <p className="mt-4">

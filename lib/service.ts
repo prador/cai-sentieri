@@ -29,9 +29,27 @@ import { fetchAPI } from './base'
 // }
 export async function getTrails(first) {
   const data = await fetchAPI(
-    `query WpTrails {
+    `query WpTrails($language: LanguageCodeEnum!) {
       trails (first: 500) {
         nodes {
+          translation(language:$language) {
+            id,
+            content,
+            title(format: RENDERED)
+          uri
+          slug
+          trailLocation(format: RENDERED)
+          trailNumber(format: RENDERED)
+          trailCategory(format: RENDERED)
+          trailTimeNeeded
+          trailSubdescription(format: RENDERED)
+          trailDescription(format: RENDERED)
+          trailDifficulty(format: RENDERED)
+            language {
+              locale
+              slug
+            }
+          }
           title(format: RENDERED)
           uri
           slug
@@ -81,6 +99,7 @@ export async function getTrails(first) {
     {
       variables: {
         first,
+        language:"EN"
       },
     },
   )
