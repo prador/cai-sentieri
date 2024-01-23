@@ -41,8 +41,17 @@ import { useStore } from 'store/dataStore'
 
 
 const LangSwitcher = () => {
+  const router = useRouter()
+  const langQuery = router.query.l
   const [lang, setLang] = useState("it")
   const {pageLang, setPageLang} = useStore()
+
+  useEffect(() => {
+    if(langQuery === "en") {
+      setPageLang("en")
+      setLang("en")
+    }
+  }, [])
 
   return (
     <DropdownMenu>
@@ -94,15 +103,18 @@ const SearchBox = ({trails}:{trails:any}) => {
 
 const Navbar = () => {
   const router = useRouter()
-  const currentRoute = router.pathname
+  const langQuery = router.query.l
   const [trails, setTrails] = useState<any>()
   const {pageLang, setPageLang} = useStore()
   const getTrailPaths = async () => {
     const trailsx = await getTrails(100)
     setTrails(trailsx)
   }
-
+console.log(langQuery)
   useEffect(() => {
+    // if(langQuery === "en") {
+    //   setPageLang("en")
+    // }
     getTrailPaths()
   }, [])
   // console.log(trails)
