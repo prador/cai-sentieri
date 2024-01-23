@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom'
 import { useForm } from 'react-hook-form'
 import LoadingSpinner from './loadingSpinner'
@@ -6,7 +6,7 @@ import {Lang} from 'utils/lang'
 import { useStore } from 'store/dataStore'
 
 export default function ContactForm() {
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit,reset, formState, formState: { isSubmitSuccessful } } = useForm()
   const [btnLoading,setBtnLoading] = useState<boolean>(false)
   const [postSubmitted,setPostSubmitted] = useState<boolean>()
   const {pageLang, setPageLang} = useStore()
@@ -46,6 +46,16 @@ export default function ContactForm() {
     }
   }
 
+  useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ 
+        yourname: "",
+        youremail:"",
+        message:""
+     })
+    }
+  }, [formState, reset])
+  
   return (
     <div className="">
       <form onSubmit={handleSubmit(onSubmit)} className="md:w-[600px] mx-auto bg-white p-4 border rounded-md">

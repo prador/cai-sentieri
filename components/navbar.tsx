@@ -233,7 +233,7 @@ console.log(langQuery)
       
 
       <div className="relative hidden md:flex md:justify-end z-20 right-0">
-          <LangSwitcher/>
+          {/* <LangSwitcher/> */}
         <SearchBox trails={trails}/>
       </div>
 
@@ -248,7 +248,7 @@ console.log(langQuery)
                 <SearchBox trails={trails}/>
               </div>
               
-              <LangSwitcher/>
+              {/* <LangSwitcher/> */}
               <Accordion type="single" collapsible className="w-full">
                 <ScrollArea className="pt-6 h-[90vh]">
                   {navLinks.map((navLink, index) => (

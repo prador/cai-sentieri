@@ -99,7 +99,7 @@ export async function getTrails(first) {
     {
       variables: {
         first,
-        language:"EN"
+        language:"IT" // if translations are added, change this to EN
       },
     },
   )
