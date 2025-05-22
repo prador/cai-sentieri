@@ -182,25 +182,52 @@ export default RoutePage
 export const getStaticPaths: GetStaticPaths = async () => {
   const trails = await getTrails(100)
   const paths = trails.map(route => ({ params: { slug: route.slug } }))
-  // const paths = gpxUtils.routes.map(route => ({ params: { slug: route.slug } }))
+  
   return {
     paths,
-    fallback: false,
+    fallback: 'blocking', // Generate new paths on-demand if they don't exist
   }
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const trails = await getTrails(100)
-  const route = gpxUtils.routes.find(x => x.slug === context.params.slug)
-  const trail = trails.find(x => x.slug === context.params.slug)
-  return {
-    props: {
-      initialLat: route?.geoJson?.features[0].geometry.coordinates[0][1] || null,
-      initialLng: route?.geoJson?.features[0].geometry.coordinates[0][0] || null,
-      route: route || null,
-      trail: trail || null,
-      trails,
-    },
-    revalidate: 3600,
+  try {
+    const trails = await getTrails(100)
+    const route = gpxUtils.routes.find(x => x.slug === context.params?.slug)
+    const trail = trails.find(x => x.slug === context.params?.slug)
+    
+    // Handle 404 if trail or route not found
+    if (!trail || !route) {
+      return {
+        notFound: true,
+      }
+    }
+    
+    return {
+      props: {
+        initialLat: route?.geoJson?.features[0].geometry.coordinates[0][1] || null,
+        initialLng: route?.geoJson?.features[0].geometry.coordinates[0][0] || null,
+        route: route || null,
+        trail: trail || null,
+        trails,
+      },
+      // Smart revalidation strategy:
+      // - Start with frequent checks for new content
+      // - As content stabilizes, you can increase this value
+      revalidate: 300, // 5 minutes - adjust based on your update frequency
+    }
+  } catch (error) {
+    console.error('Error fetching trail data:', error)
+    
+    // Return a longer revalidation time on errors to avoid hammering the API
+    return {
+      props: {
+        initialLat: null,
+        initialLng: null,
+        route: null,
+        trail: null,
+        trails: [],
+      },
+      revalidate: 60, // Retry in 1 minute on error
+    }
   }
 }
