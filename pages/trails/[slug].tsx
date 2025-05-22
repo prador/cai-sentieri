@@ -12,6 +12,7 @@ import Button from '../../components/button'
 import { Stat } from '../../components/route'
 import Chart from '../../components/chart'
 import TrailContent from '../../components/trailContent'
+import TrailStats from '../../components/trailStats'
 
 // Types
 import type { Route, Trail } from '../../types'
@@ -78,17 +79,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
             <div className="grid grid-cols-1 md:grid-cols-8">
               <div className="col-span-1 md:col-span-2">
                 <ul className="grid grid-cols-3 md:grid-cols-1 gap-3 md:gap-4 md:mx-4 mb-4">
-                  <div className="md:pt-3 md:pl-3 col-span-3 md:col-span-1 grid grid-cols-3 md:flex md:flex-col rounded-md md:border md:border-gray-300 noprint">
-                    <Stat type={Lang[pageLang].routeInfo.zone} value={trail?.trailCategory} className="md:mb-2 md:pb-0 " />
-                    <Stat type={Lang[pageLang].routeInfo.difficulty} value={trail?.trailDifficulty} className="md:mb-2 md:pb-0 " />
-                    <Stat
-                      type={Lang[pageLang].routeInfo.distance}
-                      value={`${Math.round(route.distance * 10) / 10} km`}
-                      className="md:mb-2 md:pb-2 "
-                    />
-                    <Stat type={Lang[pageLang].routeInfo.time} value={trail?.trailTimeNeeded} className="md:mb-2 md:pb-0" />
-                    <Stat type={Lang[pageLang].routeInfo.elevation} value={`+ ${Math.round(route.elevation)} m`} className="mb-2" />
-                  </div>
+                 <TrailStats route={route} />
                   <div className={`col-span-3 md:col-span-1 grid grid-cols-2 md:flex md:flex-col md:${statBoxClassName} noprint`}>
                     <li>
                       <a
@@ -163,6 +154,6 @@ export const getStaticProps: GetStaticProps = async context => {
       trail: trail || null,
       trails,
     },
-    revalidate: 60,
+    revalidate: 360,
   }
 }

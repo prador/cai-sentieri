@@ -37,7 +37,7 @@ const nextConfig = {
   },
   
   images: {
-    domains: ['wordpress-production-fbed.up.railway.app'],
+    domains: ['wordpress-production-fbed.up.railway.app','https://sentieri-admin.caitortona.net'],
   },
   webpack: {
     config: {

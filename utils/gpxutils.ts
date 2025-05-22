@@ -97,7 +97,7 @@ const routes = routeFilePaths.map(filePath => {
   const pathPoints: any = getTrails(500)
   const geoJson = toGeoJson.gpx(source)
 
-  console.log(pathPoints)
+  // console.log(pathPoints)
   // Calculate distance using geoJson
   const distance = turflength(geoJson)
 

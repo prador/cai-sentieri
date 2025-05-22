@@ -80,7 +80,7 @@ const SearchBox = ({trails}:{trails:any}) => {
         return trail.title.toLowerCase().includes(query.toLowerCase())
       })
 
-      console.log(trails)
+      // console.log(trails)
 
   return (
     <Combobox value={selectedTrail} onChange={setSelectedTrail}>
@@ -110,7 +110,7 @@ const Navbar = () => {
     const trailsx = await getTrails(100)
     setTrails(trailsx)
   }
-console.log(langQuery)
+// console.log(langQuery)
   useEffect(() => {
     // if(langQuery === "en") {
     //   setPageLang("en")
