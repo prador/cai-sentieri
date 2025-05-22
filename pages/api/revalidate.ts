@@ -34,7 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     return res.status(500).send('Error revalidating')
   }
 }
-
+ 
 // WordPress webhook integration:
 // Add this to your WordPress functions.php or a plugin:
 
