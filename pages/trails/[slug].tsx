@@ -11,6 +11,7 @@ import {Lang} from 'utils/lang'
 import Button from '../../components/button'
 import { Stat } from '../../components/route'
 import Chart from '../../components/chart'
+import TrailContent from '../../components/trailContent'
 
 // Types
 import type { Route, Trail } from '../../types'
@@ -128,46 +129,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                 <div className="md:mx-4 p-3 mb-4 border rounded border-gray-300">
                   <Chart coordinates={route.geoJson.features[0].geometry.coordinates} />
                 </div>
-                {trail.trailSubdescription && (
-                  <div
-                    className="md:mx-4 mb-4 text-xl md:text-2xl leading-relaxed text-forest-green-700"
-                    dangerouslySetInnerHTML={{ __html: `${pageLang === "it" ? `${trail?.trailSubdescription}` : `${trail?.translation.trailSubdescription}`}` }}
-                  />
-                )}
-                
-                {trail.trailDescription && (
-                  <div
-                    className="md:mx-4 mb-6 leading-relaxed whitespace-pre-wrap text-black md:columns-2"
-                    dangerouslySetInnerHTML={{ __html: `${pageLang === "it" ? `${trail?.trailDescription}` : `${trail?.translation.trailDescription}`}` }}
-                  />
-                )}
-
-                {trail.imageLinkTitle && (
-                  <Link target="_blank" rel="noreferrer" href={trail?.imageLinkUrl}>
-                    <div className="w-full h-48 mb-8 relative flex items-center justify-center">
-                      <Image
-                        src={trail?.imageLinkImage?.node?.mediaItemUrl}
-                        fill
-                        alt={trail?.imageLinkTitle}
-                        className="object-cover rounded-md"
-                      />
-                      <span className="absolute z-10 bg-white px-5 py-2 text-lg">{trail?.imageLinkTitle}</span>
-                    </div>
-                  </Link>
-                )}
-
-                {trail.galleryImages.nodes.length > 0 && (
-                  <div className="mt-8">
-                    <Carousel slideUrls={trail.galleryImages.nodes} />
-                    <div className="mt-4 text-gray-500">
-                      Fonte immagini{' '}
-                      <Link className="text-blue-500 font-bold underline" href="https://www.provincia.alessandria.it/sentieri/">
-                        Provincia di Alessandria
-                      </Link>{' '}
-                      & Archivio Fotografico CAI Tortona{' '}
-                    </div>
-                  </div>
-                )}
+                <TrailContent slug={route.slug}/>
               </div>
             </div>
           </div>
@@ -182,52 +144,25 @@ export default RoutePage
 export const getStaticPaths: GetStaticPaths = async () => {
   const trails = await getTrails(100)
   const paths = trails.map(route => ({ params: { slug: route.slug } }))
-  
+  // const paths = gpxUtils.routes.map(route => ({ params: { slug: route.slug } }))
   return {
     paths,
-    fallback: 'blocking', // Generate new paths on-demand if they don't exist
+    fallback: false,
   }
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  try {
-    const trails = await getTrails(100)
-    const route = gpxUtils.routes.find(x => x.slug === context.params?.slug)
-    const trail = trails.find(x => x.slug === context.params?.slug)
-    
-    // Handle 404 if trail or route not found
-    if (!trail || !route) {
-      return {
-        notFound: true,
-      }
-    }
-    
-    return {
-      props: {
-        initialLat: route?.geoJson?.features[0].geometry.coordinates[0][1] || null,
-        initialLng: route?.geoJson?.features[0].geometry.coordinates[0][0] || null,
-        route: route || null,
-        trail: trail || null,
-        trails,
-      },
-      // Smart revalidation strategy:
-      // - Start with frequent checks for new content
-      // - As content stabilizes, you can increase this value
-      revalidate: 300, // 5 minutes - adjust based on your update frequency
-    }
-  } catch (error) {
-    console.error('Error fetching trail data:', error)
-    
-    // Return a longer revalidation time on errors to avoid hammering the API
-    return {
-      props: {
-        initialLat: null,
-        initialLng: null,
-        route: null,
-        trail: null,
-        trails: [],
-      },
-      revalidate: 60, // Retry in 1 minute on error
-    }
+  const trails = await getTrails(100)
+  const route = gpxUtils.routes.find(x => x.slug === context.params.slug)
+  const trail = trails.find(x => x.slug === context.params.slug)
+  return {
+    props: {
+      initialLat: route?.geoJson?.features[0].geometry.coordinates[0][1] || null,
+      initialLng: route?.geoJson?.features[0].geometry.coordinates[0][0] || null,
+      route: route || null,
+      trail: trail || null,
+      trails,
+    },
+    revalidate: 60,
   }
 }

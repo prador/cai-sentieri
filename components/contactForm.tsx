@@ -15,7 +15,7 @@ export default function ContactForm() {
 
     console.log(data)
     setBtnLoading(true); 
-    const action = 'https://wordpress-production-fbed.up.railway.app/wp-json/contact-form-7/v1/contact-forms/197/feedback'
+    const action = 'https://sentieri-admin.caitortona.net/wp-json/contact-form-7/v1/contact-forms/197/feedback'
     const method = 'post'
     const body = new FormData()
     body.append('yourname', data.yourname)

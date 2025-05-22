@@ -106,10 +106,11 @@ export async function getTrails(first) {
 
   return data?.trails?.nodes
 }
+
 export async function getTrail(id: string) {
   const data = await fetchAPI(
-    `query WpTrail {
-      trail(id: "tortona-volpedo", idType: SLUG) {
+    `query WpTrail($id: ID = "") {
+      trail(id: $id, idType: SLUG) {
           title(format: RENDERED)
           uri
           slug
@@ -161,7 +162,7 @@ export async function getTrail(id: string) {
     },
   )
 
-  return data.trail
+  return data?.trail
 }
 export async function getPosts(first = 1) {
   const data = await fetchAPI(

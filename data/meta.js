@@ -12,7 +12,7 @@ const meta = {
       {
         lat: 44.9004100,
         lng: 8.8835000,
-        image: "https://wordpress-production-fbed.up.railway.app/wp-content/uploads/Schermata-2023-10-04-alle-20.36.23-1.png",
+        image: "https://sentieri-admin.caitortona.net/wp-content/uploads/Schermata-2023-10-04-alle-20.36.23-1.png",
         description: '<strong>Great viewpoint</strong><p>Great viewwwww</p>',
         // add image if possible
       },

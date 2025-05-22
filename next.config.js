@@ -29,7 +29,7 @@ const nextConfig = {
       },
       {
         source: '/admin',
-        destination: 'https://wordpress-production-fbed.up.railway.app/wp-admin',
+        destination: 'https://sentieri-admin.caitortona.net/wp-admin',
         permanent: false,
         basePath: false,
       }

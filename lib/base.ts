@@ -13,10 +13,10 @@ export async function fetchAPI(query = '', { variables }: Record<string, any> = 
   })
 
   const json = await res.json()
-
+console.log(json)
   if (json.errors) {
     console.error(json.errors)
-    throw new Error('Failed to fetch API')
+    // throw new Error('Failed to fetch API')
   }
   return json.data
 }

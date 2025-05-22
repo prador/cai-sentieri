@@ -127,7 +127,7 @@ console.log(langQuery)
               <NavImage
                 href="/group/val-curone"
                 title="Val Curone"
-                image="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
               />
               <div className="p-2">
                 <TrailList trails={trails} group="Val Curone" />
@@ -137,7 +137,7 @@ console.log(langQuery)
               <NavImage
                 href="/group/valle-ossona"
                 title="Valle Ossona"
-                image="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
               />
               <div className="p-2">
                 <TrailList trails={trails} group="Valle Ossona" />
@@ -147,7 +147,7 @@ console.log(langQuery)
               <NavImage
                 href="/group/val-grue"
                 title="Val Grue"
-                image="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
               />
               <div className="p-2">
                 <TrailList trails={trails} group="Val Grue" />
@@ -163,7 +163,7 @@ console.log(langQuery)
               <div className="relative w-full rounded-lg">
                 <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
                 <Image
-                  src="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                  src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
                   fill
                   alt=""
                   className="rounded-lg flex flex-grow object-cover w-full"

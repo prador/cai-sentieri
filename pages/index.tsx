@@ -51,7 +51,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
             <div className="relative w-full rounded-lg">
               <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
               <Image
-                src="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
                 fill
                 alt=""
                 className="rounded-lg flex flex-grow object-cover w-full"
@@ -68,7 +68,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
             <div className="relative w-full rounded-lg">
               <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
               <Image
-                src="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
                 fill
                 alt=""
                 className="rounded-lg flex flex-grow object-cover w-full"
@@ -85,7 +85,7 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
             <div className="relative w-full rounded-lg">
               <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
               <Image
-                src="https://wordpress-production-fbed.up.railway.app/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
                 fill
                 alt=""
                 className="rounded-lg flex flex-grow object-cover w-full"
