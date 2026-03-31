@@ -65,7 +65,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
-    "@types/node": "^22.0.0",
+    "@types/node": "22.x",
     "@types/react": "^18.0.24",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
@@ -89,5 +89,6 @@
   "lint-staged": {
     "*.{js,ts,tsx}": "eslint --cache --fix",
     "*.{js,ts,tsx,css,md}": "prettier --write"
-  }
+  },
+  "packageManager": "pnpm@910.7.0"
 }
