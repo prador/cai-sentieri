@@ -37,21 +37,15 @@ const nextConfig = {
   },
   
   images: {
-    domains: ['wordpress-production-fbed.up.railway.app','https://sentieri-admin.caitortona.net'],
+    domains: ['sentieri-admin.caitortona.net'],
   },
-  webpack: {
-    config: {
-      experiments: {
-          topLevelAwait: true
-      }
+  webpack: (config) => {
+    config.experiments = {
+      ...config.experiments,
+      topLevelAwait: true,
     }
+    return config
   }
-  // webpack: (config) => {
-  //   config.experiments = {
-  //     topLevelAwait: true,
-  //   }
-  //   return config
-  // }
 }
 
 module.exports = withPWA(nextConfig)

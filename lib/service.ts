@@ -1,3 +1,4 @@
+// lib/service.ts
 import { fetchAPI } from './base'
 
 // export async function getTrails() {

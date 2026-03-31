@@ -1,3 +1,4 @@
+// pages/api/routes.js
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 const simplify = require('simplify-geojson')

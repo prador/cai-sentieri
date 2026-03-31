@@ -1,9 +1,6 @@
 // eslint-disable-next-line import/order, import/no-import-module-exports
 import { useIsSmall } from './hooks'
 
-const { getPosts } = require('../lib/service')
-const { fetchAPI } = require('../lib/base')
-
 const fs = require('fs')
 const path = require('path')
 const toGeoJson = require('@mapbox/togeojson')
@@ -12,75 +9,6 @@ const xmldom = require('xmldom')
 const { lineString } = require('@turf/helpers')
 const met = require('../data/meta')
 
-// eslint-disable-next-line consistent-return
-// async function fetchTrails(): Promise<any> {
-//   try {
-//     const result = await getTrails(100)
-//     console.log('Data fetched and saved:', result);
-//     return result.json()
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// }
-async function getTrails(first): Promise<any> {
-  const data = await fetchAPI(
-    `query WpTrails {
-      trails (first: 500) {
-        nodes {
-          title(format: RENDERED)
-          uri
-          slug
-          trailLocation(format: RENDERED)
-          trailNumber(format: RENDERED)
-          trailId
-          trailCategory(format: RENDERED)
-          trailTimeNeeded
-          trailSubdescription(format: RENDERED)
-          trailDescription(format: RENDERED)
-          trailDifficulty(format: RENDERED)
-          trailMapGprxFile {
-            node {
-              mediaItemUrl
-            }
-          }
-          galleryImages {
-            nodes {
-              mediaItemUrl
-            }
-          }
-          imageLinkImage {
-            node {
-              mediaItemUrl
-            }
-          }
-          imageLinkTitle(format: RENDERED)
-          imageLinkUrl(format: RENDERED)
-          pathColor
-          pathPoint {
-            nodes {
-              pointLat
-              pointName
-              pointLng
-              pointDescription
-              pointImage {
-                node {
-                  mediaItemUrl
-                }
-              }
-            }
-          }
-        }
-      }
-    }`,
-    {
-      variables: {
-        first,
-      },
-    },
-  )
-
-  return data?.trails?.nodes
-}
 
 const ROUTES_PATH = path.join(process.cwd(), 'public', 'gpx')
 
@@ -94,7 +22,6 @@ const routes = routeFilePaths.map(filePath => {
   const source = new xmldom.DOMParser().parseFromString(fs.readFileSync(path.join(ROUTES_PATH, filePath), 'utf8'))
   const slug = filePath.replace('.gpx', '')
   const metadata = met.meta[slug]
-  const pathPoints: any = getTrails(500)
   const geoJson = toGeoJson.gpx(source)
 
   // console.log(pathPoints)

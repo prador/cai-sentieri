@@ -61,7 +61,7 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
           color,
           geoJson: { features },
         } = route
-        const { pathColor, pathPoint } = trails.find(trail => trail.slug === slug)
+        const { pathColor, pathPoint } = trails?.find(trail => trail.slug === slug) ?? {}
 
         if (pathPoint?.nodes) {
           pathPoint.nodes.forEach((point, i) => {

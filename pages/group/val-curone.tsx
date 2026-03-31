@@ -62,14 +62,24 @@ function ValCurone({ trails, routes }: { trails: Trail[]; routes: Routes }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const trails = await getTrails(100)
-
-  return {
-    props: {
-      routes: gpxUtils.routes.sort((a, b) => new Date(b.added).valueOf() - new Date(a.added).valueOf()),
-      trails: trails || null,
-    },
-    revalidate: 3600,
+  try {
+    const trails = await getTrails(100)
+    return {
+      props: {
+        routes: gpxUtils.routes.sort((a, b) => new Date(b.added).valueOf() - new Date(a.added).valueOf()),
+        trails: trails || [],
+      },
+      revalidate: 86400,
+    }
+  } catch (e) {
+    console.warn('Could not fetch trails:', e)
+    return {
+      props: {
+        routes: gpxUtils.routes.sort((a, b) => new Date(b.added).valueOf() - new Date(a.added).valueOf()),
+        trails: [],
+      },
+      revalidate: 86400,
+    }
   }
 }
 

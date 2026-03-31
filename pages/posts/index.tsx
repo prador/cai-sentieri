@@ -1,3 +1,4 @@
+// pages/posts/index.tsx
 import React from 'react'
 import { GetStaticProps } from 'next'
 
@@ -24,12 +25,14 @@ export default function HomePage({ posts }: { posts: any }) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = await getPosts(100) // retrieve first 100 posts
-
-  return {
-    props: {
-      posts,
-    },
-    revalidate: 3600,
+  try {
+    const posts = await getPosts(100) // retrieve first 100 posts
+    return {
+      props: { posts: posts || [] },
+      revalidate: 86400, // 24h fallback — on-demand revalidation via /api/revalidate handles updates
+    }
+  } catch (e) {
+    console.warn('Could not fetch posts:', e)
+    return { props: { posts: [] }, revalidate: 86400 }
   }
 }

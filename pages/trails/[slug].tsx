@@ -1,3 +1,5 @@
+// pages/trails/[slug].tsx
+
 import React, { useEffect, useState } from 'react'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { motion } from 'framer-motion'
@@ -133,27 +135,33 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
 export default RoutePage
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const trails = await getTrails(100)
-  const paths = trails.map(route => ({ params: { slug: route.slug } }))
-  // const paths = gpxUtils.routes.map(route => ({ params: { slug: route.slug } }))
-  return {
-    paths,
-    fallback: false,
+  try {
+    const trails = await getTrails(100)
+    const paths = trails.map(route => ({ params: { slug: route.slug } }))
+    return { paths, fallback: 'blocking' }
+  } catch (e) {
+    console.warn('Could not fetch trails for static paths:', e)
+    return { paths: [], fallback: 'blocking' }
   }
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const trails = await getTrails(100)
-  const route = gpxUtils.routes.find(x => x.slug === context.params.slug)
-  const trail = trails.find(x => x.slug === context.params.slug)
-  return {
-    props: {
-      initialLat: route?.geoJson?.features[0].geometry.coordinates[0][1] || null,
-      initialLng: route?.geoJson?.features[0].geometry.coordinates[0][0] || null,
-      route: route || null,
-      trail: trail || null,
-      trails,
-    },
-    revalidate: 360,
+  try {
+    const trails = await getTrails(100)
+    const route = gpxUtils.routes.find(x => x.slug === context.params.slug)
+    const trail = trails.find(x => x.slug === context.params.slug)
+    return {
+      props: {
+        initialLat: route?.geoJson?.features[0].geometry.coordinates[0][1] || null,
+        initialLng: route?.geoJson?.features[0].geometry.coordinates[0][0] || null,
+        route: route || null,
+        trail: trail || null,
+        trails,
+      },
+      revalidate: 86400, // 24h fallback — on-demand revalidation via /api/revalidate handles updates
+    }
+  } catch (e) {
+    console.warn('Could not fetch trail data:', e)
+    return { notFound: true }
   }
 }

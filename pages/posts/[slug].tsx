@@ -1,3 +1,4 @@
+// pages/posts/[slug].tsx
 import React from 'react'
 import { GetStaticPaths, GetStaticProps } from 'next'
 
@@ -18,23 +19,26 @@ export default function PostPage({ post }: { post: Post }) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts = await getPosts(100)
-  const paths = posts.map(post => ({ params: { slug: post.slug } }))
-
-  return {
-    paths,
-    fallback: false,
+  try {
+    const posts = await getPosts(100)
+    const paths = posts.map(post => ({ params: { slug: post.slug } }))
+    return { paths, fallback: 'blocking' }
+  } catch (e) {
+    console.warn('Could not fetch posts for static paths:', e)
+    return { paths: [], fallback: 'blocking' }
   }
 }
 
 export const getStaticProps: GetStaticProps = async context => {
-  const posts = await getPosts(100) // retrieve first 100 posts
-  const post = posts.find(x => x.slug === context.params.slug)
-
-  return {
-    props: {
-      post: post || null,
-    },
-    revalidate: 3600,
+  try {
+    const posts = await getPosts(100)
+    const post = posts.find(x => x.slug === context.params.slug)
+    return {
+      props: { post: post || null },
+      revalidate: 86400, // 24h fallback — on-demand revalidation via /api/revalidate handles updates
+    }
+  } catch (e) {
+    console.warn('Could not fetch post data:', e)
+    return { notFound: true }
   }
 }
