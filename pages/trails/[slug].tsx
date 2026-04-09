@@ -65,16 +65,14 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
           <div className="container">
             <header className="text-center mb-8">
               <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-black">{pageLang === "it" ? `${trail?.title}` : `${trail?.translation.title}`}</h1>
-              {(trail.trailLocation || trail.trailCategory === 'swimrun') && (
+              {trail?.trailLocation && (
                 <div className="flex items-center justify-center">
-                  {route.location && (
-                    <div className="flex items-center justify-center text-gray-600 text-xl ">
+                  <div className="flex items-center justify-center text-gray-600 text-xl ">
                       <span className="font-semibold tracking-wide uppercase">{trail?.trailLocation}</span>
                       <span className="text-base font-semibold tracking-wide leading-relaxed uppercase trail-flag px-5 ml-3 border">
                         {trail?.trailNumber}
                       </span>
                     </div>
-                  )}
                 </div>
               )}
             </header>

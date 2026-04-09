@@ -24,12 +24,17 @@ const routes = routeFilePaths.map(filePath => {
   const metadata = met.meta[slug]
   const geoJson = toGeoJson.gpx(source)
 
+  // Find the track feature (LineString or MultiLineString), ignoring Point waypoints
+  const trackFeature = geoJson.features.find(
+    (f: { geometry?: { type: string } }) => f.geometry?.type === 'LineString' || f.geometry?.type === 'MultiLineString'
+  )
+
   // console.log(pathPoints)
   // Calculate distance using geoJson
-  const distance = turflength(geoJson)
+  const distance = trackFeature ? turflength(trackFeature) : 0
 
   // Calculate total distance per coordinate & elevation gain
-  const { coordinates } = geoJson.features[0].geometry
+  const { coordinates } = trackFeature?.geometry || { coordinates: [] }
   let totalDistance = 0
   let elevation = 0
   coordinates.forEach((currentCoordinate, i) => {

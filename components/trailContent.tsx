@@ -14,8 +14,10 @@ const TrailContent = ({ slug }: { slug: string }) => {
     async function fetchTrail() {
       const trailx = await getTrail(slug)
       setTrail(trailx)
+      console.log(trailx)
     }
     fetchTrail()
+    
   }, [])
   return (
     <>
