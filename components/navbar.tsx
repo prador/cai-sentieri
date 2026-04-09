@@ -122,7 +122,7 @@ const Navbar = () => {
     switch (submenu) {
       case 'sentieri':
         return (
-          <ul className="flex flex-col md:grid gap-6 md:p-4 md:w-[500px] md:grid-cols-3 lg:w-[600px] ">
+          <ul className="flex flex-col md:grid gap-6 md:p-4 md:w-[800px] md:grid-cols-3 lg:w-[1000px] mx-auto z-50 justify-center">
             <li className="row-span-1">
               <NavImage
                 href="/group/val-curone"
@@ -157,7 +157,7 @@ const Navbar = () => {
         )
       case 'sentieriAumentati':
         return (
-          <ul className="flex flex-col md:grid gap-6 md:p-4 md:w-[500px] md:grid-cols-4 lg:w-[600px] justify-center">
+          <ul className="flex flex-col md:grid gap-6 md:p-4 md:w-[800px] md:grid-cols-4 lg:w-[800px] justify-center">
             <li className="hidden md:flex relative h-32 w-full rounded-lg col-span-2 mr-4">
               <div className="mb-2 mt-4 text-2xl rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">Aumentati</div>
               <div className="relative w-full rounded-lg">
