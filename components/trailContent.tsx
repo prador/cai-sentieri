@@ -61,6 +61,7 @@ const TrailContent = ({ slug }: { slug: string }) => {
                     </div>
                   </div>
                 )}
+                
     </>
   )
 }

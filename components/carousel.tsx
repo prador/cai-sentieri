@@ -60,7 +60,7 @@ export default function Carousel(slideUrls: any) {
   )
   const slideArray = slideUrls?.slideUrls
   
-  const srcArray = slideArray.map(item => ({ src: item.mediaItemUrl , title: item.altText}))
+  const srcArray = slideArray.map(item => ({ src: item.mediaItemUrl , title: item.title}))
   // console.log(srcArray)
   const slides = slideArray?.map(item => item.mediaItemUrl)
   // console.log(slides)

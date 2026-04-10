@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { cn } from 'lib/utils'
 
 import {
   NavigationMenu,
@@ -118,73 +119,91 @@ const Navbar = () => {
     getTrailPaths()
   }, [])
   // console.log(trails)
-  const subMenu = (submenu: string) => {
-    switch (submenu) {
-      case 'sentieri':
-        return (
-          <ul className="flex flex-col md:grid gap-6 md:p-4 md:w-[800px] md:grid-cols-3 lg:w-[1000px] mx-auto z-50 justify-center">
-            <li className="row-span-1">
-              <NavImage
-                href="/group/val-curone"
-                title="Val Curone"
-                image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+  const [activeGroup, setActiveGroup] = useState("Val Curone");
+
+const groups = [
+  { label: "Val Curone", href: "/group/val-curone", group: "Val Curone" },
+  { label: "Valle Ossona", href: "/group/valle-ossona", group: "Valle Ossona" },
+  { label: "Val Grue", href: "/group/val-grue", group: "Val Grue" },
+];
+
+const subMenu = (submenu: string) => {
+  switch (submenu) {
+    case 'sentieri':
+      return (
+        <div className="md:p-4 md:w-[800px] lg:w-[1000px] mx-auto z-50">
+          <div className="md:grid md:grid-cols-4 md:gap-6">
+            <ul className="hidden md:flex md:flex-col gap-4 col-span-1">
+              {groups.map(({ label, href, group }) => (
+                <li key={group} onMouseEnter={() => setActiveGroup(group)}>
+                  <h2
+                    className={cn( "text-xl font-bold cursor-pointer transition-colors",
+                      activeGroup === group ? "opacity-100" : "opacity-30"
+                    )}
+                  >
+                    <NavImage
+                      href={href}
+                      title={label}
+                      image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                    />
+                  </h2>
+                </li>
+              ))}
+            </ul>
+
+            <div className="hidden md:block md:col-span-3 md:p-2 md:columns-3 md:gap-4 menu-trailslist">
+              <TrailList trails={trails} group={activeGroup} />
+            </div>
+
+            <Accordion type="single" collapsible className="w-full md:hidden">
+                <ScrollArea className="pl-2">
+              {groups.map(({ label, href, group }) => (
+                  <AccordionItem value={`item-${label}`}>
+                            <AccordionTrigger>
+                                <Link href={href} legacyBehavior passHref>
+                                  {label}
+                                </Link>
+                            </AccordionTrigger>
+                            <AccordionContent>
+                              <><TrailList trails={trails} group={group} /></>
+                            </AccordionContent>
+                          </AccordionItem>
+              ))}
+              </ScrollArea>
+              </Accordion>
+          </div>
+        </div>
+      )
+
+    case 'sentieriAumentati':
+      return (
+        <ul className="flex flex-col md:grid gap-6 md:p-4 md:w-[800px] md:grid-cols-4 lg:w-[800px] justify-center">
+          <li className="hidden md:flex relative h-32 w-full rounded-lg col-span-2 mr-4">
+            <div className="mb-2 mt-4 text-2xl rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">Aumentati</div>
+            <div className="relative w-full rounded-lg">
+              <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
+              <Image
+                src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                fill
+                alt=""
+                className="rounded-lg flex flex-grow object-cover w-full"
               />
-              <div className="p-2">
-                <TrailList trails={trails} group="Val Curone" />
-              </div>
-            </li>
-            <li className="row-span-1">
-              <NavImage
-                href="/group/valle-ossona"
-                title="Valle Ossona"
-                image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
-              />
-              <div className="p-2">
-                <TrailList trails={trails} group="Valle Ossona" />
-              </div>
-            </li>
-            <li className="row-span-1">
-              <NavImage
-                href="/group/val-grue"
-                title="Val Grue"
-                image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
-              />
-              <div className="p-2">
-                <TrailList trails={trails} group="Val Grue" />
-              </div>
-            </li>
-          </ul>
-        )
-      case 'sentieriAumentati':
-        return (
-          <ul className="flex flex-col md:grid gap-6 md:p-4 md:w-[800px] md:grid-cols-4 lg:w-[800px] justify-center">
-            <li className="hidden md:flex relative h-32 w-full rounded-lg col-span-2 mr-4">
-              <div className="mb-2 mt-4 text-2xl rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">Aumentati</div>
-              <div className="relative w-full rounded-lg">
-                <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
-                <Image
-                  src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
-                  fill
-                  alt=""
-                  className="rounded-lg flex flex-grow object-cover w-full"
-                />
-              </div>
-            </li>
-            <li className="col-span-1 flex flex-col">
-              {navSentieriAumentati?.map((trail: Trail, index: number) => {
-                return (
-                  <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
-                    <div className="text-base text-gray-500">{trail.title}</div>
-                  </Link>
-                )
-              })}
-            </li>
-          </ul>
-        )
-      default:
-        break
-    }
+            </div>
+          </li>
+          <li className="col-span-1 flex flex-col">
+            {navSentieriAumentati?.map((trail: Trail, index: number) => (
+              <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
+                <div className="text-base text-gray-500">{trail.title}</div>
+              </Link>
+            ))}
+          </li>
+        </ul>
+      )
+
+    default:
+      break
   }
+}
   return (
     <div className="container flex justify-end relative py-3 w-full">
       <Link
@@ -248,7 +267,6 @@ const Navbar = () => {
                 <SearchBox trails={trails}/>
               </div>
               
-              {/* <LangSwitcher/> */}
               <Accordion type="single" collapsible className="w-full">
                 <ScrollArea className="pt-6 h-[90vh]">
                   {navLinks.map((navLink, index) => (

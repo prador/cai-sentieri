@@ -268,3 +268,7 @@ flex-direction: column;
     transform: rotate(360deg);
   }
 }
+.menu-trailslist a {
+  display: block;
+  margin-bottom: 0.25rem;
+}

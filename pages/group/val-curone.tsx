@@ -37,6 +37,7 @@ function ValCurone({ trails, routes }: { trails: Trail[]; routes: Routes }) {
         <div className="pt-6 flex flex-col md:grid md:grid-cols-3 gap-6 space-y-6 md:space-y-0 ">
           {trails
             ?.filter(obj => obj.trailCategory === 'Val Curone')
+            .sort((a, b) => a.title.localeCompare(b.title))
             .map((trail: Trail, index: number) => {
               return (
                 <div className="border rounded-lg sentieri-aumentati-card bg-white shadow-lg">

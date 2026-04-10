@@ -122,6 +122,24 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                 </div>
                 <TrailContent slug={route.slug}/>
               </div>
+              <div>
+                  <h2>Itinerario consigliato</h2>
+                  {trail?.relatedTrails.nodes.length > 0 && (
+                  <div className="mt-8">
+                    <div className="mt-4 text-gray-500">
+                      {trail?.relatedTrails.nodes?.map((trail: Trail, index: number) => {
+                          return (
+                            <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
+                              <div className="text-base text-gray-500">
+                                <span className="font-bold text-green-700">{trail.title.split(' ')[0]}</span>
+                                {' '}{trail.title.split(' ').slice(1).join(' ')}</div>
+                            </Link>
+                          )
+                        })}
+                    </div>
+                  </div>
+                )}
+                </div>
             </div>
           </div>
         </>

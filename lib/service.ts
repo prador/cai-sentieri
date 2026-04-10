@@ -71,11 +71,19 @@ export async function getTrails(first) {
             nodes {
               mediaItemUrl
               altText
+              title
             }
           }
           imageLinkImage {
             node {
               mediaItemUrl
+            }
+          }
+          relatedTrails {
+            nodes {
+              title(format: RENDERED)
+              uri
+              slug
             }
           }
           imageLinkTitle(format: RENDERED)
@@ -131,11 +139,19 @@ export async function getTrail(id: string) {
           galleryImages {
             nodes {
               mediaItemUrl
+              title
             }
           }
           imageLinkImage {
             node {
               mediaItemUrl
+            }
+          }
+          relatedTrails {
+            nodes {
+              title(format: RENDERED)
+              uri
+              slug
             }
           }
           imageLinkTitle(format: RENDERED)

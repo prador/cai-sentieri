@@ -18,10 +18,13 @@ const TrailList = ({ trails, group }: { trails: Trail[]; group?: string }) => {
     <>
       {trails
         ?.filter(obj => obj.trailCategory === group)
+        .sort((a, b) => a.title.localeCompare(b.title))
         .map((trail: Trail, index: number) => {
           return (
             <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
-              <div className="text-base text-gray-500">{trail.title}</div>
+              <div className="text-base text-gray-500">
+                <span className="font-bold text-green-700">{trail.title.split(' ')[0]}</span>
+                {' '}{trail.title.split(' ').slice(1).join(' ')}</div>
             </Link>
           )
         })}

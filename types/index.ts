@@ -45,11 +45,21 @@ export type Routes = Array<Route>
 
 export type FilesURI = {
   uri?: string,
-  altText?: string
+  altText?: string,
+  title?: string
+}
+export type RelatedTrailsArr = {
+  uri?: string,
+  title?: string,
+  slug?: string
 }
 
 export type GalleryImages = {
   nodes?: FilesURI[]
+}
+
+export type RelatedTrails = {
+  nodes?: RelatedTrailsArr[]
 }
 
 export type ImageLinkImage = {
@@ -104,6 +114,7 @@ export type Trail = {
   trailDifficulty?: string
   trailMapGprxFile?: TrailGPXFile
   galleryImages?: GalleryImages
+  relatedTrails?: RelatedTrails
   imageLinkImage?: ImageLinkImage
   imageLinkTitle?: string
   imageLinkUrl?: string
