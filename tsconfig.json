@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "target": "es2017",
     "lib": [
       "dom",
@@ -26,6 +27,7 @@
     "**/*.tsx",
     "utils/gpxutils.ts",
     "data/meta.js",
+    "typings/css.d.ts",
     "scripts/generate-images.js"
 , "components/nextjsimage.tsx"  ],
   "exclude": [

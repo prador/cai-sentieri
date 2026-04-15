@@ -79,11 +79,19 @@ export async function getTrails(first) {
               mediaItemUrl
             }
           }
+          itinerioName
           relatedTrails {
             nodes {
               title(format: RENDERED)
               uri
               slug
+              trailLocation(format: RENDERED)
+            trailNumber(format: RENDERED)
+            trailCategory(format: RENDERED)
+            trailTimeNeeded
+            trailSubdescription(format: RENDERED)
+            trailDescription(format: RENDERED)
+            trailDifficulty(format: RENDERED)
             }
           }
           imageLinkTitle(format: RENDERED)
@@ -147,11 +155,19 @@ export async function getTrail(id: string) {
               mediaItemUrl
             }
           }
+          itinerioName
           relatedTrails {
             nodes {
               title(format: RENDERED)
               uri
               slug
+              trailLocation(format: RENDERED)
+            trailNumber(format: RENDERED)
+            trailCategory(format: RENDERED)
+            trailTimeNeeded
+            trailSubdescription(format: RENDERED)
+            trailDescription(format: RENDERED)
+            trailDifficulty(format: RENDERED)
             }
           }
           imageLinkTitle(format: RENDERED)

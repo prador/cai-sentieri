@@ -19,9 +19,9 @@ const gpxUtils = require('../../utils/gpxutils.ts')
 
 // Initial map
 // TODO: Fit to bounds of all routes
-const lng = 8.94050337530213
-const lat = 44.91711298954641
-// const zoom = 11
+const lng = 8.98050337530213
+const lat = 44.81711298954641
+// const zoom = 9
 
 function ValCurone({ trails, routes }: { trails: Trail[]; routes: Routes }) {
   return (
@@ -40,7 +40,7 @@ function ValCurone({ trails, routes }: { trails: Trail[]; routes: Routes }) {
             .sort((a, b) => a.title.localeCompare(b.title))
             .map((trail: Trail, index: number) => {
               return (
-                <div className="border rounded-lg sentieri-aumentati-card bg-white shadow-lg">
+                <div className="border rounded-lg sentieri-aumentati-card bg-white shadow-lg" key={index}>
                   <div className="md:col-span-3">
                     <MapBlock trails={[trail]} routes={routes} lat={lat} lng={lng} category="Val Curone" classes="m-0" legend={false} />
                   </div>

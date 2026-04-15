@@ -122,17 +122,22 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                 </div>
                 <TrailContent slug={route.slug}/>
               </div>
-              <div>
-                  <h2>Itinerario consigliato</h2>
+              <div className='col-span-1 sm:col-span-8 mt-8 bg-green-600 rounded-md p-4'>
+                  <h2 className='text-sm uppercase text-gray-100'>Itinerario</h2>
+                  <h3 className='text-2xl font-semibold text-white'>{trail?.itinerioName}</h3>
                   {trail?.relatedTrails.nodes.length > 0 && (
                   <div className="mt-8">
-                    <div className="mt-4 text-gray-500">
+                    <div className="mt-4  flex flex-col md:grid md:grid-cols-4 gap-4">
                       {trail?.relatedTrails.nodes?.map((trail: Trail, index: number) => {
                           return (
                             <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
-                              <div className="text-base text-gray-500">
-                                <span className="font-bold text-green-700">{trail.title.split(' ')[0]}</span>
-                                {' '}{trail.title.split(' ').slice(1).join(' ')}</div>
+                              <div className="text-base bg-white text-gray-500 p-2 md:p-4 rounded-lg">
+                                <div className="text-xl font-bold text-green-700">{trail.title.split(' ')[0]}</div>
+                                <div className='text-lg font-semibold'>{trail.title.split(' ').slice(1).join(' ')}</div>
+                                <div>{trail.trailDifficulty}</div>
+                                <div>{trail.trailTimeNeeded}</div>
+                                {/* <div>{Math.round(route.distance * 10) / 10} km</div> */}                                
+                              </div>
                             </Link>
                           )
                         })}

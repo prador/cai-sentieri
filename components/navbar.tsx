@@ -91,8 +91,8 @@ const SearchBox = ({trails}:{trails:any}) => {
             placeholder="cerca"
           />
           <Combobox.Options className="absolute z-50 top-10 left-10 bg-white shadow-lg">
-            {filteredTrails?.map(trail => (
-              <Combobox.Option key={trail.title} value={trail.slug} className="p-2">
+            {filteredTrails?.map((trail,index) => (
+              <Combobox.Option key={index} value={trail.slug} className="p-2">
                 <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
               </Combobox.Option>
             ))}
@@ -103,7 +103,7 @@ const SearchBox = ({trails}:{trails:any}) => {
 
 
 const Navbar = () => {
-  const router = useRouter()
+  const router = useRouter();
   const langQuery = router.query.l
   const [trails, setTrails] = useState<any>()
   const {pageLang, setPageLang} = useStore()
@@ -122,9 +122,9 @@ const Navbar = () => {
   const [activeGroup, setActiveGroup] = useState("Val Curone");
 
 const groups = [
-  { label: "Val Curone", href: "/group/val-curone", group: "Val Curone" },
-  { label: "Valle Ossona", href: "/group/valle-ossona", group: "Valle Ossona" },
-  { label: "Val Grue", href: "/group/val-grue", group: "Val Grue" },
+  { label: "Val Curone", href: "/group/val-curone", group: "Val Curone", index: 0 },
+  { label: "Valle Ossona", href: "/group/valle-ossona", group: "Valle Ossona", index: 1 },
+  { label: "Val Grue", href: "/group/val-grue", group: "Val Grue", index: 2 },
 ];
 
 const subMenu = (submenu: string) => {
@@ -157,8 +157,8 @@ const subMenu = (submenu: string) => {
 
             <Accordion type="single" collapsible className="w-full md:hidden">
                 <ScrollArea className="pl-2">
-              {groups.map(({ label, href, group }) => (
-                  <AccordionItem value={`item-${label}`}>
+              {groups.map(({ label, href, group, index }) => (
+                  <AccordionItem value={`item-${label}`} key={index}>
                             <AccordionTrigger>
                                 <Link href={href} legacyBehavior passHref>
                                   {label}
@@ -205,7 +205,7 @@ const subMenu = (submenu: string) => {
   }
 }
   return (
-    <div className="container flex justify-end relative py-3 w-full">
+    <div className="container flex justify-end relative py-3 w-full navbar">
       <Link
         href="/"
         className="hidden md:flex absolute z-20 -top-1 md:-top-2 md:h-[180px] md:w-[90px] h-[90px] w-[45px] object-fill left-4 "
@@ -220,8 +220,8 @@ const subMenu = (submenu: string) => {
         {/* {pageLang} */}
         <NavigationMenu>
           <NavigationMenuList className="relative">
-            {navLinks.map(navLink => (
-              <NavigationMenuItem>
+            {navLinks.map((navLink, index) => (
+              <NavigationMenuItem key={index}>
                 {navLink.submenu ? (
                   <>
                     <NavigationMenuTrigger>
@@ -262,7 +262,7 @@ const subMenu = (submenu: string) => {
             <Bars3 />
           </SheetTrigger>
           <SheetContent>
-            <ul className="flex flex-col w-full justify-center">
+            <ul className="flex flex-col w-full justify-center navbar">
               <div className="relative mt-6">
                 <SearchBox trails={trails}/>
               </div>
@@ -273,7 +273,7 @@ const subMenu = (submenu: string) => {
                     <>
                       {navLink.submenu ? (
                         <>
-                          <AccordionItem value={`item-${index}`}>
+                          <AccordionItem value={`item-${index}`} key={index}>
                             <AccordionTrigger>
                               <>
                                 {navLink.submenu === 'sentieriAumentati' ? (

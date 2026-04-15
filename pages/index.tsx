@@ -22,8 +22,8 @@ const gpxUtils = require('../utils/gpxutils.ts')
 
 // Initial map
 // TODO: Fit to bounds of all routes
-const lng = 8.94050337530213
-const lat = 44.91711298954641
+const lng = 8.96050337530213
+const lat = 44.81711298954641
 // const zoom = 11
 
 function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: Trail[] }) {

@@ -94,6 +94,7 @@ export type Translation = {
   trailSubdescription?: string
   trailDescription?: string
   trailDifficulty?: string
+  itinerioName?: string
 }
 
 export type Trail = {
@@ -114,6 +115,7 @@ export type Trail = {
   trailDifficulty?: string
   trailMapGprxFile?: TrailGPXFile
   galleryImages?: GalleryImages
+  itinerioName?: string
   relatedTrails?: RelatedTrails
   imageLinkImage?: ImageLinkImage
   imageLinkTitle?: string
