@@ -34,7 +34,14 @@ const routes = routeFilePaths.map(filePath => {
   const distance = trackFeature ? turflength(trackFeature) : 0
 
   // Calculate total distance per coordinate & elevation gain
-  const { coordinates } = trackFeature?.geometry || { coordinates: [] }
+const rawCoordinates = trackFeature?.geometry?.coordinates || []
+
+// Flatten MultiLineString (array of arrays) into a single array of points
+const coordinates: number[][] =
+  trackFeature?.geometry?.type === 'MultiLineString'
+    ? rawCoordinates.flat(1)
+    : rawCoordinates;
+    
   let totalDistance = 0
   let elevation = 0
   coordinates.forEach((currentCoordinate, i) => {

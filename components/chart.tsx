@@ -22,6 +22,9 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
     bottom: 15,
     left: 25,
   }
+  
+  const validData = data.filter(d => d.elevation != null && d.distance != null)
+  if (validData.length === 0) return null
 
   const xScale = d3
     .scaleLinear()
@@ -105,6 +108,8 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
   }
 
   return (
+    <div className="md:mx-4 p-3 mb-4 border rounded border-gray-300">
+      <div className="relative w-full h-[150px]">
     <svg viewBox={`0 0  ${width} ${height}`} className="touch-pan-y relative">
       {/* Y ticks */}
       {yTicks.map((elevation, i) => (
@@ -188,6 +193,8 @@ function ChartInner({ data, width, height }: ChartInnerProps): JSX.Element {
         />
       )}
     </svg>
+    </div>
+    </div>
   )
 }
 
@@ -200,8 +207,8 @@ function Chart({ coordinates }: ChartProps) {
 
   const data = coordinates.map(x => ({ distance: x[3], elevation: x[2], coordinates: [x[0], x[1]] }))
   return (
-    <div className="relative w-full h-[150px]" ref={ref}>
-      {bounds.width > 0 && <ChartInner data={data} width={bounds.width} height={bounds.height} />}
+    <div ref={ref}>
+        {bounds.width > 0 && <ChartInner data={data} width={bounds.width} height={bounds.height} />}
     </div>
   )
 }

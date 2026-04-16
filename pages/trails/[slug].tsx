@@ -60,7 +60,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
             <div className="hidden md:block">
               <MapLegend trails={trails} category="all" />
             </div>
-            {showMap && <MapBox trails={[trail]} routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
+            {showMap && <MapBox key={route.slug} trails={[trail]} routes={[route]} initialLat={initialLat} initialLng={initialLng} />}
           </div>
           <div className="container">
             <header className="text-center mb-8">
@@ -117,9 +117,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                 </div>
               </div>
               <div className="col-span-1 sm:col-span-6">
-                <div className="md:mx-4 p-3 mb-4 border rounded border-gray-300">
-                  <Chart coordinates={route.geoJson.features[0].geometry.coordinates} />
-                </div>
+                <Chart coordinates={route.geoJson.features[0].geometry.coordinates} />
                 <TrailContent slug={route.slug}/>
               </div>
 
@@ -133,7 +131,7 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                           return (
                             <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
                               <div className="text-base bg-white text-gray-500 p-2 md:p-4 rounded-lg">
-                                <div className="text-xl font-bold text-green-700">{trail.title.split(' ')[0]}</div>
+                                <div className="text-2xl font-bold text-green-700">{trail.title.split(' ')[0]}</div>
                                 <div className='text-lg font-semibold'>{trail.title.split(' ').slice(1).join(' ')}</div>
                                 <div>{trail.trailDifficulty}</div>
                                 <div>{trail.trailTimeNeeded}</div>

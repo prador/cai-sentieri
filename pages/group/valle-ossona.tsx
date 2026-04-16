@@ -33,7 +33,8 @@ function ValleOssona({ trails, routes }: { trails: Trail[]; routes: Routes }) {
         <h1 className="px-5 py-1 mb-0 text-2xl md:text-3xl font-bold text-center text-forest-green-700">Valle Ossona</h1>
       </header>
       <section>
-        <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" classes="m-0" legend={false} />
+        {trails
+            ? <MapBlock trails={trails} routes={routes} lat={lat} lng={lng} category="Valle Ossona" classes="m-0" legend={false} /> : null }
         <div className="pt-6 flex flex-col md:grid md:grid-cols-3 gap-6 space-y-6 md:space-y-0 ">
           {trails
             ?.filter(obj => obj.trailCategory === 'Valle Ossona')

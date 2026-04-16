@@ -6,7 +6,7 @@ function SEO(siteSettings:any): JSX.Element {
 
 console.log(siteSettings)
   const config = {
-    title: siteSettings?.siteSettings?.siteTitle || '12323CAI Tortona - Sentieri',
+    title: siteSettings?.siteSettings?.siteTitle || 'CAI Tortona - Sentieri',
     description: siteSettings?.siteSettings?.siteDescription || 'I sentieri CAI del tortonese',
     openGraph: {
       type: 'website',
