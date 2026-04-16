@@ -242,3 +242,20 @@ export async function getPostBySlug(slug: string) {
 
   return data?.post
 }
+
+export async function getSiteSettings() {
+  const data = await fetchAPI(
+    `query SiteSettings {
+        siteSettings {
+          siteTitle
+          siteDescription
+          footerInfo
+          logoDesktop
+          logoMobile
+          logoFavicon
+        }
+    }`
+  )
+
+  return data?.siteSettings
+}

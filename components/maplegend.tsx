@@ -7,7 +7,7 @@ import { TrailList } from './trailslist'
 const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) => {
   return (
     <div
-      className="w-[200px] h-auto bg-white absolute z-10 right-12 top-2 rounded-md p-2 text-sm"
+      className="w-[250px] h-auto bg-white absolute z-10 right-12 top-2 rounded-md p-2 text-sm"
       style={{ boxShadow: '0 0 0 1px rgba(0,0,0,.1)' }}
     >
       {category === 'all' || category === 'Val Curone' ? (

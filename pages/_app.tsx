@@ -1,9 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/router'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import SEO from '../components/seo'
 import { ThemeProvider } from 'next-themes'
+import { getSiteSettings } from 'lib/service'
 
 import '../styles/globals.css'
 import 'keen-slider/keen-slider.min.css'
@@ -18,7 +19,11 @@ import Layout from 'components/layout'
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const router = useRouter()
   const aside = useRef<HTMLElement>()
-
+  const [siteSettings, setSiteSettings] = useState(null)
+  useEffect(() => {
+    getSiteSettings().then(setSiteSettings)
+  }, [])
+console.log(siteSettings)
   useEffect(() => {
     const sidebar = aside.current
     if (sidebar) {
@@ -35,8 +40,14 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
       }}
     >
       <MapProvider>
-        <SEO />
+        <SEO siteSettings={siteSettings}/>
         <Head>
+          {siteSettings?.favicon && (
+            <>
+              <link rel="icon" href={siteSettings?.favicon} />
+              <link rel="apple-touch-icon" href={siteSettings?.favicon} />
+            </>
+          )}
           <meta name="viewport" content="width=device-width, user-scalable=no" />
         </Head>
         <main className="sm:h-screen w-screen">

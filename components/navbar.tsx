@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { getSiteSettings,getTrails } from 'lib/service'
 import React, { useEffect, useState } from 'react'
 import { cn } from 'lib/utils'
 
@@ -34,7 +35,6 @@ import { ScrollArea } from 'components/ui/scroll-area'
 import { Toggle } from "components/ui/toggle"
 import type { Trail, Trails } from '../types'
 import { navLinks, navSentieriAumentati } from '../utils/nav'
-import { getTrails } from 'lib/service'
 import { TrailList, NavImage } from './trailslist'
 import { ARIcon, Bars3 } from './icons'
 import { Combobox } from '@headlessui/react'
@@ -87,10 +87,10 @@ const SearchBox = ({trails}:{trails:any}) => {
     <Combobox value={selectedTrail} onChange={setSelectedTrail}>
           <Combobox.Input
             onChange={event => setQuery(event.target.value)}
-            className="px-2 py-1 bg-gray-100 rounded-lg border"
+            className="px-2 py-1 bg-gray-100 rounded-lg border w-[250px]"
             placeholder="cerca"
           />
-          <Combobox.Options className="absolute z-50 top-10 left-10 bg-white shadow-lg">
+          <Combobox.Options className="absolute z-50 top-10 right-0 bg-white shadow-lg w-[250px]">
             {filteredTrails?.map((trail,index) => (
               <Combobox.Option key={index} value={trail.slug} className="p-2">
                 <Link href={`/trails/${trail.slug}`}>{trail.title}</Link>
@@ -107,6 +107,12 @@ const Navbar = () => {
   const langQuery = router.query.l
   const [trails, setTrails] = useState<any>()
   const {pageLang, setPageLang} = useStore()
+  const [siteSettings, setSiteSettings] = useState(null)
+  
+  useEffect(() => {
+    getSiteSettings().then(setSiteSettings)
+  }, [])
+
   const getTrailPaths = async () => {
     const trailsx = await getTrails(100)
     setTrails(trailsx)
@@ -204,16 +210,17 @@ const subMenu = (submenu: string) => {
       break
   }
 }
+
   return (
     <div className="container flex justify-end relative py-3 w-full navbar">
       <Link
         href="/"
         className="hidden md:flex absolute z-20 -top-1 md:-top-2 md:h-[180px] md:w-[90px] h-[90px] w-[45px] object-fill left-4 "
       >
-        <Image src="/logo_sentieri.svg" fill alt="" className="shadow-md" />
+        <Image src={siteSettings?.logoDesktop} fill alt="" className="shadow-md" />
       </Link>
       <Link href="/" className="flex md:hidden absolute z-20 h-[50px] w-[100px] object-fill left-4 rounded-lg ">
-        <Image src="/logo_horizontal.png" fill alt="" className="shadow-md rounded" />
+        <Image src={siteSettings?.logoMobile} fill alt="" className="shadow-md rounded" />
       </Link>
 
       <ul className="hidden absolute md:flex md:flex-row w-full justify-center">

@@ -122,10 +122,11 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                 </div>
                 <TrailContent slug={route.slug}/>
               </div>
+
+              {trail?.relatedTrails.nodes.length > 0 && (
               <div className='col-span-1 sm:col-span-8 mt-8 bg-green-600 rounded-md p-4'>
                   <h2 className='text-sm uppercase text-gray-100'>Itinerario</h2>
                   <h3 className='text-2xl font-semibold text-white'>{trail?.itinerioName}</h3>
-                  {trail?.relatedTrails.nodes.length > 0 && (
                   <div className="mt-8">
                     <div className="mt-4  flex flex-col md:grid md:grid-cols-4 gap-4">
                       {trail?.relatedTrails.nodes?.map((trail: Trail, index: number) => {
@@ -143,8 +144,8 @@ function RoutePage({ route, initialLat, initialLng, trails, trail }: RoutePagePr
                         })}
                     </div>
                   </div>
-                )}
                 </div>
+              )}
             </div>
           </div>
         </>

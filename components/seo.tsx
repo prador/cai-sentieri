@@ -1,28 +1,27 @@
 import { DefaultSeo } from 'next-seo'
+import { useEffect, useState } from 'react'
+import { getSiteSettings } from 'lib/service'
 
-const config = {
-  title: 'Trail Routes: Curated running & hiking routes',
-  description: 'Explore curated trails for hiking & running.',
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://routes.samuelkraft.com',
-    site_name: 'Trail Routes',
-    images: [
-      {
-        url: 'https://routes.samuelkraft.com/og.jpg',
-        alt: 'Trail Routes',
-      },
-    ],
-  },
-  twitter: {
-    handle: '@samuelkraft',
-    site: '@samuelkraft',
-    cardType: 'summary_large_image',
-  },
-}
+function SEO(siteSettings:any): JSX.Element {
 
-function SEO(): JSX.Element {
+console.log(siteSettings)
+  const config = {
+    title: siteSettings?.siteSettings?.siteTitle || '12323CAI Tortona - Sentieri',
+    description: siteSettings?.siteSettings?.siteDescription || 'I sentieri CAI del tortonese',
+    openGraph: {
+      type: 'website',
+      locale: 'it_IT',
+      url: 'https://sentieri.caitortona.net/',
+      site_name: siteSettings?.siteSettings?.seoTitle || 'CAI Tortona - Sentieri',
+      images: [
+        {
+          url: siteSettings?.logoDesktop,
+          alt: siteSettings?.seoTitle || 'CAI Tortona - Sentieri',
+        },
+      ],
+    },
+  }
+
   return <DefaultSeo {...config} />
 }
 

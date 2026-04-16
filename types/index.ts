@@ -129,5 +129,12 @@ export type Post = {
   slug?: string
   title?: string
 }
-
+export type GeneralInfo = {
+  siteTitle?: string
+  siteDescription?: string
+  footerInfo?: string
+  logoDesktop?: string
+  logoMobile?: string
+  logoFavicon?: string
+}
 export type Trails = Array<Trail>
