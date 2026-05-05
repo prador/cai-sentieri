@@ -59,6 +59,7 @@ module.exports = {
     'strict':0,
     'spaced-comment':0,
     'func-names':0,
+    "react/button-has-type":0
   },
   globals: {
     JSX: true,
