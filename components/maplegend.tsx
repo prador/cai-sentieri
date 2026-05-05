@@ -7,7 +7,7 @@ import { TrailList } from './trailslist'
 const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) => {
   return (
     <div
-      className="w-[250px] h-auto bg-white absolute z-10 right-12 top-2 rounded-md p-2 text-sm"
+      className="w-[250px] h-auto max-h-[60vh] bg-white absolute z-10 right-12 top-2 rounded-md p-2 text-sm"
       style={{ boxShadow: '0 0 0 1px rgba(0,0,0,.1)' }}
     >
       {category === 'all' || category === 'Val Curone' ? (
@@ -18,7 +18,7 @@ const MapLegend = ({ trails, category }: { trails: Trail[]; category: string }) 
                 <div className="font-semibold text-base">Val Curone</div>
                 <ChevronUpIcon className={`${open ? 'rotate-180 transform' : ''} h-5 w-5 text-purple-500`} />
               </Disclosure.Button>
-              <Disclosure.Panel className="text-sm text-gray-500">
+              <Disclosure.Panel className="text-sm max-h-[350px] overflow-y-scroll text-gray-500">
                 <TrailList trails={trails} group="Val Curone" />
               </Disclosure.Panel>
             </>

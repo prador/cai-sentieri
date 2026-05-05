@@ -22,7 +22,7 @@ const TrailList = ({ trails, group }: { trails: Trail[]; group?: string }) => {
         .map((trail: Trail, index: number) => {
           return (
             <Link href={trail.href ? trail.href : `/trails/${trail.slug}`} key={index}>
-              <div className="text-base text-gray-500 mb-2">
+              <div className="text-sm text-gray-500 mb-2">
                 <span className="font-bold text-green-700">{trail.title.split(' ')[0]}</span>
                 {' '}{trail.title.split(' ').slice(1).join(' ')}</div>
             </Link>

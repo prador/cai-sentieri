@@ -58,14 +58,14 @@ const WeatherCard = ({ data }: { data: any }) => {
       <h2 className="text-lg font-bold">{weatherData?.city}</h2>
       <div className="h-36 w-36 mx-auto">{getWeatherIcon(weatherData?.description)}</div>
       <div className="text-base text-gray-600">
-        <h6>{weatherData?.description}</h6>
+        {/* <h6>{weatherData?.description}</h6> */}
         <h4>{weatherData?.temperatureCelsius}°</h4>
-        <p>
-          {weatherData?.minTemperatureCelsius}°/{weatherData?.maxTemperatureCelsius}°
+        <p className='text-sm'>
+          {weatherData?.minTemperatureCelsius}° / {weatherData?.maxTemperatureCelsius}°
         </p>
-        <div>
-          Humidity {weatherData?.humidity}% <br />
-          Wind Speed {weatherData?.wind_speed} M/s
+        <div className='text-sm'>
+          Umidità : {weatherData?.humidity}% <br />
+          Velocità del vento : {weatherData?.wind_speed} M/s
         </div>
       </div>
     </div>

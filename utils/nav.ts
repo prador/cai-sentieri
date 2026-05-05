@@ -11,7 +11,7 @@ export const navLinks: { title: string; href: string; submenu?: string }[] = [
   {
     title: 'Sentieri Aumentati',
     href: '/sentieri-aumentati',
-    submenu: 'sentieriAumentati',
+    // submenu: 'sentieriAumentati',
   },
   {
     title: 'Contatti',

@@ -283,11 +283,11 @@ const subMenu = (submenu: string) => {
                           <AccordionItem value={`item-${index}`} key={index}>
                             <AccordionTrigger>
                               <>
-                                {navLink.submenu === 'sentieriAumentati' ? (
+                                {/* {navLink.submenu === 'sentieriAumentati' ? (
                                   <span className="h-6 w-6 block mr-1 text-forest-green-500">
                                     <ARIcon />
                                   </span>
-                                ) : null}
+                                ) : null} */}
                                 <Link href={navLink.href} legacyBehavior passHref>
                                   {navLink.title}
                                 </Link>
