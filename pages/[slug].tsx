@@ -7,8 +7,13 @@ type Props = {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const slugs = await getAllPageSlugs()
+
+  const excluded = ['contatti'] // add any slugs with dedicated pages
+
   return {
-    paths: slugs.map(({ slug }: { slug: string }) => ({ params: { slug } })),
+    paths: slugs
+      .filter(({ slug }) => !excluded.includes(slug))
+      .map(({ slug }) => ({ params: { slug } })),
     fallback: 'blocking',
   }
 }
