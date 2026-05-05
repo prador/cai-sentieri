@@ -259,3 +259,73 @@ export async function getSiteSettings() {
 
   return data?.siteSettings
 }
+
+export async function getAllPageSlugs() {
+  const data = await fetchAPI(
+    `query {
+      pages(first: 100) {
+        nodes {
+          slug
+        }
+      }
+    }`
+  )
+  return data?.pages?.nodes?.map((p: { slug: string }) => ({ slug: p.slug })) ?? []
+}
+
+export async function getPageBySlug(slug: string) {
+  const data = await fetchAPI(
+    `query GetPage($id: ID = "") {
+      page(id: $id, idType: URI) {
+        title
+        content
+      }
+    }`,
+    {
+      variables: { id: slug },
+    }
+  )
+  return data?.page
+}
+
+export async function getNavMenu() {
+  const data = await fetchAPI(
+    `query GetMenu {
+      menus(where: { location: MAIN_MENU }) {
+        nodes {
+          menuItems {
+            nodes {
+              id
+              label
+              url
+              parentId
+              childItems {
+                nodes {
+                  id
+                  label
+                  url
+                }
+              }
+            }
+          }
+        }
+      }
+    }`,
+    {
+      variables: {
+        location: "Main_Menu",
+      },
+    },
+  )
+
+  const WP_URL = process.env.NEXT_PUBLIC_WORDPRESS_URL ?? ''
+  const items = data?.menus?.nodes?.[0]?.menuItems?.nodes ?? []
+
+  // filter out child items from top level (they appear under parentId)
+  const topLevel = items.filter((item: any) => !item.parentId)
+
+  return topLevel.map((item: any) => ({
+    title: item.label,
+    href: item.url.replace(WP_URL, '') || '/',
+  }))
+}

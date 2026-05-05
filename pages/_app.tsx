@@ -10,6 +10,7 @@ import '../styles/globals.css'
 import 'keen-slider/keen-slider.min.css'
 import 'yet-another-react-lightbox/plugins/thumbnails.css'
 
+
 // Hooks
 
 import { MapProvider } from '../components/mapprovider'

@@ -5,6 +5,7 @@
 // Payload format:
 //   { "type": "trail", "slug": "trail-slug" }
 //   { "type": "post", "slug": "post-slug" }
+//   { "type": "page", "slug": "page-slug" }
 //   { "type": "all" }
 
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -28,6 +29,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else if (type === 'post' && slug) {
       await res.revalidate(`/posts/${slug}`)
       await res.revalidate('/posts')
+    } else if (type === 'page' && slug) {
+      await res.revalidate(`/${slug}`)
     } else if (type === 'all') {
       await res.revalidate('/sentieri')
       await res.revalidate('/sentieri-aumentati')

@@ -39,6 +39,7 @@ export default class MyDocument extends Document {
           <meta property="og:image" content="https://sentieri.caitortona.net/icons/apple-touch-icon.png" />
 
           <link href="https://api.mapbox.com/mapbox-gl-js/v2.1.1/mapbox-gl.css" rel="stylesheet" />
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@wordpress/block-library@latest/build-style/style.css" />
         </Head>
         <body className="antialiased bg-white text-black font-nunito">
           <Main />

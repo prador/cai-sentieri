@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { getSiteSettings,getTrails } from 'lib/service'
+import { getSiteSettings, getTrails, getNavMenu } from 'lib/service'
 import React, { useEffect, useState } from 'react'
 import { cn } from 'lib/utils'
 
@@ -34,7 +34,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from 'co
 import { ScrollArea } from 'components/ui/scroll-area'
 import { Toggle } from "components/ui/toggle"
 import type { Trail, Trails } from '../types'
-import { navLinks, navSentieriAumentati } from '../utils/nav'
+import { navSentieriAumentati, submenuMap } from '../utils/nav'
 import { TrailList, NavImage } from './trailslist'
 import { ARIcon, Bars3 } from './icons'
 import { Combobox } from '@headlessui/react'
@@ -109,7 +109,20 @@ const Navbar = () => {
   const {pageLang, setPageLang} = useStore()
   const [siteSettings, setSiteSettings] = useState(null)
   
+    const [navLinks, setNavLinks] = useState<{ title: string; href: string; submenu?: string }[]>([])
+
+
   useEffect(() => {
+    getNavMenu().then(items => {
+      const withSubmenus = items.map(item => {
+        const slug = item.href.replace(/^\//, '').replace(/\/$/, '') // strip slashes
+        return {
+          ...item,
+          submenu: submenuMap[slug],
+        }
+      })
+      setNavLinks(withSubmenus)
+    })
     getSiteSettings().then(setSiteSettings)
   }, [])
 

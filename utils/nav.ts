@@ -1,23 +1,28 @@
-export const navLinks: { title: string; href: string; submenu?: string }[] = [
-  {
-    title: 'Progetto',
-    href: '/progetto',
-  },
-  {
-    title: 'Sentieri',
-    href: '/sentieri',
-    submenu: 'sentieri',
-  },
-  {
-    title: 'Sentieri Aumentati',
-    href: '/sentieri-aumentati',
-    // submenu: 'sentieriAumentati',
-  },
-  {
-    title: 'Contatti',
-    href: '/contatti',
-  },
-]
+// export const navLinks: { title: string; href: string; submenu?: string }[] = [
+//   {
+//     title: 'Progetto',
+//     href: '/progetto',
+//   },
+//   {
+//     title: 'Sentieri',
+//     href: '/sentieri',
+//     submenu: 'sentieri',
+//   },
+//   {
+//     title: 'Sentieri Aumentati',
+//     href: '/sentieri-aumentati',
+//     // submenu: 'sentieriAumentati',
+//   },
+//   {
+//     title: 'Contatti',
+//     href: '/contatti',
+//   },
+// ]
+
+export const submenuMap: Record<string, string> = {
+  'sentieri': 'sentieri',
+  // 'sentieri-aumentati': 'sentieriAumentati',
+}
 
 export const navSentieriAumentati = [
   {
