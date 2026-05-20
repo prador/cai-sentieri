@@ -34,14 +34,14 @@ const nextConfig = {
         basePath: false,
       },
       {
-        source: '/114-Rifugio-Orsi-Monte-Pana',
-        destination: '/114-rifugio-orsi-monte-pana',
+        source: 'https://sentieri.caitortona.net/trails/114-Rifugio-Orsi-Monte-Pana',
+        destination: 'https://sentieri.caitortona.net/trails/114-rifugio-orsi-monte-pana',
         permanent: false,
         basePath: false,
       },
       {
-        source: '/111-Forotondo-Bruggi',
-        destination: '/111-forotondo-bruggi',
+        source: 'https://sentieri.caitortona.net/trails/111-Forotondo-Bruggi',
+        destination: 'https://sentieri.caitortona.net/trails/111-forotondo-bruggi',
         permanent: false,
         basePath: false,
       }
