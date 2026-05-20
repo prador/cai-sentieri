@@ -24,7 +24,6 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   useEffect(() => {
     getSiteSettings().then(setSiteSettings)
   }, [])
-console.log(siteSettings)
   useEffect(() => {
     const sidebar = aside.current
     if (sidebar) {

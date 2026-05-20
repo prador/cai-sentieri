@@ -11,8 +11,8 @@ import MapBox from '../components/mapbox'
 import { useIsSmall } from '../utils/hooks'
 
 // Types
-import { Routes, Trail } from '../types'
-import { getPosts, getTrails } from '../lib/service'
+import { Routes, Trail, LinkCard } from '../types'
+import { getPosts, getTrails, getPageBySlug, getHomeLinkCards } from '../lib/service'
 import MapLegend from 'components/maplegend'
 import WeatherCard from 'components/weatherCard'
 import NewsEvents from 'components/newsevents'
@@ -25,9 +25,9 @@ const gpxUtils = require('../utils/gpxutils.ts')
 const lng = 8.96050337530213
 const lat = 44.81711298954641
 // const zoom = 11
-
-function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: Trail[] }) {
+function Home({ routes, posts, trails, page,linkCards }: { routes: Routes; posts: any; trails: Trail[], page: { content: string; acf?: any } | null, linkCards: LinkCard[]  }) {
   const [showMap, setShowMap] = useState(true)
+  console.log(linkCards);
 
   return (
     <motion.div
@@ -41,58 +41,40 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
         <MapLegend trails={trails} category="all" />
         {showMap && <MapBox trails={trails} routes={routes} initialLat={lat} initialLng={lng} />}
       </div>
+    
       <div className="container pt-6 flex flex-col md:grid md:grid-cols-3 gap-6 space-y-6 md:space-y-0">
-        <Link href="/progetto" className="border rounded-lg sentieri-aumentati-card bg-white shdaow-lg">
-          <div className="flex relative h-32 md:h-48 w-full rounded-lg col-span-2 mr-4">
-            <div className="mb-2 mt-4 rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">
-              <h2 className="text-2xl">I Sentieri del Toronese</h2>
-              <p className="mt-2">(Il progetto)</p>
-            </div>
-            <div className="relative w-full rounded-lg">
-              <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
-              <Image
-                src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
-                fill
-                alt=""
-                className="rounded-lg flex flex-grow object-cover w-full"
-              />
-            </div>
-          </div>
-        </Link>
-        <Link href="/sentieri-aumentati" className="border rounded-lg sentieri-aumentati-card bg-white shdaow-lg">
-          <div className="flex relative h-32 md:h-48 w-full rounded-lg col-span-2 mr-4">
-            <div className="mb-2 mt-4 rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">
-              <h2 className="text-2xl">I Sentieri Aumentati</h2>
-              <p className="mt-2">description</p>
-            </div>
-            <div className="relative w-full rounded-lg">
-              <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
-              <Image
-                src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
-                fill
-                alt=""
-                className="rounded-lg flex flex-grow object-cover w-full"
-              />
-            </div>
-          </div>
-        </Link>
-        <Link href="/contatti" className="border rounded-lg sentieri-aumentati-card bg-white shdaow-lg">
-          <div className="flex relative h-32 md:h-48 w-full rounded-lg col-span-2 mr-4">
-            <div className="mb-2 mt-4 rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">
-              <h2 className="text-2xl">Quanto tempo hai?</h2>
-              <p className="mt-2">description</p>
-            </div>
-            <div className="relative w-full rounded-lg">
-              <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
-              <Image
-                src="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
-                fill
-                alt=""
-                className="rounded-lg flex flex-grow object-cover w-full"
-              />
-            </div>
-          </div>
-        </Link>
+       {page?.content && (
+        <div className="wp-block-post-content entry-content" 
+            dangerouslySetInnerHTML={{ __html: page.content }} />
+      )}  </div>
+      <div className="container pt-6 flex flex-col md:grid md:grid-cols-3 gap-6 space-y-6 md:space-y-0">
+        {linkCards
+          .filter(card => card?.linkCardTitle)
+          .map((card, index) => (
+            <Link
+              key={index}
+              href={card?.linkCardLink?.url ?? '#'}
+              className="border rounded-lg sentieri-aumentati-card bg-white shadow-lg"
+            >
+              <div className="flex relative h-32 md:h-48 w-full rounded-lg col-span-2 mr-4">
+                <div className="mb-2 mt-4 rounded-lg font-bold absolute z-50 left-3 bottom-1 text-white">
+                  <h2 className="text-2xl">{card.linkCardTitle}</h2>
+                  {card.linkCardDescription && (
+                    <p className="mt-2">{card.linkCardDescription}</p>
+                  )}
+                </div>
+                <div className="relative w-full rounded-lg">
+                  <div className="relative h-full w-full z-10 bg-gradient-to-b from-muted/50 to-primary rounded-lg" />
+                  <img
+                      src={card.linkCardImageUrl || "https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"}
+                      alt={card.linkCardImageAlt ?? ''}
+                      className="rounded-lg object-cover w-full h-full absolute inset-0"
+                    />
+                </div>
+              </div>
+            </Link>
+          ))
+        }
       </div>
     </motion.div>
   )
@@ -100,11 +82,15 @@ function Home({ routes, posts, trails }: { routes: Routes; posts: any; trails: T
 
 export const getStaticProps: GetStaticProps = async () => {
   try {
+    const page = await getPageBySlug('home') // ← hardcode 'home' instead of params?.slug
     const trails = await getTrails(100)
+    const linkCards = await getHomeLinkCards()
     return {
       props: {
         routes: gpxUtils.routes.sort((a, b) => new Date(b.added).valueOf() - new Date(a.added).valueOf()),
         trails: trails || [],
+        linkCards: linkCards || [],
+        page: page || null, // ← add fallback
       },
       revalidate: 86400,
     }
@@ -114,6 +100,7 @@ export const getStaticProps: GetStaticProps = async () => {
       props: {
         routes: gpxUtils.routes.sort((a, b) => new Date(b.added).valueOf() - new Date(a.added).valueOf()),
         trails: [],
+        page: null, // ← was missing entirely in the catch block
       },
       revalidate: 86400,
     }

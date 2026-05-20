@@ -1,33 +1,6 @@
 // lib/service.ts
 import { fetchAPI } from './base'
 
-// export async function getTrails() {
-//   const url = `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/trail`;
-//   const headers = { 'Content-Type': 'application/json' }
-
-//   const res = await fetch(url)
-
-//   const json = await res.json()
-//   console.error(json)
-//   if (json.errors) {
-//     console.error(json.errors)
-//     throw new Error('Failed to fetch API')
-//   }
-//   return json.data
-// }
-// export async function getTrails() {
-//   const url = `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}/trail`;
-//       const response = await fetch(url);
-//       // Check if the response status is OK (status code 200)
-//       if (response.ok) {
-//         const data = await response.json();
-//         // Process and use the fetched data here
-//         console.log(data);
-//       } else {
-//         console.error(`Request failed with status: ${response.status}`);
-//       }
-//     return response.json();
-// }
 export async function getTrails(first) {
   const data = await fetchAPI(
     `query WpTrails($language: LanguageCodeEnum!) {
@@ -242,7 +215,58 @@ export async function getPostBySlug(slug: string) {
 
   return data?.post
 }
+export async function getHomeLinkCards() {
+  const data = await fetchAPI(
+    `query HomeLinkCards {
+      page(id: "home", idType: URI) {
+        linkCards {
+          linkCard1 {
+            linkCardTitle
+            linkCardDescription
+            linkCardLink {
+              url
+              title
+              target
+            }
+            linkCardImageUrl
+          }
+          linkCard2 {
+            linkCardTitle
+            linkCardDescription
+            linkCardLink {
+              url
+              title
+              target
+            }
+            linkCardImageUrl
+          }
+          linkCard3 {
+            linkCardTitle
+            linkCardDescription
+            linkCardLink {
+              url
+              title
+              target
+            }
+            linkCardImageUrl
+          }
+        }
+      }
+    }`
+  )
 
+   const acf = data?.page?.linkCards
+  if (!acf) return []
+
+  // Flatten image out of the node wrapper before returning
+  return [acf.linkCard1, acf.linkCard2, acf.linkCard3].map(card => ({
+    linkCardTitle: card?.linkCardTitle ?? null,
+    linkCardDescription: card?.linkCardDescription ?? null,
+    linkCardLink: card?.linkCardLink ?? null,
+    linkCardImageUrl: card?.linkCardImageUrl ?? null,  // ← flattened
+    linkCardImageAlt: card?.linkCardImage?.node?.title ?? null,       // ← flattened
+  }))
+}
 export async function getSiteSettings() {
   const data = await fetchAPI(
     `query SiteSettings {
@@ -253,6 +277,9 @@ export async function getSiteSettings() {
           logoDesktop
           logoMobile
           logoFavicon
+          valcurone
+          valleossona
+          valgrue
         }
     }`
   )

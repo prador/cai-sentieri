@@ -276,3 +276,6 @@ flex-direction: column;
 .navbar a {
   font-size: 16px;
 }
+.z-30 {
+  z-index: 30;
+}

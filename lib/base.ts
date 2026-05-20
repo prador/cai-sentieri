@@ -16,6 +16,7 @@ export async function fetchAPI(query = '', { variables }: Record<string, any> = 
     })
 
     const json = await res.json()
+
     if (json.errors) {
       console.error(json.errors)
     }

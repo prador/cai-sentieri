@@ -141,11 +141,15 @@ const Navbar = () => {
   const [activeGroup, setActiveGroup] = useState("Val Curone");
 
 const groups = [
-  { label: "Val Curone", href: "/group/val-curone", group: "Val Curone", index: 0 },
-  { label: "Valle Ossona", href: "/group/valle-ossona", group: "Valle Ossona", index: 1 },
-  { label: "Val Grue", href: "/group/val-grue", group: "Val Grue", index: 2 },
+  { label: "Val Curone", href: "/group/val-curone", group: "Val Curone", index: 0 , image: "valcurone"},
+  { label: "Valle Ossona", href: "/group/valle-ossona", group: "Valle Ossona", index: 1, image: "valleossona" },
+  { label: "Val Grue", href: "/group/val-grue", group: "Val Grue", index: 2, image: "valgrue" },
 ];
-
+const imageKeyMap: Record<string, keyof typeof siteSettings> = {
+  "valcurone":   "valcurone",
+  "valleossona": "valleossona",
+  "valgrue":     "valgrue",
+};
 const subMenu = (submenu: string) => {
   switch (submenu) {
     case 'sentieri':
@@ -153,7 +157,7 @@ const subMenu = (submenu: string) => {
         <div className="md:p-4 md:w-[800px] lg:w-[1000px] mx-auto z-50">
           <div className="md:grid md:grid-cols-4 md:gap-6">
             <ul className="hidden md:flex md:flex-col gap-4 col-span-1">
-              {groups.map(({ label, href, group }) => (
+              {groups.map(({ label, href, group,image }) => (
                 <li key={group} onMouseEnter={() => setActiveGroup(group)}>
                   <h2
                     className={cn( "text-xl font-bold cursor-pointer transition-colors",
@@ -163,7 +167,7 @@ const subMenu = (submenu: string) => {
                     <NavImage
                       href={href}
                       title={label}
-                      image="https://sentieri-admin.caitortona.net/wp-content/uploads/daniela-kokina-hOhlYhAiizc-unsplash.jpg"
+                      image={siteSettings?.[imageKeyMap[image]]}
                     />
                   </h2>
                 </li>
@@ -236,7 +240,7 @@ const subMenu = (submenu: string) => {
         <Image src={siteSettings?.logoMobile} fill alt="" className="shadow-md rounded" />
       </Link>
 
-      <ul className="hidden absolute md:flex md:flex-row w-full justify-center">
+      <ul className="hidden absolute z-30 md:flex md:flex-row w-full justify-center">
         {/* {pageLang} */}
         <NavigationMenu>
           <NavigationMenuList className="relative">
@@ -271,7 +275,7 @@ const subMenu = (submenu: string) => {
 
       
 
-      <div className="relative hidden md:flex md:justify-end z-20 right-0">
+      <div className="relative hidden md:flex md:justify-end z-10 right-0">
           {/* <LangSwitcher/> */}
         <SearchBox trails={trails}/>
       </div>

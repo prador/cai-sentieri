@@ -136,5 +136,19 @@ export type GeneralInfo = {
   logoDesktop?: string
   logoMobile?: string
   logoFavicon?: string
+  valcurone?: string
+  valleossona?: string
+  valgrue?: string
+}
+export interface LinkCard {
+  linkCardTitle: string
+  linkCardDescription: string
+  linkCardLink: {
+    url: string
+    title: string
+    target: string
+  } | null
+  linkCardImageUrl: string | null
+  linkCardImageAlt: string | null  
 }
 export type Trails = Array<Trail>
