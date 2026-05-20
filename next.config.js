@@ -32,6 +32,18 @@ const nextConfig = {
         destination: 'https://sentieri-admin.caitortona.net/wp-admin',
         permanent: false,
         basePath: false,
+      },
+      {
+        source: '/114-Rifugio-Orsi-Monte-Pana',
+        destination: '/114-rifugio-orsi-monte-pana',
+        permanent: false,
+        basePath: false,
+      },
+      {
+        source: '/111-Forotondo-Bruggi',
+        destination: '/111-forotondo-bruggi',
+        permanent: false,
+        basePath: false,
       }
     ]
   },
