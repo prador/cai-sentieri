@@ -1437,14 +1437,10 @@
 <ele>1121.511597</ele>
 <time>2011-07-19T09:20:35.002Z</time>
 </trkpt>
-</trkseg>
-<trkseg>
 <trkpt lat="44.7327500" lon="9.1808500">
 <ele>1133.520630</ele>
 <time>2011-07-20T06:26:56.000Z</time>
 </trkpt>
-</trkseg>
-<trkseg>
 <trkpt lat="44.7328000" lon="9.1808700">
 <ele>1117.183472</ele>
 <time>2011-07-26T09:55:18.002Z</time>
@@ -2685,8 +2681,6 @@
 <ele>1009.528137</ele>
 <time>2011-07-26T11:06:56.098Z</time>
 </trkpt>
-</trkseg>
-<trkseg>
 <trkpt lat="44.7096700" lon="9.1868700">
 <ele>1013.856262</ele>
 <time>2011-07-27T05:49:39.000Z</time>

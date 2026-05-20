@@ -46,6 +46,7 @@ function MapBox({ trails, routes, initialLng = lng, initialLat = lat }: MapBoxPr
       entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting && !map) {
+            if (isNaN(initialLng) || isNaN(initialLat)) return; // don't init yet
             map = new mapboxgl.Map({
               container: mapContainer.current,
               style: getStyleForTheme(resolvedTheme),
